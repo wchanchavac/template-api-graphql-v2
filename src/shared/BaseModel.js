@@ -35,25 +35,14 @@ class BaseModel extends Model {
    *     | readonly (string | import('sequelize').ScopeOptions)[]
    *     | import('sequelize').WhereAttributeHashValue<import('sequelize').Model>;
    * }} options
-   * @returns {{count: number, rows: import('sequelize').Model[], totalPages: number}}
+   * @returns {Promise<{count: number, rows: import('sequelize').Model[], totalPages: number}>}
    */
   static async findAndCountAllByPage(options) {
     const { page, limit, scopes, ...rest } = options;
 
     const pagination = this.setPagination(limit, page);
 
-    if (scopes) {
-      const { count, rows } = await this.scope(scopes).findAndCountAll({
-        ...pagination,
-        ...rest,
-      });
-
-      const totalPages = Math.ceil(count / limit);
-
-      return { count, rows, totalPages };
-    }
-
-    const { count, rows } = await this.findAndCountAll({
+    const { count, rows } = await this.scope(scopes).findAndCountAll({
       ...pagination,
       ...rest,
     });
@@ -76,7 +65,25 @@ class BaseModel extends Model {
   static findByPk(id, options = {}) {
     const { scopes, ...rest } = options;
 
-    return this.scope(scopes).findByPk(id, rest);
+    // The call to `this.scope()` returns a new model class that has the scopes applied to it.
+    // We then use `super.findByPk.call()` to invoke the original `findByPk` method, but with `this`
+    // set to our new scoped model class. This prevents the recursive call to our overridden method.
+    return super.findByPk.call(this.scope(scopes), id, rest);
+  }
+
+  /**
+   * @param {Omit<import('sequelize').FindOptions, 'where' > & {
+   *   scopes?: string
+   *     | import('sequelize').ScopeOptions
+   *     | readonly (string | import('sequelize').ScopeOptions)[]
+   *     | import('sequelize').WhereAttributeHashValue<import('sequelize').Model>;
+   * }} options
+   * @returns {Promise<import('sequelize').Model | null>}
+   */
+  static findOne(options = {}) {
+    const { scopes, ...rest } = options;
+
+    return super.findOne.call(this.scope(scopes), rest);
   }
 }
 
