@@ -1,9 +1,12 @@
+import oracledb from 'oracledb';
+import pg from 'pg';
+
 export default {
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_SERVICE_NAME || process.env.DB_DATABASE || '',
   host: process.env.DB_HOST || '',
-  dialect: process.env.DB_DIALECT || 'postgres',
+  dialect: process.env.DB_DIALECT === 'oracle' ? oracledb : pg,
   logging: console.log,
   port: process.env.DB_PORT || '3306',
   pool: {
