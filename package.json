@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --env-file=.env --watch ./api/index.js"
+    "dev": "node --env-file=.env --watch ./api/index.js",
+    "generate:secret": "node ./src/shared/generate-secrets.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "@graphql-tools/schema": "^10.0.25",
     "graphql": "^16.11.0",
     "graphql-scalars": "^1.24.2",
+    "jose": "^6.0.12",
     "oracledb": "^6.9.0",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",

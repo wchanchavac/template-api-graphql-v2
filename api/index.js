@@ -14,26 +14,10 @@ const server = new ApolloServer({
   resolvers,
 });
 
-const data = db.User.findAll({
-  page: 1,
-  limit: 10,
-  scopes: 'all',
-});
-
-console.log(data);
-
-// Passing an ApolloServer instance to the `startStandaloneServer` function:
-//  1. creates an Express app
-//  2. installs your ApolloServer instance as middleware
-//  3. prepares your app to handle incoming requests
-// const { url } = await startStandaloneServer(server, {
-//   listen: { port: 4000 },
-// });
-
-// console.log(`🚀  Server ready at: ${url}`);
-
+// This is for vercel
 let handler;
 
+// This is for local
 if (!process.env.VERCEL_ENV) {
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
@@ -41,6 +25,7 @@ if (!process.env.VERCEL_ENV) {
 
   console.log(`🚀  Server ready at: ${url}`);
 } else {
+  // This is for vercel
   handler = startServerAndCreateNextHandler(server, {
     listen: { port: 4000 },
   });
