@@ -35,7 +35,7 @@ class BaseModel extends Model {
    *     | readonly (string | import('sequelize').ScopeOptions)[]
    *     | import('sequelize').WhereAttributeHashValue<import('sequelize').Model>;
    * }} options
-   * @returns {Promise<{count: number, rows: import('sequelize').Model[], totalPages: number}>}
+   * @returns {Promise<{count: number, rows: import('sequelize').Model[], pages: number}>}
    */
   static async findAndCountAllByPage(options) {
     const { page, limit, scopes, ...rest } = options;
@@ -47,9 +47,9 @@ class BaseModel extends Model {
       ...rest,
     });
 
-    const totalPages = Math.ceil(count / limit);
+    const pages = Math.ceil(count / limit);
 
-    return { count, rows, totalPages };
+    return { count, rows, pages };
   }
 
   /**
