@@ -5,13 +5,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --env-file=.env --watch ./api/index.js",
-    "generate:secret": "node ./src/shared/generate-secrets.js"
+    "generate:secret": "node ./src/shared/generate-secrets.js",
+    "generate:project": "bunx @satelite/engineer-cli@latest build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
-  "type": "module",
   "dependencies": {
     "@apollo/server": "^5.0.0",
     "@as-integrations/next": "^4.0.0",
@@ -32,6 +32,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.3.0",
+    "inflection": "^3.0.2",
     "prettier": "3.6.2"
   }
 }
