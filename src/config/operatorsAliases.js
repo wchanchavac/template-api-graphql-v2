@@ -1,6 +1,6 @@
 import { Op } from 'sequelize';
 
-export default {
+const operatorsAliases = {
   _eq: Op.eq,
   _ne: Op.ne,
   _gte: Op.gte,
@@ -36,3 +36,5 @@ export default {
   _values: Op.values,
   _col: Op.col,
 };
+
+export default operatorsAliases;

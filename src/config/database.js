@@ -1,8 +1,10 @@
 import oracledb from 'oracledb';
+import { Sequelize } from 'sequelize';
+import operatorsAliases from './operatorsAliases.js';
 // Uncomment this for postgres
 // import pg from 'pg';
 
-export default {
+const config = {
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_SERVICE_NAME || process.env.DB_DATABASE || '',
@@ -20,3 +22,11 @@ export default {
     idle: 10000,
   },
 };
+
+const { database, username, password, ...configWithoutCredentials } = config;
+const sequelize = new Sequelize(database, username, password, {
+  ...configWithoutCredentials,
+  operatorsAliases,
+});
+
+export default sequelize;
