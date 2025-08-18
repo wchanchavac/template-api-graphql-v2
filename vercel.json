@@ -2,6 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "public": false,
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "src/graphql/types/*.graphql"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
