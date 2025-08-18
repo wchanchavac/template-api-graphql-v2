@@ -18,7 +18,7 @@ const server = new ApolloServer({
 let handler;
 
 // This is for local
-if (!process.env.VERCEL_ENV) {
+if (process.env.NODE_ENV === 'local') {
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
     context: () => {
