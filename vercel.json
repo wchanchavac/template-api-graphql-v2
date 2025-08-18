@@ -4,7 +4,6 @@
   "public": false,
   "functions": {
     "api/index.js": {
-      "runtime": "@vercel/node",
       "includeFiles": "src/**/*.graphql"
     }
   },
