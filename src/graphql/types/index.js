@@ -13,12 +13,13 @@ import {
 } from 'graphql-scalars';
 import { join } from 'path';
 
-const otherTypes = loadFilesSync(join(process.cwd(), '/src/graphql/types'), {
+const typesArray = loadFilesSync(join(process.cwd(), '/src/graphql/types'), {
   extensions: ['graphql'],
   ignoreIndex: true,
 });
 
-const typesArray = [...otherTypes];
+console.log('the path is', join(process.cwd(), '/src/graphql/types'));
+console.log('the types array is', typesArray.length);
 
 export default mergeTypeDefs([
   ...typesArray,
