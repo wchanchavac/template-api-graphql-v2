@@ -2,14 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "public": false,
-  "builds": [
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    }
-  ],
   "functions": {
     "api/index.js": {
+      "runtime": "@vercel/node",
       "includeFiles": "src/graphql/types/*.graphql"
     }
   },
