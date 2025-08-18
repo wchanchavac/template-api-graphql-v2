@@ -24,13 +24,13 @@ input UpdateSubzone {
   zoneId: UUID!
 }
 
-extend type Query {
+type Query {
   subzones(options: Options = { page: 1 }): PageSubzone
   # subzones(options: Options = { page: 1 }): [Subzone]
   subzone(id: UUID!): Subzone
 }
 
-extend type Mutation {
+type Mutation {
   createSubzone(input: CreateSubzone!): Subzone
   updateSubzone(input: UpdateSubzone!): Subzone
   deleteSubzone(id: UUID!): Subzone

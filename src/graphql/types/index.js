@@ -1,4 +1,4 @@
-import { loadFilesSync } from '@graphql-tools/load-files';
+import { loadFiles } from '@graphql-tools/load-files';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import {
   BigIntTypeDefinition,
@@ -16,19 +16,33 @@ import { getDirname } from '../utils/path.js';
 
 const __dirname = getDirname(import.meta.url);
 
-const typesArray = loadFilesSync(path.join(__dirname, './'), {
-  extensions: ['graphql'],
-});
+async function createTypeDefs() {
+  console.log('Loading GraphQL files from:', path.join(__dirname, './'));
 
-export default mergeTypeDefs([
-  ...typesArray,
-  BigIntTypeDefinition,
-  DateTimeTypeDefinition,
-  EmailAddressTypeDefinition,
-  HexadecimalTypeDefinition,
-  JSONDefinition,
-  JSONObjectDefinition,
-  LocalDateTypeDefinition,
-  URLTypeDefinition,
-  UUIDDefinition,
-]);
+  // Load global.graphql first, then other files
+  const otherTypes = await loadFiles(path.join(__dirname, './'), {
+    extensions: ['graphql'],
+    ignoreIndex: true,
+  });
+
+  const typesArray = [...otherTypes];
+
+  console.log(
+    `Loaded ${typesArray.length} GraphQL files (global first, then others)`,
+  );
+
+  return mergeTypeDefs([
+    ...typesArray,
+    BigIntTypeDefinition,
+    DateTimeTypeDefinition,
+    EmailAddressTypeDefinition,
+    HexadecimalTypeDefinition,
+    JSONDefinition,
+    JSONObjectDefinition,
+    LocalDateTypeDefinition,
+    URLTypeDefinition,
+    UUIDDefinition,
+  ]);
+}
+
+export default await createTypeDefs();

@@ -54,13 +54,13 @@ input UpdateSite {
   # vendors: [UUID]
 }
 
-extend type Query {
+type Query {
   sites(options: Options = { page: 1 }): PageSite
   # sites(options: Options = { page: 1 }): [Site]
   site(id: UUID!): Site
 }
 
-extend type Mutation {
+type Mutation {
   createSite(input: CreateSite!): Site
   updateSite(input: UpdateSite!): Site
   deleteSite(id: UUID!): Site

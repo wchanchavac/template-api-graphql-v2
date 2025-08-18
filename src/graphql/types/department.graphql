@@ -21,13 +21,13 @@ input UpdateDepartment {
   organizationId: UUID!
 }
 
-extend type Query {
+type Query {
   departments(options: Options = { page: 1 }): PageDepartment
   # departments(options: Options = { page: 1 }): [Department]
   department(id: UUID!): Department
 }
 
-extend type Mutation {
+type Mutation {
   createDepartment(input: CreateDepartment!): Department
   updateDepartment(input: UpdateDepartment!): Department
   deleteDepartment(id: UUID!): Department
