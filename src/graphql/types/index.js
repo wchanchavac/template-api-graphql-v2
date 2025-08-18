@@ -15,7 +15,7 @@ import {
 } from 'graphql-scalars';
 import { join } from 'path';
 
-const pattern = join(process.cwd(), 'src/graphql/types/*.graphql').replace(
+const pattern = join(process.cwd(), '/src/graphql/types/*.graphql').replace(
   /\\/g,
   '/',
 );
