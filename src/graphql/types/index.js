@@ -22,7 +22,6 @@ const typesArray = loadFilesSync(path.join(__dirname, './'), {
 });
 
 export default mergeTypeDefs([
-  ...typesArray,
   BigIntTypeDefinition,
   DateTimeTypeDefinition,
   EmailAddressTypeDefinition,
@@ -32,4 +31,5 @@ export default mergeTypeDefs([
   LocalDateTypeDefinition,
   URLTypeDefinition,
   UUIDDefinition,
+  ...typesArray,
 ]);
