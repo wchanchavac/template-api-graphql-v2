@@ -18,6 +18,7 @@ const __dirname = getDirname(import.meta.url);
 
 const typesArray = loadFilesSync(path.join(__dirname, './'), {
   extensions: ['graphql'],
+  ignoreIndex: true,
 });
 
 export default mergeTypeDefs([

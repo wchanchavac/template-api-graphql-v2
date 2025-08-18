@@ -30,7 +30,6 @@ if (process.env.NODE_ENV === 'local') {
 } else {
   // This is for vercel
   handler = startServerAndCreateNextHandler(server, {
-    listen: { port: 4000 },
     context: () => {
       return { db };
     },
