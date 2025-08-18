@@ -222,3 +222,6 @@ $RECYCLE.BIN/
 
 # Secrets
 secrets/
+
+.instantcode/
+engineer.config.js

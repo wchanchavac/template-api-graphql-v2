@@ -2,11 +2,13 @@
   "name": "template-backend-graphql-v2",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --env-file=.env --watch ./api/index.js",
+    "prettier": "prettier --write .",
     "generate:secret": "node ./src/shared/generate-secrets.js",
-    "generate:project": "bunx @satelite/engineer-cli@latest build"
+    "generate:project": "bunx @satelite/engineer-cli@latest build && bunx run prettier"
   },
   "keywords": [],
   "author": "",
