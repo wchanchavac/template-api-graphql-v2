@@ -2,6 +2,24 @@
 
 Este es un proyecto de plantilla para un backend con GraphQL usando Apollo Server.
 
+## Estructura del Proyecto
+
+A continuación, se detalla la estructura de carpetas y el propósito de cada una dentro del proyecto:
+
+- **/api**: Contiene el punto de entrada principal del servidor, generalmente configurado para entornos sin servidor (serverless) como Vercel.
+- **/secrets**: Almacena las claves criptográficas (pública y privada) y los archivos JWKS generados. **Esta carpeta debe estar en el `.gitignore`**.
+- **/src**: Es el corazón de la aplicación y contiene todo el código fuente.
+  - **/src/auth**: Lógica relacionada con la autenticación, como estrategias de contraseña y gestión de tokens.
+  - **/src/config**: Archivos de configuración, como la conexión a la base de datos.
+  - **/src/database**: Contiene la configuración de Sequelize, las migraciones, seeders y los modelos de la base de datos.
+    - **/src/database/models**: Definición de todos los modelos de Sequelize que mapean a las tablas de la base de datos.
+  - **/src/graphql**: Define todo lo relacionado con la API de GraphQL.
+    - **/src/graphql/resolvers**: Implementación de los resolvers para cada tipo de dato de GraphQL. Aquí es donde se define cómo se obtienen los datos.
+    - **/src/graphql/types**: Definición de los esquemas de GraphQL (`.graphql`), donde se describen los tipos de datos y las operaciones disponibles.
+  - **/src/loaders**: Implementación de `DataLoader` para optimizar las consultas a la base de datos, evitando el problema N+1.
+  - **/src/shared**: Código reutilizable y utilidades que pueden ser compartidas a través de diferentes partes de la aplicación.
+- **vercel.json**: Archivo de configuración específico para el despliegue en la plataforma Vercel.
+
 ## Requisitos
 
 - Node.js
