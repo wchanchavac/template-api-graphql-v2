@@ -15,7 +15,10 @@ import {
 } from 'graphql-scalars';
 import { join } from 'path';
 
-const pattern = join(process.cwd(), 'src/graphql/types/*.graphql');
+const pattern = join(process.cwd(), 'src/graphql/types/*.graphql').replace(
+  /\\/g,
+  '/',
+);
 
 const sources = loadTypedefsSync(pattern, {
   loaders: [new GraphQLFileLoader()],
