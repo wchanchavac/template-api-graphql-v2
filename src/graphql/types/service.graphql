@@ -1,0 +1,43 @@
+type Service {
+  id: UUID
+  name: String
+  description: String
+  isActive: Boolean
+  organization: Organization
+  # serviceTypes: [ServiceType]
+}
+
+type PageService {
+  rows: [Service]
+  length: Int
+  pages: Int
+}
+
+input CreateService {
+  name: String!
+  description: String
+  isActive: Boolean!
+  organizationId: UUID!
+  # serviceTypes: [UUID]
+}
+
+input UpdateService {
+  id: UUID!
+  name: String
+  description: String
+  isActive: Boolean
+  organizationId: UUID!
+  # serviceTypes: [UUID]
+}
+
+extend type Query {
+  services(options: Options = { page: 1 }): PageService
+  # services(options: Options = { page: 1 }): [Service]
+  service(id: UUID!): Service
+}
+
+extend type Mutation {
+  createService(input: CreateService!): Service
+  updateService(input: UpdateService!): Service
+  deleteService(id: UUID!): Service
+}

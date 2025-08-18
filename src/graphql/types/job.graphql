@@ -1,0 +1,34 @@
+type Job {
+  id: UUID
+  name: String
+  organization: Organization
+}
+
+type PageJob {
+  rows: [Job]
+  length: Int
+  pages: Int
+}
+
+input CreateJob {
+  name: String!
+  organizationId: UUID!
+}
+
+input UpdateJob {
+  id: UUID!
+  name: String
+  organizationId: UUID!
+}
+
+extend type Query {
+  jobs(options: Options = { page: 1 }): PageJob
+  # jobs(options: Options = { page: 1 }): [Job]
+  job(id: UUID!): Job
+}
+
+extend type Mutation {
+  createJob(input: CreateJob!): Job
+  updateJob(input: UpdateJob!): Job
+  deleteJob(id: UUID!): Job
+}

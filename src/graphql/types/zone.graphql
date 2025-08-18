@@ -1,0 +1,37 @@
+type Zone {
+  id: UUID
+  name: String
+  organization: Organization
+  region: Region
+}
+
+type PageZone {
+  rows: [Zone]
+  length: Int
+  pages: Int
+}
+
+input CreateZone {
+  name: String!
+  organizationId: UUID!
+  regionId: UUID!
+}
+
+input UpdateZone {
+  id: UUID!
+  name: String
+  organizationId: UUID!
+  regionId: UUID!
+}
+
+extend type Query {
+  zones(options: Options = { page: 1 }): PageZone
+  # zones(options: Options = { page: 1 }): [Zone]
+  zone(id: UUID!): Zone
+}
+
+extend type Mutation {
+  createZone(input: CreateZone!): Zone
+  updateZone(input: UpdateZone!): Zone
+  deleteZone(id: UUID!): Zone
+}

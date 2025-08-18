@@ -1,0 +1,31 @@
+type Country {
+  id: UUID
+  name: String
+}
+
+type PageCountry {
+  rows: [Country]
+  length: Int
+  pages: Int
+}
+
+input CreateCountry {
+  name: String!
+}
+
+input UpdateCountry {
+  id: UUID!
+  name: String
+}
+
+extend type Query {
+  countries(options: Options = { page: 1 }): PageCountry
+  # countries(options: Options = { page: 1 }): [Country]
+  country(id: UUID!): Country
+}
+
+extend type Mutation {
+  createCountry(input: CreateCountry!): Country
+  updateCountry(input: UpdateCountry!): Country
+  deleteCountry(id: UUID!): Country
+}

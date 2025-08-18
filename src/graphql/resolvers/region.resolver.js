@@ -1,0 +1,66 @@
+import { GraphQLError } from 'graphql';
+import { getSession } from '../../auth/index.js';
+import { organizationLoader } from '../../loaders/index.js';
+
+export default {
+  Query: {
+    async regions(obj, { options }, { db, req }) {
+      const session = await getSession(req);
+
+      return await db.Region.findAndCountAllByPage(options);
+    },
+    async region(obj, { id }, { db, req }) {
+      const session = await getSession(req);
+
+      let data = await db.Region.findByPk(id);
+      if (!data)
+        throw new GraphQLError(`Region with id: ${id} not found`, {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      return data;
+    },
+  },
+  Mutation: {
+    async createRegion(obj, { input }, { db, req }) {
+      const session = await getSession(req);
+
+      return await db.Region.create({ ...input });
+    },
+    async updateRegion(obj, { input }, { db, req }) {
+      const session = await getSession(req);
+
+      const { id } = input;
+
+      let data = await db.Region.findByPk(id);
+      if (!data)
+        throw new GraphQLError(`Region with id: ${id} not found`, {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      await data.update(input);
+      return data;
+    },
+    async deleteRegion(obj, { id }, { db, req }) {
+      const session = await getSession(req);
+
+      let data = await db.Region.findByPk(id);
+      if (!data)
+        throw new GraphQLError(`Region with id: ${id} not found`, {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      await data.destroy();
+
+      return data;
+    },
+  },
+  Region: {
+    async organization(region, { options }, { db, literal }) {
+      return await organizationLoader.load(region.organizationId);
+    },
+  },
+};

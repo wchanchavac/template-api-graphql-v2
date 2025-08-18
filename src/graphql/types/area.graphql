@@ -1,0 +1,34 @@
+type Area {
+  id: UUID
+  name: String
+  organization: Organization
+}
+
+type PageArea {
+  rows: [Area]
+  length: Int
+  pages: Int
+}
+
+input CreateArea {
+  name: String!
+  organizationId: UUID!
+}
+
+input UpdateArea {
+  id: UUID!
+  name: String
+  organizationId: UUID!
+}
+
+extend type Query {
+  areas(options: Options = { page: 1 }): PageArea
+  # areas(options: Options = { page: 1 }): [Area]
+  area(id: UUID!): Area
+}
+
+extend type Mutation {
+  createArea(input: CreateArea!): Area
+  updateArea(input: UpdateArea!): Area
+  deleteArea(id: UUID!): Area
+}

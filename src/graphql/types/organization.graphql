@@ -1,0 +1,37 @@
+type Organization {
+  id: UUID
+  name: String
+  # users: [User]
+  # countries: [Country]
+}
+
+type PageOrganization {
+  rows: [Organization]
+  length: Int
+  pages: Int
+}
+
+input CreateOrganization {
+  name: String!
+  # users: [UUID]
+  # countries: [UUID]
+}
+
+input UpdateOrganization {
+  id: UUID!
+  name: String
+  # users: [UUID]
+  # countries: [UUID]
+}
+
+extend type Query {
+  organizations(options: Options = { page: 1 }): PageOrganization
+  # organizations(options: Options = { page: 1 }): [Organization]
+  organization(id: UUID!): Organization
+}
+
+extend type Mutation {
+  createOrganization(input: CreateOrganization!): Organization
+  updateOrganization(input: UpdateOrganization!): Organization
+  deleteOrganization(id: UUID!): Organization
+}

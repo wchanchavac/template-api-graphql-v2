@@ -1,0 +1,40 @@
+type Speciality {
+  id: UUID
+  name: String
+  isOrigin: Boolean
+  isActive: Boolean
+  organization: Organization
+}
+
+type PageSpeciality {
+  rows: [Speciality]
+  length: Int
+  pages: Int
+}
+
+input CreateSpeciality {
+  name: String!
+  isOrigin: Boolean!
+  isActive: Boolean!
+  organizationId: UUID!
+}
+
+input UpdateSpeciality {
+  id: UUID!
+  name: String
+  isOrigin: Boolean
+  isActive: Boolean
+  organizationId: UUID!
+}
+
+extend type Query {
+  specialities(options: Options = { page: 1 }): PageSpeciality
+  # specialities(options: Options = { page: 1 }): [Speciality]
+  speciality(id: UUID!): Speciality
+}
+
+extend type Mutation {
+  createSpeciality(input: CreateSpeciality!): Speciality
+  updateSpeciality(input: UpdateSpeciality!): Speciality
+  deleteSpeciality(id: UUID!): Speciality
+}

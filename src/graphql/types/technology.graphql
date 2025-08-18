@@ -1,0 +1,34 @@
+type Technology {
+  id: UUID
+  name: String
+  organization: Organization
+}
+
+type PageTechnology {
+  rows: [Technology]
+  length: Int
+  pages: Int
+}
+
+input CreateTechnology {
+  name: String!
+  organizationId: UUID!
+}
+
+input UpdateTechnology {
+  id: UUID!
+  name: String
+  organizationId: UUID!
+}
+
+extend type Query {
+  technologies(options: Options = { page: 1 }): PageTechnology
+  # technologies(options: Options = { page: 1 }): [Technology]
+  technology(id: UUID!): Technology
+}
+
+extend type Mutation {
+  createTechnology(input: CreateTechnology!): Technology
+  updateTechnology(input: UpdateTechnology!): Technology
+  deleteTechnology(id: UUID!): Technology
+}

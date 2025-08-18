@@ -1,0 +1,37 @@
+type State {
+  id: UUID
+  name: String
+  abbreviation: String
+  organization: Organization
+}
+
+type PageState {
+  rows: [State]
+  length: Int
+  pages: Int
+}
+
+input CreateState {
+  name: String!
+  abbreviation: String!
+  organizationId: UUID!
+}
+
+input UpdateState {
+  id: UUID!
+  name: String
+  abbreviation: String
+  organizationId: UUID!
+}
+
+extend type Query {
+  states(options: Options = { page: 1 }): PageState
+  # states(options: Options = { page: 1 }): [State]
+  state(id: UUID!): State
+}
+
+extend type Mutation {
+  createState(input: CreateState!): State
+  updateState(input: UpdateState!): State
+  deleteState(id: UUID!): State
+}

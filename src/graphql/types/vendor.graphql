@@ -1,0 +1,52 @@
+type Vendor {
+  id: UUID
+  name: String
+  abbreviation: String
+  rfc: String
+  address: String
+  phones: JSON
+  image: String
+  isActive: Boolean
+  organization: Organization
+}
+
+type PageVendor {
+  rows: [Vendor]
+  length: Int
+  pages: Int
+}
+
+input CreateVendor {
+  name: String!
+  abbreviation: String
+  rfc: String!
+  address: String
+  phones: JSON
+  image: String
+  isActive: Boolean!
+  organizationId: UUID!
+}
+
+input UpdateVendor {
+  id: UUID!
+  name: String
+  abbreviation: String
+  rfc: String
+  address: String
+  phones: JSON
+  image: String
+  isActive: Boolean
+  organizationId: UUID!
+}
+
+extend type Query {
+  vendors(options: Options = { page: 1 }): PageVendor
+  # vendors(options: Options = { page: 1 }): [Vendor]
+  vendor(id: UUID!): Vendor
+}
+
+extend type Mutation {
+  createVendor(input: CreateVendor!): Vendor
+  updateVendor(input: UpdateVendor!): Vendor
+  deleteVendor(id: UUID!): Vendor
+}

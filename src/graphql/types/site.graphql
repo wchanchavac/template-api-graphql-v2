@@ -1,0 +1,67 @@
+type Site {
+  id: UUID
+  name: String
+  address: String
+  locality: String
+  technicalLocation: String
+  latitude: Float
+  longitude: Float
+  organization: Organization
+  region: Region
+  zone: Zone
+  subzone: Subzone
+  area: Area
+  state: State
+  # vendors: [Vendor]
+}
+
+type PageSite {
+  rows: [Site]
+  length: Int
+  pages: Int
+}
+
+input CreateSite {
+  name: String!
+  address: String
+  locality: String
+  technicalLocation: String
+  latitude: Float
+  longitude: Float
+  organizationId: UUID!
+  regionId: UUID!
+  zoneId: UUID!
+  subzoneId: UUID!
+  areaId: UUID!
+  stateId: UUID!
+  # vendors: [UUID]
+}
+
+input UpdateSite {
+  id: UUID!
+  name: String
+  address: String
+  locality: String
+  technicalLocation: String
+  latitude: Float
+  longitude: Float
+  organizationId: UUID!
+  regionId: UUID!
+  zoneId: UUID!
+  subzoneId: UUID!
+  areaId: UUID!
+  stateId: UUID!
+  # vendors: [UUID]
+}
+
+extend type Query {
+  sites(options: Options = { page: 1 }): PageSite
+  # sites(options: Options = { page: 1 }): [Site]
+  site(id: UUID!): Site
+}
+
+extend type Mutation {
+  createSite(input: CreateSite!): Site
+  updateSite(input: UpdateSite!): Site
+  deleteSite(id: UUID!): Site
+}

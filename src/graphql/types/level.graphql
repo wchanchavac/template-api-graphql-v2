@@ -1,0 +1,34 @@
+type Level {
+  id: UUID
+  name: String
+  organization: Organization
+}
+
+type PageLevel {
+  rows: [Level]
+  length: Int
+  pages: Int
+}
+
+input CreateLevel {
+  name: String!
+  organizationId: UUID!
+}
+
+input UpdateLevel {
+  id: UUID!
+  name: String
+  organizationId: UUID!
+}
+
+extend type Query {
+  levels(options: Options = { page: 1 }): PageLevel
+  # levels(options: Options = { page: 1 }): [Level]
+  level(id: UUID!): Level
+}
+
+extend type Mutation {
+  createLevel(input: CreateLevel!): Level
+  updateLevel(input: UpdateLevel!): Level
+  deleteLevel(id: UUID!): Level
+}

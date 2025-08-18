@@ -1,0 +1,52 @@
+type Server {
+  id: UUID
+  name: String
+  identifier: String
+  host: String
+  port: Int
+  user: String
+  password: String
+  isActive: Boolean
+  organization: Organization
+}
+
+type PageServer {
+  rows: [Server]
+  length: Int
+  pages: Int
+}
+
+input CreateServer {
+  name: String!
+  identifier: String!
+  host: String!
+  port: Int!
+  user: String!
+  password: String!
+  isActive: Boolean!
+  organizationId: UUID!
+}
+
+input UpdateServer {
+  id: UUID!
+  name: String
+  identifier: String
+  host: String
+  port: Int
+  user: String
+  password: String
+  isActive: Boolean
+  organizationId: UUID!
+}
+
+extend type Query {
+  servers(options: Options = { page: 1 }): PageServer
+  # servers(options: Options = { page: 1 }): [Server]
+  server(id: UUID!): Server
+}
+
+extend type Mutation {
+  createServer(input: CreateServer!): Server
+  updateServer(input: UpdateServer!): Server
+  deleteServer(id: UUID!): Server
+}

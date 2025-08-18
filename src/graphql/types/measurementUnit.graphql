@@ -1,0 +1,37 @@
+type MeasurementUnit {
+  id: UUID
+  name: String
+  abbreviation: String
+  organization: Organization
+}
+
+type PageMeasurementUnit {
+  rows: [MeasurementUnit]
+  length: Int
+  pages: Int
+}
+
+input CreateMeasurementUnit {
+  name: String!
+  abbreviation: String!
+  organizationId: UUID!
+}
+
+input UpdateMeasurementUnit {
+  id: UUID!
+  name: String
+  abbreviation: String
+  organizationId: UUID!
+}
+
+extend type Query {
+  measurementUnits(options: Options = { page: 1 }): PageMeasurementUnit
+  # measurementUnits(options: Options = { page: 1 }): [MeasurementUnit]
+  measurementUnit(id: UUID!): MeasurementUnit
+}
+
+extend type Mutation {
+  createMeasurementUnit(input: CreateMeasurementUnit!): MeasurementUnit
+  updateMeasurementUnit(input: UpdateMeasurementUnit!): MeasurementUnit
+  deleteMeasurementUnit(id: UUID!): MeasurementUnit
+}

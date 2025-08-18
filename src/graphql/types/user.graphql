@@ -1,0 +1,40 @@
+type User {
+  id: UUID
+  name: String
+  email: EmailAddress
+  password: String
+  organization: Organization
+}
+
+type PageUser {
+  rows: [User]
+  length: Int
+  pages: Int
+}
+
+input CreateUser {
+  name: String!
+  email: EmailAddress!
+  password: String!
+  organizationId: UUID!
+}
+
+input UpdateUser {
+  id: UUID!
+  name: String
+  email: EmailAddress
+  password: String
+  organizationId: UUID!
+}
+
+extend type Query {
+  users(options: Options = { page: 1 }): PageUser
+  # users(options: Options = { page: 1 }): [User]
+  user(id: UUID!): User
+}
+
+extend type Mutation {
+  createUser(input: CreateUser!): User
+  updateUser(input: UpdateUser!): User
+  deleteUser(id: UUID!): User
+}

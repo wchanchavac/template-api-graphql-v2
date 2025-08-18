@@ -1,0 +1,66 @@
+import { GraphQLError } from 'graphql';
+import { getSession } from '../../auth/index.js';
+import { organizationLoader } from '../../loaders/index.js';
+
+export default {
+  Query: {
+    async measurementUnits(obj, { options }, { db, req }) {
+      const session = await getSession(req);
+
+      return await db.MeasurementUnit.findAndCountAllByPage(options);
+    },
+    async measurementUnit(obj, { id }, { db, req }) {
+      const session = await getSession(req);
+
+      let data = await db.MeasurementUnit.findByPk(id);
+      if (!data)
+        throw new GraphQLError(`MeasurementUnit with id: ${id} not found`, {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      return data;
+    },
+  },
+  Mutation: {
+    async createMeasurementUnit(obj, { input }, { db, req }) {
+      const session = await getSession(req);
+
+      return await db.MeasurementUnit.create({ ...input });
+    },
+    async updateMeasurementUnit(obj, { input }, { db, req }) {
+      const session = await getSession(req);
+
+      const { id } = input;
+
+      let data = await db.MeasurementUnit.findByPk(id);
+      if (!data)
+        throw new GraphQLError(`MeasurementUnit with id: ${id} not found`, {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      await data.update(input);
+      return data;
+    },
+    async deleteMeasurementUnit(obj, { id }, { db, req }) {
+      const session = await getSession(req);
+
+      let data = await db.MeasurementUnit.findByPk(id);
+      if (!data)
+        throw new GraphQLError(`MeasurementUnit with id: ${id} not found`, {
+          extensions: {
+            code: 'NOT_FOUND',
+          },
+        });
+      await data.destroy();
+
+      return data;
+    },
+  },
+  MeasurementUnit: {
+    async organization(measurementUnit, { options }, { db, literal }) {
+      return await organizationLoader.load(measurementUnit.organizationId);
+    },
+  },
+};
