@@ -1,3 +1,5 @@
+import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
+import { loadTypedefsSync } from '@graphql-tools/load';
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import {
@@ -13,16 +15,17 @@ import {
 } from 'graphql-scalars';
 import { join } from 'path';
 
-const typesArray = loadFilesSync(join(process.cwd(), '/src/graphql/types'), {
-  extensions: ['graphql'],
-  ignoreIndex: true,
+const pattern = join(process.cwd(), 'src/graphql/types/*.graphql');
+
+const sources = loadTypedefsSync(pattern, {
+  loaders: [new GraphQLFileLoader()],
 });
 
 console.log('the path is', join(process.cwd(), '/src/graphql/types'));
-console.log('the types array is', typesArray.length);
+console.log('the sources are', sources.length);
 
 export default mergeTypeDefs([
-  ...typesArray,
+  ...sources.map((source) => source.document),
   BigIntTypeDefinition,
   DateTimeTypeDefinition,
   EmailAddressTypeDefinition,
