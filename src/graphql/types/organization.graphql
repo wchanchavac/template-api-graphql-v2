@@ -24,13 +24,13 @@ input UpdateOrganization {
   # countries: [UUID]
 }
 
-type Query {
+extend type Query {
   organizations(options: Options = { page: 1 }): PageOrganization
   # organizations(options: Options = { page: 1 }): [Organization]
   organization(id: UUID!): Organization
 }
 
-type Mutation {
+extend type Mutation {
   createOrganization(input: CreateOrganization!): Organization
   updateOrganization(input: UpdateOrganization!): Organization
   deleteOrganization(id: UUID!): Organization

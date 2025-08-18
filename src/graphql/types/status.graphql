@@ -21,13 +21,13 @@ input UpdateStatus {
   organizationId: UUID!
 }
 
-type Query {
+extend type Query {
   statuses(options: Options = { page: 1 }): PageStatus
   # statuses(options: Options = { page: 1 }): [Status]
   status(id: UUID!): Status
 }
 
-type Mutation {
+extend type Mutation {
   createStatus(input: CreateStatus!): Status
   updateStatus(input: UpdateStatus!): Status
   deleteStatus(id: UUID!): Status

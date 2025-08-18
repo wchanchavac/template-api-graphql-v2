@@ -21,13 +21,13 @@ input UpdateJob {
   organizationId: UUID!
 }
 
-type Query {
+extend type Query {
   jobs(options: Options = { page: 1 }): PageJob
   # jobs(options: Options = { page: 1 }): [Job]
   job(id: UUID!): Job
 }
 
-type Mutation {
+extend type Mutation {
   createJob(input: CreateJob!): Job
   updateJob(input: UpdateJob!): Job
   deleteJob(id: UUID!): Job

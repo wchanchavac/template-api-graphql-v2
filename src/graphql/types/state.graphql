@@ -24,13 +24,13 @@ input UpdateState {
   organizationId: UUID!
 }
 
-type Query {
+extend type Query {
   states(options: Options = { page: 1 }): PageState
   # states(options: Options = { page: 1 }): [State]
   state(id: UUID!): State
 }
 
-type Mutation {
+extend type Mutation {
   createState(input: CreateState!): State
   updateState(input: UpdateState!): State
   deleteState(id: UUID!): State

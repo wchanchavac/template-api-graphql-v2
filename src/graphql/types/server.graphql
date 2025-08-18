@@ -39,13 +39,13 @@ input UpdateServer {
   organizationId: UUID!
 }
 
-type Query {
+extend type Query {
   servers(options: Options = { page: 1 }): PageServer
   # servers(options: Options = { page: 1 }): [Server]
   server(id: UUID!): Server
 }
 
-type Mutation {
+extend type Mutation {
   createServer(input: CreateServer!): Server
   updateServer(input: UpdateServer!): Server
   deleteServer(id: UUID!): Server

@@ -30,13 +30,13 @@ input UpdateService {
   # serviceTypes: [UUID]
 }
 
-type Query {
+extend type Query {
   services(options: Options = { page: 1 }): PageService
   # services(options: Options = { page: 1 }): [Service]
   service(id: UUID!): Service
 }
 
-type Mutation {
+extend type Mutation {
   createService(input: CreateService!): Service
   updateService(input: UpdateService!): Service
   deleteService(id: UUID!): Service

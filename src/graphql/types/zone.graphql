@@ -24,13 +24,13 @@ input UpdateZone {
   regionId: UUID!
 }
 
-type Query {
+extend type Query {
   zones(options: Options = { page: 1 }): PageZone
   # zones(options: Options = { page: 1 }): [Zone]
   zone(id: UUID!): Zone
 }
 
-type Mutation {
+extend type Mutation {
   createZone(input: CreateZone!): Zone
   updateZone(input: UpdateZone!): Zone
   deleteZone(id: UUID!): Zone
