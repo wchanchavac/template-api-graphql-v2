@@ -18,19 +18,24 @@ const server = new ApolloServer({
 let handler;
 
 // This is for local
-// if (process.env.NODE_ENV === 'local') {
-//   const { url } = await startStandaloneServer(server, {
-//     listen: { port: 4000 },
-//     context: () => {
-//       return { db };
-//     },
-//   });
+if (process.env.VERCEL_ENV === 'local') {
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+    context: () => {
+      return { db };
+    },
+  });
+
+  console.log(`🚀  Server ready at: ${url}`);
+} else {
+  handler = startServerAndCreateNextHandler(server, {
+    context: () => {
+      return { db };
+    },
+  });
+}
 
 //   console.log(`🚀  Server ready at: ${url}`);
 // }
 
-export default startServerAndCreateNextHandler(server, {
-  context: () => {
-    return { db };
-  },
-});
+export default handler;
