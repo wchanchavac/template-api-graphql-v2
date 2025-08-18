@@ -1,0 +1,175 @@
+{
+	"$schema": "https://json-schema-o8im9w3et-wchanchavac.vercel.app/backend-01.json",
+	"project": {
+		"name": "Inventory Backend",
+		"description": "This is an inventory app for C&W"
+	},
+	"data": [
+		{
+			"name": "product",
+			"attributes": [
+				{
+					"name": "SKU",
+					"type": "string",
+					"required": true
+				},
+				{
+					"name": "name",
+					"type": "string",
+					"required": true
+				},
+				{
+					"name": "description",
+					"type": "text",
+					"required": false
+				},
+				{
+					"name": "isSerialized",
+					"type": "boolean",
+					"required": true,
+					"defaultValue": false
+				},
+				{
+					"name": "specDoc",
+					"type": "json",
+					"required": true
+				},
+				{
+					"name": "specDocMeta",
+					"type": "json",
+					"required": true
+				},
+				{
+					"name": "stock",
+					"type": "json",
+					"required": false
+				}
+			],
+			"associations": [
+				{
+					"model": "productFamily",
+					"type": "belongsToMany",
+					"required": false
+				},
+				{
+					"model": "productCatalog",
+					"type": "belongsToMany",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "productFamily",
+			"attributes": [
+				{
+					"name": "name",
+					"type": "string",
+					"required": true
+				},
+				{
+					"name": "description",
+					"type": "text",
+					"required": false
+				},
+				{
+					"name": "specDocMeta",
+					"type": "json",
+					"required": true
+				},
+				{
+					"name": "variants",
+					"type": "json",
+					"required": false
+				}
+			],
+			"associations": []
+		},
+		{
+			"name": "productCatalog",
+			"attributes": [
+				{
+					"name": "name",
+					"type": "string",
+					"required": true
+				}
+			],
+			"associations": []
+		},
+		{
+			"name": "user",
+			"attributes": [
+				{
+					"name": "name",
+					"type": "string",
+					"required": true
+				},
+				{
+					"name": "email",
+					"type": "email",
+					"required": true
+				},
+				{
+					"name": "password",
+					"type": "string",
+					"required": true
+				}
+			],
+			"associations": [
+				{
+					"model": "company",
+					"type": "belongsTo",
+					"required": true
+				},
+				{
+					"model": "profile",
+					"type": "belongsTo",
+					"required": true
+				}
+			]
+		},
+		{
+			"name": "productHistory",
+			"attributes": [
+				{
+					"name": "fieldName",
+					"type": "string",
+					"required": false
+				}
+			],
+			"associations": []
+		},
+		{
+			"name": "company",
+			"attributes": [
+				{
+					"name": "name",
+					"type": "string",
+					"required": true
+				}
+			],
+			"associations": [
+				{
+					"model": "user",
+					"type": "hasMany",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"attributes": [
+				{
+					"name": "name",
+					"type": "String",
+					"required": true
+				},
+				{
+					"name": "permissions",
+					"type": "json",
+					"defaultValue": {}
+				}
+			],
+			"associations": []
+		}
+	]
+}
