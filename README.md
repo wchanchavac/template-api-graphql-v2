@@ -5,7 +5,7 @@ Este es un proyecto de plantilla para un backend con GraphQL usando Apollo Serve
 ## Requisitos
 
 - Node.js
-- pnpm
+- bun
 
 ## Instalación
 
@@ -19,7 +19,7 @@ Este es un proyecto de plantilla para un backend con GraphQL usando Apollo Serve
    ```
 3. Instala las dependencias:
    ```sh
-   pnpm install
+   bun install
    ```
 
 ## Configuración
@@ -67,7 +67,7 @@ Para que la aplicación funcione correctamente, es necesario configurar las sigu
 Para iniciar el servidor en modo de desarrollo, ejecuta:
 
 ```sh
-pnpm run dev
+bun run dev
 ```
 
 El servidor estará corriendo en [http://localhost:4000](http://localhost:4000).
