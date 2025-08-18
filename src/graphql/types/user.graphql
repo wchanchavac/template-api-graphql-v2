@@ -27,13 +27,13 @@ input UpdateUser {
   organizationId: UUID!
 }
 
-extend type Query {
+type Query {
   users(options: Options = { page: 1 }): PageUser
   # users(options: Options = { page: 1 }): [User]
   user(id: UUID!): User
 }
 
-extend type Mutation {
+type Mutation {
   createUser(input: CreateUser!): User
   updateUser(input: UpdateUser!): User
   deleteUser(id: UUID!): User

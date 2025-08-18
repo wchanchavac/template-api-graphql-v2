@@ -21,13 +21,13 @@ input UpdateArea {
   organizationId: UUID!
 }
 
-extend type Query {
+type Query {
   areas(options: Options = { page: 1 }): PageArea
   # areas(options: Options = { page: 1 }): [Area]
   area(id: UUID!): Area
 }
 
-extend type Mutation {
+type Mutation {
   createArea(input: CreateArea!): Area
   updateArea(input: UpdateArea!): Area
   deleteArea(id: UUID!): Area

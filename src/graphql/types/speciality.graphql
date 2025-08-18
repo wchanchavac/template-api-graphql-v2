@@ -27,13 +27,13 @@ input UpdateSpeciality {
   organizationId: UUID!
 }
 
-extend type Query {
+type Query {
   specialities(options: Options = { page: 1 }): PageSpeciality
   # specialities(options: Options = { page: 1 }): [Speciality]
   speciality(id: UUID!): Speciality
 }
 
-extend type Mutation {
+type Mutation {
   createSpeciality(input: CreateSpeciality!): Speciality
   updateSpeciality(input: UpdateSpeciality!): Speciality
   deleteSpeciality(id: UUID!): Speciality

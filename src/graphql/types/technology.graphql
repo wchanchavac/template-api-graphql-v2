@@ -21,13 +21,13 @@ input UpdateTechnology {
   organizationId: UUID!
 }
 
-extend type Query {
+type Query {
   technologies(options: Options = { page: 1 }): PageTechnology
   # technologies(options: Options = { page: 1 }): [Technology]
   technology(id: UUID!): Technology
 }
 
-extend type Mutation {
+type Mutation {
   createTechnology(input: CreateTechnology!): Technology
   updateTechnology(input: UpdateTechnology!): Technology
   deleteTechnology(id: UUID!): Technology

@@ -18,13 +18,13 @@ input UpdateCountry {
   name: String
 }
 
-extend type Query {
+type Query {
   countries(options: Options = { page: 1 }): PageCountry
   # countries(options: Options = { page: 1 }): [Country]
   country(id: UUID!): Country
 }
 
-extend type Mutation {
+type Mutation {
   createCountry(input: CreateCountry!): Country
   updateCountry(input: UpdateCountry!): Country
   deleteCountry(id: UUID!): Country

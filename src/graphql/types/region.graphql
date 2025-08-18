@@ -24,13 +24,13 @@ input UpdateRegion {
   organizationId: UUID!
 }
 
-extend type Query {
+type Query {
   regions(options: Options = { page: 1 }): PageRegion
   # regions(options: Options = { page: 1 }): [Region]
   region(id: UUID!): Region
 }
 
-extend type Mutation {
+type Mutation {
   createRegion(input: CreateRegion!): Region
   updateRegion(input: UpdateRegion!): Region
   deleteRegion(id: UUID!): Region
