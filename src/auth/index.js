@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
 import { importPKCS8, importSPKI, jwtVerify, SignJWT } from 'jose';
-import { hashPassword, verifyPassword } from './password';
+import { hashPassword, verifyPassword } from './password.js';
 
 const issuer = process.env.ISSUER;
 const audience = process.env.AUDIENCE;

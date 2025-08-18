@@ -21,6 +21,9 @@ let handler;
 if (!process.env.VERCEL_ENV) {
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
+    context: () => {
+      return { db };
+    },
   });
 
   console.log(`🚀  Server ready at: ${url}`);
@@ -28,6 +31,9 @@ if (!process.env.VERCEL_ENV) {
   // This is for vercel
   handler = startServerAndCreateNextHandler(server, {
     listen: { port: 4000 },
+    context: () => {
+      return { db };
+    },
   });
 }
 

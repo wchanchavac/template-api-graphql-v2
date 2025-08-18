@@ -1,10 +1,10 @@
 import { GraphQLError } from 'graphql';
-import { getSession } from '../../auth';
+import { getSession } from  '../../auth/index.js';
 import { 
 {{#each associations}}
 {{{sModel}}}Loader,
 {{/each}}
-} from '../../loaders';
+} from '../../loaders/index.js';
 
 export default {
     Query: {

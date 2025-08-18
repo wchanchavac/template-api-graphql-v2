@@ -29,4 +29,17 @@ const sequelize = new Sequelize(database, username, password, {
   operatorsAliases,
 });
 
+try {
+  sequelize
+    .authenticate()
+    .then(() => {
+      console.log('Connection has been established successfully.');
+    })
+    .catch((err) => {
+      console.error('Unable to connect to the database:', err);
+    });
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+
 export default sequelize;
