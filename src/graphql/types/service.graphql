@@ -4,7 +4,7 @@ type Service {
   description: String
   isActive: Boolean
   organization: Organization
-  # serviceTypes: [ServiceType]
+  serviceType: ServiceType
 }
 
 type PageService {
@@ -18,7 +18,7 @@ input CreateService {
   description: String
   isActive: Boolean!
   organizationId: UUID!
-  # serviceTypes: [UUID]
+  serviceTypeId: UUID
 }
 
 input UpdateService {
@@ -27,7 +27,7 @@ input UpdateService {
   description: String
   isActive: Boolean
   organizationId: UUID!
-  # serviceTypes: [UUID]
+  serviceTypeId: UUID
 }
 
 type Query {

@@ -8,7 +8,9 @@
     "dev": "node --env-file=.env --watch ./api/index.js",
     "prettier": "prettier --write .",
     "generate:secret": "node ./src/shared/generate-secrets.js",
-    "generate:project": "bunx @satelite/engineer-cli@latest build && bunx run prettier"
+    "generate:project": "bunx @satelite/engineer-cli@latest build && bunx run prettier",
+    "db:seed:all": "node --env-file=.env ./node_modules/.bin/sequelize-cli db:seed:all",
+    "db:seed:undo:all": "node --env-file=.env ./node_modules/.bin/sequelize-cli db:seed:undo:all"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +39,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.3.0",
     "inflection": "^3.0.2",
-    "prettier": "3.6.2"
+    "prettier": "3.6.2",
+    "sequelize-cli": "^6.6.3"
   }
 }

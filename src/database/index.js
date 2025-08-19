@@ -53,6 +53,4 @@ for (const key in db) {
   }
 }
 
-sequelize.sync();
-
 export default db;

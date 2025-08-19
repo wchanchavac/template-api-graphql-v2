@@ -11,13 +11,11 @@ class Service extends BaseModel {
         allowNull: false,
       },
     });
-    models.Service.belongsToMany(models.ServiceType, {
+    models.Service.belongsTo(models.ServiceType, {
       constraints: false,
       foreignKey: {
         allowNull: true,
-        name: 'serviceId',
       },
-      through: 'service_serviceType',
     });
   }
 }
@@ -66,6 +64,11 @@ Service.init(
 				{
 					fields: [ "organizationId"],
 					name: 'service_organization_id_idx',
+					using: 'BTREE',
+				},
+				{
+					fields: [ "serviceTypeId"],
+					name: 'service_serviceType_id_idx',
 					using: 'BTREE',
 				},
 		], */
