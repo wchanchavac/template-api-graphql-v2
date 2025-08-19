@@ -2,6 +2,7 @@ import { merge } from 'es-toolkit';
 import { DataTypes } from 'sequelize';
 import sequelize from '../../config/database.js';
 import BaseModel from '../../shared/BaseModel.js';
+import { addAuthMethodsToModel } from '../../auth/index.js';
 
 class User extends BaseModel {
   static associate(models) {
@@ -64,7 +65,7 @@ User.init(
 );
 
 // Use this to add auth methods to the model
-// addAuthMethodsToModel(User, { field: 'password' });
+addAuthMethodsToModel(User, { field: 'password' });
 // this add authenticate and changePassword methods to the model
 // and a hook to hash the password before saving
 
