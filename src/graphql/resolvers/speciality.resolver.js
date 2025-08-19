@@ -26,7 +26,7 @@ export default {
     async createSpeciality(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Speciality.create({ ...input, ...session });
+      return await db.Speciality.create({ ...session.createdData, ...input });
     },
     async updateSpeciality(obj, { input }, { db, req }) {
       const session = await getSession(req);

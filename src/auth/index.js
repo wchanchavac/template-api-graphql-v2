@@ -1,6 +1,7 @@
 import { GraphQLError } from 'graphql';
 import { importPKCS8, importSPKI, jwtVerify, SignJWT } from 'jose';
 import { hashPassword, verifyPassword } from './password.js';
+import User from '../database/models/user.model.js';
 
 const issuer = process.env.ISSUER;
 const audience = process.env.AUDIENCE;
@@ -89,7 +90,25 @@ export async function getSession(req) {
   console.log('getSession', req.headers['authorization']);
   const decoded = await verifyToken(req);
 
-  return decoded;
+  const user = await User.findByPk(decoded.sub);
+
+  if (!user) {
+    throw new GraphQLError('Unauthorized', {
+      extensions: {
+        code: 'UNAUTHORIZED',
+      },
+    });
+  }
+
+  const userData = user.toJSON();
+
+  return {
+    decoded,
+    createdData: {
+      organizationId: userData.organizationId,
+      createdBy: userData.id,
+    },
+  };
 }
 
 export function addAuthMethodsToModel(model, options = { field: 'password' }) {

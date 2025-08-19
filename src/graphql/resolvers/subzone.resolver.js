@@ -26,7 +26,7 @@ export default {
     async createSubzone(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Subzone.create({ ...input, ...session });
+      return await db.Subzone.create({ ...session.createdData, ...input });
     },
     async updateSubzone(obj, { input }, { db, req }) {
       const session = await getSession(req);

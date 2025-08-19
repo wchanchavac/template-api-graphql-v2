@@ -26,7 +26,7 @@ export default {
     async createLevel(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Level.create({ ...input, ...session });
+      return await db.Level.create({ ...session.createdData, ...input });
     },
     async updateLevel(obj, { input }, { db, req }) {
       const session = await getSession(req);

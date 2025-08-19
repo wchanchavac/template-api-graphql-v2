@@ -26,7 +26,7 @@ export default {
     async createService(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Service.create({ ...input, ...session });
+      return await db.Service.create({ ...session.createdData, ...input });
     },
     async updateService(obj, { input }, { db, req }) {
       const session = await getSession(req);

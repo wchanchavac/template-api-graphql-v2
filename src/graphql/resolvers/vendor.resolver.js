@@ -26,7 +26,7 @@ export default {
     async createVendor(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Vendor.create({ ...input, ...session });
+      return await db.Vendor.create({ ...session.createdData, ...input });
     },
     async updateVendor(obj, { input }, { db, req }) {
       const session = await getSession(req);

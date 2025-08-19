@@ -26,7 +26,7 @@ export default {
     async createDepartment(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Department.create({ ...input, ...session });
+      return await db.Department.create({ ...session.createdData, ...input });
     },
     async updateDepartment(obj, { input }, { db, req }) {
       const session = await getSession(req);

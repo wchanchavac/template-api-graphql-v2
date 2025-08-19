@@ -29,7 +29,7 @@ export default {
         async create{{Singular}}(obj, { input }, { db, req }) {
 			const session = await getSession(req)
 
-			return await db.{{Singular}}.create({ ...input, ...session })
+			return await db.{{Singular}}.create({ ...session.createdData, ...input })
         },
         async update{{Singular}}(obj, { input }, { db, req }) {
 			const session = await getSession(req)

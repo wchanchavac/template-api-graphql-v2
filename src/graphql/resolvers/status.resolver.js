@@ -26,7 +26,7 @@ export default {
     async createStatus(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Status.create({ ...input, ...session });
+      return await db.Status.create({ ...session.createdData, ...input });
     },
     async updateStatus(obj, { input }, { db, req }) {
       const session = await getSession(req);

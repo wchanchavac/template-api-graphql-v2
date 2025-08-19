@@ -26,7 +26,7 @@ export default {
     async createUser(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.User.create({ ...input, ...session });
+      return await db.User.create({ ...session.createdData, ...input });
     },
     async updateUser(obj, { input }, { db, req }) {
       const session = await getSession(req);

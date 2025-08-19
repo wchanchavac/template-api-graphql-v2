@@ -26,7 +26,7 @@ export default {
     async createTechnology(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Technology.create({ ...input, ...session });
+      return await db.Technology.create({ ...session.createdData, ...input });
     },
     async updateTechnology(obj, { input }, { db, req }) {
       const session = await getSession(req);

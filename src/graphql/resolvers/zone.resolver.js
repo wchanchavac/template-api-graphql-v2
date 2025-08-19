@@ -26,7 +26,7 @@ export default {
     async createZone(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Zone.create({ ...input, ...session });
+      return await db.Zone.create({ ...session.createdData, ...input });
     },
     async updateZone(obj, { input }, { db, req }) {
       const session = await getSession(req);

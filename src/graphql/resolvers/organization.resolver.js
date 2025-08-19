@@ -26,7 +26,7 @@ export default {
     async createOrganization(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Organization.create({ ...input, ...session });
+      return await db.Organization.create({ ...session.createdData, ...input });
     },
     async updateOrganization(obj, { input }, { db, req }) {
       const session = await getSession(req);

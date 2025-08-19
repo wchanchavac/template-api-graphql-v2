@@ -26,7 +26,7 @@ export default {
     async createJob(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Job.create({ ...input, ...session });
+      return await db.Job.create({ ...session.createdData, ...input });
     },
     async updateJob(obj, { input }, { db, req }) {
       const session = await getSession(req);

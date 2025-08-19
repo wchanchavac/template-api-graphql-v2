@@ -26,7 +26,7 @@ export default {
     async createRegion(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Region.create({ ...input, ...session });
+      return await db.Region.create({ ...session.createdData, ...input });
     },
     async updateRegion(obj, { input }, { db, req }) {
       const session = await getSession(req);

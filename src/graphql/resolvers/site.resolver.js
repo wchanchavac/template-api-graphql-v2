@@ -34,7 +34,7 @@ export default {
     async createSite(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Site.create({ ...input, ...session });
+      return await db.Site.create({ ...session.createdData, ...input });
     },
     async updateSite(obj, { input }, { db, req }) {
       const session = await getSession(req);

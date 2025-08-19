@@ -26,7 +26,7 @@ export default {
     async createArea(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Area.create({ ...input, ...session });
+      return await db.Area.create({ ...session.createdData, ...input });
     },
     async updateArea(obj, { input }, { db, req }) {
       const session = await getSession(req);

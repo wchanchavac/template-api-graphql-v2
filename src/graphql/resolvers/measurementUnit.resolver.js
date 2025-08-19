@@ -26,7 +26,10 @@ export default {
     async createMeasurementUnit(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.MeasurementUnit.create({ ...input, ...session });
+      return await db.MeasurementUnit.create({
+        ...session.createdData,
+        ...input,
+      });
     },
     async updateMeasurementUnit(obj, { input }, { db, req }) {
       const session = await getSession(req);
