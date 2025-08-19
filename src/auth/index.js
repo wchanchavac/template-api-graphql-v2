@@ -87,7 +87,6 @@ export async function verifyToken(req) {
  * @returns
  */
 export async function getSession(req) {
-  console.log('getSession', req.headers['authorization']);
   const decoded = await verifyToken(req);
 
   const user = await User.findByPk(decoded.sub);
