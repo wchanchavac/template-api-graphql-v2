@@ -26,7 +26,7 @@ export default {
     async createZone(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Zone.create({ ...input });
+      return await db.Zone.create({ ...input, ...session });
     },
     async updateZone(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -59,9 +59,6 @@ export default {
     },
   },
   Zone: {
-    async organization(zone, { options }, { db, literal }) {
-      return await organizationLoader.load(zone.organizationId);
-    },
     async region(zone, { options }, { db, literal }) {
       return await regionLoader.load(zone.regionId);
     },

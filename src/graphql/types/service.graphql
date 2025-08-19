@@ -3,7 +3,6 @@ type Service {
   name: String
   description: String
   isActive: Boolean
-  organization: Organization
   serviceType: ServiceType
 }
 
@@ -17,7 +16,6 @@ input CreateService {
   name: String!
   description: String
   isActive: Boolean!
-  organizationId: UUID!
   serviceTypeId: UUID
 }
 
@@ -26,7 +24,6 @@ input UpdateService {
   name: String
   description: String
   isActive: Boolean
-  organizationId: UUID!
   serviceTypeId: UUID
 }
 

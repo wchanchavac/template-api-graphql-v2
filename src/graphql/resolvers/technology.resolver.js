@@ -26,7 +26,7 @@ export default {
     async createTechnology(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Technology.create({ ...input });
+      return await db.Technology.create({ ...input, ...session });
     },
     async updateTechnology(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Technology: {
-    async organization(technology, { options }, { db, literal }) {
-      return await organizationLoader.load(technology.organizationId);
-    },
-  },
+  Technology: {},
 };

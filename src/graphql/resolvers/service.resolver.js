@@ -26,7 +26,7 @@ export default {
     async createService(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Service.create({ ...input });
+      return await db.Service.create({ ...input, ...session });
     },
     async updateService(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -59,13 +59,8 @@ export default {
     },
   },
   Service: {
-    async organization(service, { options }, { db, literal }) {
-      return await organizationLoader.load(service.organizationId);
+    async serviceType(service, { options }, { db, literal }) {
+      return await serviceTypeLoader.load(service.serviceTypeId);
     },
-    /*
-        async serviceTypes(service, { options }, { db, literal }) {
-            return await serviceTypeLoader.load(service.serviceTypeId);
-        },
-        */
   },
 };

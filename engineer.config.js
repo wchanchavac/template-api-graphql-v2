@@ -43,6 +43,14 @@ module.exports = () => {
           return model.singular === 'user';
         },
       },
+      {
+        src: './.instantcode/files/global.resolver.js',
+        dest: './src/graphql/resolvers/global.resolver.js',
+        key: 'data',
+        if: (model) => {
+          return model.singular === 'user';
+        },
+      },
     ],
   };
 

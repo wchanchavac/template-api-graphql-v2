@@ -1,7 +1,6 @@
 type Subzone {
   id: UUID
   name: String
-  organization: Organization
   zone: Zone
 }
 
@@ -13,14 +12,12 @@ type PageSubzone {
 
 input CreateSubzone {
   name: String!
-  organizationId: UUID!
   zoneId: UUID!
 }
 
 input UpdateSubzone {
   id: UUID!
   name: String
-  organizationId: UUID!
   zoneId: UUID!
 }
 

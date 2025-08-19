@@ -2,7 +2,6 @@ type MeasurementUnit {
   id: UUID
   name: String
   abbreviation: String
-  organization: Organization
 }
 
 type PageMeasurementUnit {
@@ -14,14 +13,12 @@ type PageMeasurementUnit {
 input CreateMeasurementUnit {
   name: String!
   abbreviation: String!
-  organizationId: UUID!
 }
 
 input UpdateMeasurementUnit {
   id: UUID!
   name: String
   abbreviation: String
-  organizationId: UUID!
 }
 
 type Query {

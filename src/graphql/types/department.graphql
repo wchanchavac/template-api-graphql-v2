@@ -1,7 +1,6 @@
 type Department {
   id: UUID
   name: String
-  organization: Organization
 }
 
 type PageDepartment {
@@ -12,13 +11,11 @@ type PageDepartment {
 
 input CreateDepartment {
   name: String!
-  organizationId: UUID!
 }
 
 input UpdateDepartment {
   id: UUID!
   name: String
-  organizationId: UUID!
 }
 
 type Query {

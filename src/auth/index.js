@@ -22,7 +22,7 @@ export async function issueToken(payload) {
     .setIssuer(issuer)
     .setAudience(audience)
     .setIssuedAt()
-    .setExpirationTime('10m')
+    .setExpirationTime('10d')
     .sign(privateKey);
 }
 
@@ -86,6 +86,7 @@ export async function verifyToken(req) {
  * @returns
  */
 export async function getSession(req) {
+  console.log('getSession', req.headers['authorization']);
   const decoded = await verifyToken(req);
 
   return decoded;

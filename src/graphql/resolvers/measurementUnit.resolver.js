@@ -26,7 +26,7 @@ export default {
     async createMeasurementUnit(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.MeasurementUnit.create({ ...input });
+      return await db.MeasurementUnit.create({ ...input, ...session });
     },
     async updateMeasurementUnit(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  MeasurementUnit: {
-    async organization(measurementUnit, { options }, { db, literal }) {
-      return await organizationLoader.load(measurementUnit.organizationId);
-    },
-  },
+  MeasurementUnit: {},
 };

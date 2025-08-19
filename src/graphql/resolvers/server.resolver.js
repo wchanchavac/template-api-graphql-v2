@@ -26,7 +26,7 @@ export default {
     async createServer(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Server.create({ ...input });
+      return await db.Server.create({ ...input, ...session });
     },
     async updateServer(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Server: {
-    async organization(server, { options }, { db, literal }) {
-      return await organizationLoader.load(server.organizationId);
-    },
-  },
+  Server: {},
 };

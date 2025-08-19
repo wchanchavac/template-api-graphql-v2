@@ -94,6 +94,7 @@ module.exports = (config) => {
       a.isIntermediateModel = !a.intermediateModel ? false : true;
       a.isPlural = !['belongsTo', 'hasOne'].includes(a.type);
       a.isSingular = ['belongsTo', 'hasOne'].includes(a.type);
+      a.ignore = a.ignore || false;
 
       if (a.isManyToMany) {
         let through = `${model.singular}_${a.sModel}`;
@@ -108,6 +109,10 @@ module.exports = (config) => {
         }
       }
     }
+
+    config.data.data[i].associations_filtered = associations.filter(
+      (a) => !a.ignore,
+    );
   }
 
   return config;

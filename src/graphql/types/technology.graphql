@@ -1,7 +1,6 @@
 type Technology {
   id: UUID
   name: String
-  organization: Organization
 }
 
 type PageTechnology {
@@ -12,13 +11,11 @@ type PageTechnology {
 
 input CreateTechnology {
   name: String!
-  organizationId: UUID!
 }
 
 input UpdateTechnology {
   id: UUID!
   name: String
-  organizationId: UUID!
 }
 
 type Query {

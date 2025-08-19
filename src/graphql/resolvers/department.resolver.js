@@ -26,7 +26,7 @@ export default {
     async createDepartment(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Department.create({ ...input });
+      return await db.Department.create({ ...input, ...session });
     },
     async updateDepartment(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Department: {
-    async organization(department, { options }, { db, literal }) {
-      return await organizationLoader.load(department.organizationId);
-    },
-  },
+  Department: {},
 };

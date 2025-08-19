@@ -7,7 +7,6 @@ type Vendor {
   phones: JSON
   image: String
   isActive: Boolean
-  organization: Organization
 }
 
 type PageVendor {
@@ -24,7 +23,6 @@ input CreateVendor {
   phones: JSON
   image: String
   isActive: Boolean!
-  organizationId: UUID!
 }
 
 input UpdateVendor {
@@ -36,7 +34,6 @@ input UpdateVendor {
   phones: JSON
   image: String
   isActive: Boolean
-  organizationId: UUID!
 }
 
 type Query {

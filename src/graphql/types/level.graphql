@@ -1,7 +1,6 @@
 type Level {
   id: UUID
   name: String
-  organization: Organization
 }
 
 type PageLevel {
@@ -12,13 +11,11 @@ type PageLevel {
 
 input CreateLevel {
   name: String!
-  organizationId: UUID!
 }
 
 input UpdateLevel {
   id: UUID!
   name: String
-  organizationId: UUID!
 }
 
 type Query {

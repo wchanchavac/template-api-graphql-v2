@@ -6,7 +6,6 @@ type Site {
   technicalLocation: String
   latitude: Float
   longitude: Float
-  organization: Organization
   region: Region
   zone: Zone
   subzone: Subzone
@@ -28,7 +27,6 @@ input CreateSite {
   technicalLocation: String
   latitude: Float
   longitude: Float
-  organizationId: UUID!
   regionId: UUID!
   zoneId: UUID!
   subzoneId: UUID!
@@ -45,7 +43,6 @@ input UpdateSite {
   technicalLocation: String
   latitude: Float
   longitude: Float
-  organizationId: UUID!
   regionId: UUID!
   zoneId: UUID!
   subzoneId: UUID!

@@ -26,7 +26,7 @@ export default {
     async createRegion(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Region.create({ ...input });
+      return await db.Region.create({ ...input, ...session });
     },
     async updateRegion(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Region: {
-    async organization(region, { options }, { db, literal }) {
-      return await organizationLoader.load(region.organizationId);
-    },
-  },
+  Region: {},
 };

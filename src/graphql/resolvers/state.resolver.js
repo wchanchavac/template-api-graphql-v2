@@ -26,7 +26,7 @@ export default {
     async createState(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.State.create({ ...input });
+      return await db.State.create({ ...input, ...session });
     },
     async updateState(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  State: {
-    async organization(state, { options }, { db, literal }) {
-      return await organizationLoader.load(state.organizationId);
-    },
-  },
+  State: {},
 };

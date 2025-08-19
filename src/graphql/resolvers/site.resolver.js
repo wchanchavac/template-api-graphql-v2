@@ -34,7 +34,7 @@ export default {
     async createSite(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Site.create({ ...input });
+      return await db.Site.create({ ...input, ...session });
     },
     async updateSite(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -67,9 +67,6 @@ export default {
     },
   },
   Site: {
-    async organization(site, { options }, { db, literal }) {
-      return await organizationLoader.load(site.organizationId);
-    },
     async region(site, { options }, { db, literal }) {
       return await regionLoader.load(site.regionId);
     },

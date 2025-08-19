@@ -28,21 +28,20 @@ export default {
           },
         });
 
-        
         if (!user)
           throw new GraphQLError('Invalid credentials', {
-        extensions: {
-          code: 'UNAUTHORIZED',
-        },
-      });
+            extensions: {
+              code: 'UNAUTHORIZED',
+            },
+          });
 
-      const isAuthenticated = await user.authenticate(password);
-      if (!isAuthenticated)
-        throw new GraphQLError('Invalid credentials', {
-          extensions: {
-            code: 'UNAUTHORIZED',
-          },
-        });
+        const isAuthenticated = await user.authenticate(password);
+        if (!isAuthenticated)
+          throw new GraphQLError('Invalid credentials', {
+            extensions: {
+              code: 'UNAUTHORIZED',
+            },
+          });
 
         // if (!await bcrypt.compareSync(password, user.password))
         // 	throw new ApolloError(`Invalid credentials`, 'UNAUTHORIZED')

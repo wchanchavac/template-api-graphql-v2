@@ -1,7 +1,6 @@
 type Area {
   id: UUID
   name: String
-  organization: Organization
 }
 
 type PageArea {
@@ -12,13 +11,11 @@ type PageArea {
 
 input CreateArea {
   name: String!
-  organizationId: UUID!
 }
 
 input UpdateArea {
   id: UUID!
   name: String
-  organizationId: UUID!
 }
 
 type Query {

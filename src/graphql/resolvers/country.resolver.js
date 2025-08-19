@@ -26,7 +26,7 @@ export default {
     async createCountry(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Country.create({ ...input });
+      return await db.Country.create({ ...input, ...session });
     },
     async updateCountry(obj, { input }, { db, req }) {
       const session = await getSession(req);

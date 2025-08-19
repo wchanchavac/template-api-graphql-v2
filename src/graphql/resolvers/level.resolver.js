@@ -26,7 +26,7 @@ export default {
     async createLevel(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Level.create({ ...input });
+      return await db.Level.create({ ...input, ...session });
     },
     async updateLevel(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Level: {
-    async organization(level, { options }, { db, literal }) {
-      return await organizationLoader.load(level.organizationId);
-    },
-  },
+  Level: {},
 };

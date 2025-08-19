@@ -2,7 +2,6 @@ type Region {
   id: UUID
   name: String
   abbreviation: String
-  organization: Organization
 }
 
 type PageRegion {
@@ -14,14 +13,12 @@ type PageRegion {
 input CreateRegion {
   name: String!
   abbreviation: String!
-  organizationId: UUID!
 }
 
 input UpdateRegion {
   id: UUID!
   name: String
   abbreviation: String
-  organizationId: UUID!
 }
 
 type Query {

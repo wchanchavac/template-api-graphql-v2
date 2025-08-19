@@ -26,7 +26,7 @@ export default {
     async createVendor(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Vendor.create({ ...input });
+      return await db.Vendor.create({ ...input, ...session });
     },
     async updateVendor(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Vendor: {
-    async organization(vendor, { options }, { db, literal }) {
-      return await organizationLoader.load(vendor.organizationId);
-    },
-  },
+  Vendor: {},
 };

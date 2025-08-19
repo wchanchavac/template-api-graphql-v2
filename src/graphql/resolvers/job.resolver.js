@@ -26,7 +26,7 @@ export default {
     async createJob(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Job.create({ ...input });
+      return await db.Job.create({ ...input, ...session });
     },
     async updateJob(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Job: {
-    async organization(job, { options }, { db, literal }) {
-      return await organizationLoader.load(job.organizationId);
-    },
-  },
+  Job: {},
 };

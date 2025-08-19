@@ -2,64 +2,397 @@
   "$schema": "https://json-schema-o8im9w3et-wchanchavac.vercel.app/backend-01.json",
   "project": {
     "name": "Inventory Backend",
-    "description": "This is an inventory app for C&W"
+    "description": "SGP Backend"
   },
   "data": [
     {
-      "name": "product",
+      "name": "country",
       "attributes": [
         {
-          "name": "SKU",
+          "name": "name",
           "type": "string",
           "required": true
-        },
+        }
+      ]
+    },
+    {
+      "name": "state",
+      "attributes": [
         {
           "name": "name",
           "type": "string",
           "required": true
         },
         {
-          "name": "description",
+          "name": "abbreviation",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "region",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "abbreviation",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "department",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "vendor",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+
+        {
+          "name": "abbreviation",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "rfc",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "address",
           "type": "text",
           "required": false
         },
         {
-          "name": "isSerialized",
+          "name": "phones",
+          "type": "json",
+          "required": false
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "isActive",
           "type": "boolean",
           "required": true,
-          "defaultValue": false
-        },
+          "defaultValue": true
+        }
+      ],
+      "associations": [
         {
-          "name": "specDoc",
-          "type": "json",
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "level",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "job",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "server",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
           "required": true
         },
         {
-          "name": "specDocMeta",
-          "type": "json",
+          "name": "identifier",
+          "type": "string",
           "required": true
         },
         {
-          "name": "stock",
-          "type": "json",
+          "name": "host",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "port",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "name": "user",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "technology",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "measurementUnit",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "abbreviation",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "zone",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        },
+        {
+          "model": "region",
+          "type": "belongsTo",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "subzone",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        },
+        {
+          "model": "zone",
+          "type": "belongsTo",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "area",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "site",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "address",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "locality",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "technicalLocation",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "latitude",
+          "type": "float",
+          "required": false
+        },
+        {
+          "name": "longitude",
+          "type": "float",
           "required": false
         }
       ],
       "associations": [
         {
-          "model": "productFamily",
-          "type": "belongsToMany",
-          "required": false
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
         },
         {
-          "model": "productCatalog",
+          "model": "region",
+          "type": "belongsTo",
+          "required": true
+        },
+        {
+          "model": "zone",
+          "type": "belongsTo",
+          "required": true
+        },
+        {
+          "model": "subzone",
+          "type": "belongsTo",
+          "required": true
+        },
+        {
+          "model": "area",
+          "type": "belongsTo",
+          "required": true
+        },
+        {
+          "model": "state",
+          "type": "belongsTo",
+          "required": true
+        },
+        {
+          "model": "vendor",
           "type": "belongsToMany",
           "required": false
         }
       ]
     },
     {
-      "name": "productFamily",
+      "name": "serviceType",
       "attributes": [
         {
           "name": "name",
@@ -72,20 +405,57 @@
           "required": false
         },
         {
-          "name": "specDocMeta",
-          "type": "json",
+          "name": "isActive",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+    {
+      "name": "service",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
           "required": true
         },
         {
-          "name": "variants",
-          "type": "json",
+          "name": "description",
+          "type": "text",
           "required": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": true
         }
       ],
-      "associations": []
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        },
+        {
+          "model": "serviceType",
+          "type": "belongsTo",
+          "required": false
+        }
+      ]
     },
     {
-      "name": "productCatalog",
+      "name": "status",
       "attributes": [
         {
           "name": "name",
@@ -93,8 +463,46 @@
           "required": true
         }
       ],
-      "associations": []
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
     },
+    {
+      "name": "speciality",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "isOrigin",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": true
+        }
+      ],
+      "associations": [
+        {
+          "model": "organization",
+          "type": "belongsTo",
+          "required": true,
+          "ignore": true
+        }
+      ]
+    },
+
     {
       "name": "user",
       "attributes": [
@@ -116,30 +524,14 @@
       ],
       "associations": [
         {
-          "model": "company",
-          "type": "belongsTo",
-          "required": true
-        },
-        {
-          "model": "profile",
+          "model": "organization",
           "type": "belongsTo",
           "required": true
         }
       ]
     },
     {
-      "name": "productHistory",
-      "attributes": [
-        {
-          "name": "fieldName",
-          "type": "string",
-          "required": false
-        }
-      ],
-      "associations": []
-    },
-    {
-      "name": "company",
+      "name": "organization",
       "attributes": [
         {
           "name": "name",
@@ -152,24 +544,13 @@
           "model": "user",
           "type": "hasMany",
           "required": false
-        }
-      ]
-    },
-    {
-      "name": "profile",
-      "attributes": [
-        {
-          "name": "name",
-          "type": "String",
-          "required": true
         },
         {
-          "name": "permissions",
-          "type": "json",
-          "defaultValue": {}
+          "model": "country",
+          "type": "hasMany",
+          "required": false
         }
-      ],
-      "associations": []
+      ]
     }
   ]
 }

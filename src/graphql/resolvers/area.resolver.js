@@ -26,7 +26,7 @@ export default {
     async createArea(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Area.create({ ...input });
+      return await db.Area.create({ ...input, ...session });
     },
     async updateArea(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Area: {
-    async organization(area, { options }, { db, literal }) {
-      return await organizationLoader.load(area.organizationId);
-    },
-  },
+  Area: {},
 };

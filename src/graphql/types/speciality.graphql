@@ -3,7 +3,6 @@ type Speciality {
   name: String
   isOrigin: Boolean
   isActive: Boolean
-  organization: Organization
 }
 
 type PageSpeciality {
@@ -16,7 +15,6 @@ input CreateSpeciality {
   name: String!
   isOrigin: Boolean!
   isActive: Boolean!
-  organizationId: UUID!
 }
 
 input UpdateSpeciality {
@@ -24,7 +22,6 @@ input UpdateSpeciality {
   name: String
   isOrigin: Boolean
   isActive: Boolean
-  organizationId: UUID!
 }
 
 type Query {

@@ -2,7 +2,6 @@ type State {
   id: UUID
   name: String
   abbreviation: String
-  organization: Organization
 }
 
 type PageState {
@@ -14,14 +13,12 @@ type PageState {
 input CreateState {
   name: String!
   abbreviation: String!
-  organizationId: UUID!
 }
 
 input UpdateState {
   id: UUID!
   name: String
   abbreviation: String
-  organizationId: UUID!
 }
 
 type Query {

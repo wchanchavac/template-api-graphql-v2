@@ -26,7 +26,7 @@ export default {
     async createSpeciality(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Speciality.create({ ...input });
+      return await db.Speciality.create({ ...input, ...session });
     },
     async updateSpeciality(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -58,9 +58,5 @@ export default {
       return data;
     },
   },
-  Speciality: {
-    async organization(speciality, { options }, { db, literal }) {
-      return await organizationLoader.load(speciality.organizationId);
-    },
-  },
+  Speciality: {},
 };

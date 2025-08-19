@@ -7,7 +7,6 @@ type Server {
   user: String
   password: String
   isActive: Boolean
-  organization: Organization
 }
 
 type PageServer {
@@ -24,7 +23,6 @@ input CreateServer {
   user: String!
   password: String!
   isActive: Boolean!
-  organizationId: UUID!
 }
 
 input UpdateServer {
@@ -36,7 +34,6 @@ input UpdateServer {
   user: String
   password: String
   isActive: Boolean
-  organizationId: UUID!
 }
 
 type Query {

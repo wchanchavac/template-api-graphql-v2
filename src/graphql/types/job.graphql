@@ -1,7 +1,6 @@
 type Job {
   id: UUID
   name: String
-  organization: Organization
 }
 
 type PageJob {
@@ -12,13 +11,11 @@ type PageJob {
 
 input CreateJob {
   name: String!
-  organizationId: UUID!
 }
 
 input UpdateJob {
   id: UUID!
   name: String
-  organizationId: UUID!
 }
 
 type Query {

@@ -7,7 +7,7 @@ type {{Singular}} {
     {{{this.name}}}: {{{this.graphqlType}}}
     {{/if}}
     {{/each}}
-    {{#each associations}}
+    {{#each associations_filtered}}
     {{#if this.isPlural}}
     # {{{this.pModel}}}: [{{{this.SModel}}}]
     {{else}}
@@ -30,7 +30,7 @@ input Create{{Singular}} {
     {{{this.name}}}: {{{this.graphqlType}}}{{#if this.required}}! {{/if}}
     {{/if}}
     {{/each}}
-    {{#each associations}}
+    {{#each associations_filtered}}
     {{#if this.isPlural}}
     # {{{this.pModel}}}: [UUID]{{#if this.required}}! {{/if}}
     {{else}}
@@ -48,7 +48,7 @@ input Update{{Singular}} {
     {{{this.name}}}: {{{this.graphqlType}}}
     {{/if}}
     {{/each}}
-    {{#each associations}}
+    {{#each associations_filtered}}
     {{#if this.isPlural}}
     # {{{this.pModel}}}: [UUID]{{#if this.required}}! {{/if}}
     {{else}}
@@ -57,13 +57,13 @@ input Update{{Singular}} {
     {{/each}}
 }
 
-extend type Query {
+type Query {
     {{plural}}(options: Options = { page: 1 }): Page{{Singular}}
     # {{plural}}(options: Options = { page: 1 }): [{{Singular}}]
     {{singular}}(id: UUID!): {{Singular}}
 }
 
-extend type Mutation {
+type Mutation {
     create{{Singular}}(input: Create{{Singular}}!): {{Singular}}
     update{{Singular}}(input: Update{{Singular}}!): {{Singular}}
     delete{{Singular}}(id: UUID!): {{Singular}}

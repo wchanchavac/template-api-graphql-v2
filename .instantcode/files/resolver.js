@@ -29,7 +29,7 @@ export default {
         async create{{Singular}}(obj, { input }, { db, req }) {
 			const session = await getSession(req)
 
-			return await db.{{Singular}}.create({ ...input })
+			return await db.{{Singular}}.create({ ...input, ...session })
         },
         async update{{Singular}}(obj, { input }, { db, req }) {
 			const session = await getSession(req)
@@ -60,7 +60,7 @@ export default {
         }
     },
     {{Singular}}: {
-        {{#each associations}}
+        {{#each associations_filtered}}
         {{#if this.isPlural}}
         /*
         async {{{this.pModel}}}({{../singular}}, { options }, { db, literal }) {
