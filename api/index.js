@@ -3,14 +3,12 @@
 
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@as-integrations/express5';
-import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 
 import cors from 'cors';
 import express from 'express';
 import db from '../src/database/index.js';
 import resolvers from '../src/graphql/resolvers/index.js';
 import typeDefs from '../src/graphql/types/index.js';
-import http from 'http';
 
 // Required logic for integrating with Express
 const app = express();
