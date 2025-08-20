@@ -18,12 +18,10 @@ import { getDirname } from '../utils/path.js';
 
 const __dirname = getDirname(import.meta.url);
 
-const resolversArray = await loadFiles(
-  path.join(__dirname, '**/*.resolver.*'),
-  {
-    ignoreIndex: true,
-  },
-);
+const resolversArray = await loadFiles(path.join(__dirname, './'), {
+  extensions: ['.resolver.js'],
+  ignoreIndex: true,
+});
 
 export default mergeResolvers([
   ...resolversArray,
