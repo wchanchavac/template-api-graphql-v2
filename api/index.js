@@ -2,40 +2,31 @@
 // The ApolloServer constructor requires two parameters: your schema
 
 import { ApolloServer } from '@apollo/server';
-import { startServerAndCreateNextHandler } from '@as-integrations/next';
-import typeDefs from '../src/graphql/types/index.js';
-import resolvers from '../src/graphql/resolvers/index.js';
+import { expressMiddleware } from '@as-integrations/express5';
+
+import cors from 'cors';
+import express from 'express';
 import db from '../src/database/index.js';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import resolvers from '../src/graphql/resolvers/index.js';
+import typeDefs from '../src/graphql/types/index.js';
+
+const app = express();
+
+app.use(express.json());
 
 // definition and your set of resolvers.
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: async ({ req, res }) => {
+    return { db, req, res };
+  },
 });
 
-// This is for vercel
-let handler;
+await server.start();
 
-// This is for local
-if (!process.env.VERCEL_ENV) {
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-    context: async ({ req, res }) => {
-      return { db, req, res };
-    },
-  });
+app.use('/', cors(), express.json(), expressMiddleware(server));
 
-  console.log(`🚀  Server ready at: ${url}`);
-} else {
-  handler = startServerAndCreateNextHandler(server, {
-    context: async ({ req, res }) => {
-      return { db, req, res };
-    },
-  });
-}
-
-//   console.log(`🚀  Server ready at: ${url}`);
-// }
-
-export default handler;
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
