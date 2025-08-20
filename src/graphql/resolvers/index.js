@@ -23,6 +23,8 @@ const resolversArray = await loadFiles(path.join(__dirname, './'), {
   ignoreIndex: true,
 });
 
+console.log('the amount of resolvers', resolversArray.length);
+
 export default mergeResolvers([
   ...resolversArray,
   {
