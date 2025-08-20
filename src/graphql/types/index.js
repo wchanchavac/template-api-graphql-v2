@@ -21,6 +21,9 @@ const typesArray = loadFilesSync(path.join(__dirname, './'), {
   ignoreIndex: true,
 });
 
+console.log('the amount of types', typesArray.length);
+console.log('the path', path.join(__dirname, './'));
+
 export default mergeTypeDefs([
   ...typesArray,
   BigIntTypeDefinition,
