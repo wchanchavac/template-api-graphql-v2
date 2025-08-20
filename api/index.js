@@ -3,6 +3,7 @@
 
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@as-integrations/express5';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 
 import cors from 'cors';
 import express from 'express';
@@ -18,15 +19,23 @@ app.use(express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: async ({ req, res }) => {
-    return { db, req, res };
-  },
 });
 
 await server.start();
 
-app.use('/', cors(), express.json(), expressMiddleware(server));
+app.use(
+  '/',
+  cors(),
+  express.json(),
+  expressMiddleware(server, {
+    context: async ({ req, res }) => {
+      return { db, req, res };
+    },
+  }),
+);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
+
+export default app;
