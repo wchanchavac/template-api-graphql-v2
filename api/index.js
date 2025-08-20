@@ -10,32 +10,37 @@ import express from 'express';
 import db from '../src/database/index.js';
 import resolvers from '../src/graphql/resolvers/index.js';
 import typeDefs from '../src/graphql/types/index.js';
+import http from 'http';
 
+// Required logic for integrating with Express
 const app = express();
+// Our httpServer handles incoming requests to our Express app.
+// Below, we tell Apollo Server to "drain" this httpServer,
+// enabling our servers to shut down gracefully.
+const httpServer = http.createServer(app);
 
-app.use(express.json());
-
-// definition and your set of resolvers.
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
-
+// Ensure we wait for our server to start
 await server.start();
 
+// Set up our Express middleware to handle CORS, body parsing,
+// and our expressMiddleware function.
 app.use(
   '/',
   cors(),
   express.json(),
+  // expressMiddleware accepts the same arguments:
+  // an Apollo Server instance and optional configuration options
   expressMiddleware(server, {
-    context: async ({ req, res }) => {
-      return { db, req, res };
-    },
+    context: async ({ req, res }) => ({ db, req, res }),
   }),
 );
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+console.log(`🚀 Server ready at http://localhost:4000/`);
 
 export default app;
