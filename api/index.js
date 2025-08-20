@@ -17,12 +17,12 @@ const app = express();
 // Our httpServer handles incoming requests to our Express app.
 // Below, we tell Apollo Server to "drain" this httpServer,
 // enabling our servers to shut down gracefully.
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 // Ensure we wait for our server to start
 await server.start();
@@ -40,7 +40,11 @@ app.use(
   }),
 );
 
-await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-console.log(`🚀 Server ready at http://localhost:4000/`);
+// await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+// console.log(`🚀 Server ready at http://localhost:4000/`);
 
-export default httpServer;
+app.listen(3000, () => {
+  console.log(`🚀 Server ready at http://localhost:3000/`);
+});
+
+export default app;
