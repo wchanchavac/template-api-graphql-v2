@@ -4,7 +4,7 @@
   "public": false,
   "functions": {
     "api/index.js": {
-      "includeFiles": "src/graphql/**/*"
+      "includeFiles": "src/graphql/types/*.graphql"
     }
   },
   "cleanUrls": true,
