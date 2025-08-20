@@ -22,7 +22,7 @@ const httpServer = http.createServer(app);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 // Ensure we wait for our server to start
 await server.start();
@@ -40,7 +40,10 @@ app.use(
   }),
 );
 
-await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-console.log(`🚀 Server ready at http://localhost:4000/`);
+// await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+// console.log(`🚀 Server ready at http://localhost:4000/`);
+app.listen(3000, () => {
+  console.log(`🚀 Server ready at http://localhost:3000/`);
+});
 
 export default app;
