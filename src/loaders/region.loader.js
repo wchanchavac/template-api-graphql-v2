@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Region from '../database/models/region.model.js';
+import Region from '#models/region.model';
 
 const regionLoader = new DataLoader(async (regionIds) => {
   const regions = await Region.findAll({

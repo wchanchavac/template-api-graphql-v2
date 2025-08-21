@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Technology from '../database/models/technology.model.js';
+import Technology from '#models/technology.model';
 
 const technologyLoader = new DataLoader(async (technologyIds) => {
   const technologies = await Technology.findAll({

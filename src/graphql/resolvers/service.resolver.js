@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
-import { getSession } from '../../auth/index.js';
-import { organizationLoader, serviceTypeLoader } from '../../loaders/index.js';
+import { getSession } from '#auth';
+import { serviceTypeLoader } from '#loaders';
 
 export default {
   Query: {

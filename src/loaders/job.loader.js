@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Job from '../database/models/job.model.js';
+import Job from '#models/job.model';
 
 const jobLoader = new DataLoader(async (jobIds) => {
   const jobs = await Job.findAll({

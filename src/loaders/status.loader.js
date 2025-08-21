@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Status from '../database/models/status.model.js';
+import Status from '#models/status.model';
 
 const statusLoader = new DataLoader(async (statusIds) => {
   const statuses = await Status.findAll({

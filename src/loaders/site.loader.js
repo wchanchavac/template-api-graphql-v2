@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Site from '../database/models/site.model.js';
+import Site from '#models/site.model';
 
 const siteLoader = new DataLoader(async (siteIds) => {
   const sites = await Site.findAll({

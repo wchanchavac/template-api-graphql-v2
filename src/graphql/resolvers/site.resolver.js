@@ -1,14 +1,12 @@
 import { GraphQLError } from 'graphql';
-import { getSession } from '../../auth/index.js';
+import { getSession } from '#auth';
 import {
-  organizationLoader,
   regionLoader,
   zoneLoader,
   subzoneLoader,
   areaLoader,
   stateLoader,
-  vendorLoader,
-} from '../../loaders/index.js';
+} from '#loaders';
 
 export default {
   Query: {

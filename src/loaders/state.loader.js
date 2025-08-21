@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import State from '../database/models/state.model.js';
+import State from '#models/state.model';
 
 const stateLoader = new DataLoader(async (stateIds) => {
   const states = await State.findAll({

@@ -6,9 +6,9 @@ import { expressMiddleware } from '@as-integrations/express5';
 
 import cors from 'cors';
 import express from 'express';
-import db from '../src/database/index.js';
-import resolvers from '../src/graphql/resolvers/index.js';
-import typeDefs from '../src/graphql/types/index.js';
+import db from '#database';
+import resolvers from '#resolvers';
+import typeDefs from '#types';
 
 // Required logic for integrating with Express
 const app = express();

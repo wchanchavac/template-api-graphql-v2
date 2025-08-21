@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Speciality from '../database/models/speciality.model.js';
+import Speciality from '#models/speciality.model';
 
 const specialityLoader = new DataLoader(async (specialityIds) => {
   const specialities = await Speciality.findAll({

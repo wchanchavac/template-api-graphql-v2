@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Country from '../database/models/country.model.js';
+import Country from '#models/country.model';
 
 const countryLoader = new DataLoader(async (countryIds) => {
   const countries = await Country.findAll({

@@ -1,7 +1,6 @@
-import { merge } from 'es-toolkit';
+import sequelize from '#config/database';
+import BaseModel from '#shared/BaseModel';
 import { DataTypes } from 'sequelize';
-import sequelize from '../../config/database.js';
-import BaseModel from '../../shared/BaseModel.js';
 
 class Country extends BaseModel {
   static associate(models) {}

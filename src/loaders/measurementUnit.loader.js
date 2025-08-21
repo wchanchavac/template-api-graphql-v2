@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import MeasurementUnit from '../database/models/measurementUnit.model.js';
+import MeasurementUnit from '#models/measurementUnit.model';
 
 const measurementUnitLoader = new DataLoader(async (measurementUnitIds) => {
   const measurementUnits = await MeasurementUnit.findAll({

@@ -1,7 +1,7 @@
 'use strict';
 
 import { GraphQLError } from 'graphql';
-import { getSession, issueToken } from '../../auth/index.js';
+import { getSession, issueToken } from '#auth';
 
 export default {
   Query: {

@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Server from '../database/models/server.model.js';
+import Server from '#models/server.model';
 
 const serverLoader = new DataLoader(async (serverIds) => {
   const servers = await Server.findAll({

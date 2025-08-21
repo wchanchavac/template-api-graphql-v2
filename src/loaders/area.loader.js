@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Area from '../database/models/area.model.js';
+import Area from '#models/area.model';
 
 const areaLoader = new DataLoader(async (areaIds) => {
   const areas = await Area.findAll({

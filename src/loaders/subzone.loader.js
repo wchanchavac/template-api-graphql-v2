@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Subzone from '../database/models/subzone.model.js';
+import Subzone from '#models/subzone.model';
 
 const subzoneLoader = new DataLoader(async (subzoneIds) => {
   const subzones = await Subzone.findAll({

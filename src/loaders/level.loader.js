@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Level from '../database/models/level.model.js';
+import Level from '#models/level.model';
 
 const levelLoader = new DataLoader(async (levelIds) => {
   const levels = await Level.findAll({

@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "checkJs": true,
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "#auth": ["./src/auth/index.js"],
+      "#auth/*": ["./src/auth/*.js"],
+      "#config/*": ["./src/config/*.js"],
+      "#database": ["./src/database/index.js"],
+      "#database/*": ["./src/database/*.js"],
+      "#graphql/*": ["./src/graphql/*.js"],
+      "#loaders": ["./src/loaders/index.js"],
+      "#loaders/*": ["./src/loaders/*.js"],
+      "#models/*": ["./src/database/models/*.js"],
+      "#resolvers": ["./src/graphql/resolvers/index.js"],
+      "#resolvers/*": ["./src/graphql/resolvers/*.js"],
+      "#shared/*": ["./src/shared/*.js"],
+      "#types": ["./src/graphql/types/index.js"],
+      "#types/*": ["./src/graphql/types/*.js"],
+      "#utils/*": ["./src/graphql/utils/*.js"],
+      "#mygraphql": ["./src/graphql/resolvers/index.js"]
+    }
+  },
+  "exclude": ["node_modules", ".vercel", "secrets"],
+  "include": ["src/**/*", "api/**/*"]
+}

@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import ServiceType from '../database/models/serviceType.model.js';
+import ServiceType from '#models/serviceType.model';
 
 const serviceTypeLoader = new DataLoader(async (serviceTypeIds) => {
   const serviceTypes = await ServiceType.findAll({

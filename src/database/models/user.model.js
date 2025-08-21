@@ -1,8 +1,7 @@
-import { merge } from 'es-toolkit';
 import { DataTypes } from 'sequelize';
-import sequelize from '../../config/database.js';
-import BaseModel from '../../shared/BaseModel.js';
-import { addAuthMethodsToModel } from '../../auth/index.js';
+import sequelize from '#config/database';
+import BaseModel from '#shared/BaseModel';
+import { addAuthMethodsToModel } from '#auth';
 
 class User extends BaseModel {
   static associate(models) {

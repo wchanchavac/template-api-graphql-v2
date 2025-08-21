@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import User from '../database/models/user.model.js';
+import User from '#models/user.model';
 
 const userLoader = new DataLoader(async (userIds) => {
   const users = await User.findAll({

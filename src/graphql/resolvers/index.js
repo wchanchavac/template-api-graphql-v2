@@ -15,27 +15,27 @@ import {
 } from 'graphql-scalars';
 // import path from 'path';
 
-import areaResolver from './area.resolver.js';
-import countryResolver from './country.resolver.js';
-import departmentResolver from './department.resolver.js';
-import globalResolver from './global.resolver.js';
-import jobResolver from './job.resolver.js';
-import levelResolver from './level.resolver.js';
-import measurementUnitResolver from './measurementUnit.resolver.js';
-import organizationResolver from './organization.resolver.js';
-import regionResolver from './region.resolver.js';
-import serverResolver from './server.resolver.js';
-import serviceResolver from './service.resolver.js';
-import serviceTypeResolver from './serviceType.resolver.js';
-import siteResolver from './site.resolver.js';
-import specialityResolver from './speciality.resolver.js';
-import stateResolver from './state.resolver.js';
-import statusResolver from './status.resolver.js';
-import subzoneResolver from './subzone.resolver.js';
-import technologyResolver from './technology.resolver.js';
-import userResolver from './user.resolver.js';
-import vendorResolver from './vendor.resolver.js';
-import zoneResolver from './zone.resolver.js';
+import areaResolver from '#resolvers/area.resolver';
+import countryResolver from '#resolvers/country.resolver';
+import departmentResolver from '#resolvers/department.resolver';
+import globalResolver from '#resolvers/global.resolver';
+import jobResolver from '#resolvers/job.resolver';
+import levelResolver from '#resolvers/level.resolver';
+import measurementUnitResolver from '#resolvers/measurementUnit.resolver';
+import organizationResolver from '#resolvers/organization.resolver';
+import regionResolver from '#resolvers/region.resolver';
+import serverResolver from '#resolvers/server.resolver';
+import serviceResolver from '#resolvers/service.resolver';
+import serviceTypeResolver from '#resolvers/serviceType.resolver';
+import siteResolver from '#resolvers/site.resolver';
+import specialityResolver from '#resolvers/speciality.resolver';
+import stateResolver from '#resolvers/state.resolver';
+import statusResolver from '#resolvers/status.resolver';
+import subzoneResolver from '#resolvers/subzone.resolver';
+import technologyResolver from '#resolvers/technology.resolver';
+import userResolver from '#resolvers/user.resolver';
+import vendorResolver from '#resolvers/vendor.resolver';
+import zoneResolver from '#resolvers/zone.resolver';
 
 const resolversArray = [
   areaResolver,

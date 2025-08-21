@@ -1,6 +1,5 @@
 import { GraphQLError } from 'graphql';
-import { getSession } from '../../auth/index.js';
-import { userLoader, countryLoader } from '../../loaders/index.js';
+import { getSession } from '#auth';
 
 export default {
   Query: {

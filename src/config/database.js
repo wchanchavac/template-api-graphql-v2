@@ -1,6 +1,6 @@
 import oracledb from 'oracledb';
 import { Sequelize } from 'sequelize';
-import operatorsAliases from './operatorsAliases.js';
+import operatorsAliases from '#config/operatorsAliases';
 // Uncomment this for postgres
 // import pg from 'pg';
 

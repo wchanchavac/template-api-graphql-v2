@@ -12,7 +12,7 @@ import {
   UUIDDefinition,
 } from 'graphql-scalars';
 import path from 'path';
-import { getDirname } from '../utils/path.js';
+import { getDirname } from '#utils/path';
 
 const __dirname = getDirname(import.meta.url);
 

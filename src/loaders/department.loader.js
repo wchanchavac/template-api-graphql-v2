@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Department from '../database/models/department.model.js';
+import Department from '#models/department.model';
 
 const departmentLoader = new DataLoader(async (departmentIds) => {
   const departments = await Department.findAll({

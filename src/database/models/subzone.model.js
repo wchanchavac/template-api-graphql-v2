@@ -1,7 +1,6 @@
-import { merge } from 'es-toolkit';
 import { DataTypes } from 'sequelize';
-import sequelize from '../../config/database.js';
-import BaseModel from '../../shared/BaseModel.js';
+import sequelize from '#config/database';
+import BaseModel from '#shared/BaseModel';
 
 class Subzone extends BaseModel {
   static associate(models) {

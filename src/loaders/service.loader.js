@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import Service from '../database/models/service.model.js';
+import Service from '#models/service.model';
 
 const serviceLoader = new DataLoader(async (serviceIds) => {
   const services = await Service.findAll({
