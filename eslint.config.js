@@ -1,8 +1,9 @@
 import eslint from '@eslint/js';
+import graphqlPlugin from '@graphql-eslint/eslint-plugin';
 import eslintConfigPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
-import { defineConfig } from 'eslint/config';
 import unusedImports from 'eslint-plugin-unused-imports';
+import { defineConfig } from 'eslint/config';
+import globals from 'globals';
 
 export default defineConfig([
   {
@@ -37,6 +38,18 @@ export default defineConfig([
           argsIgnorePattern: '^_',
         },
       ],
+    },
+  },
+  {
+    files: ['**/*.graphql'],
+    languageOptions: {
+      parser: graphqlPlugin.parser,
+    },
+    plugins: {
+      '@graphql-eslint': graphqlPlugin,
+    },
+    rules: {
+      'prettier/prettier': 'error',
     },
   },
 ]);
