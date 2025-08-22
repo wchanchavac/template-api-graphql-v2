@@ -4,6 +4,20 @@ import { organizationLoader } from '#loaders';
 
 export default {
   Query: {
+    async me(obj, { options }, { db, req }) {
+      const session = await getSession(req);
+
+      const user = await db.User.findByPk(session.sub);
+
+      if (!user)
+        throw new GraphQLError('Unauthorized', {
+          extensions: {
+            code: 'UNAUTHORIZED',
+          },
+        });
+
+      return user;
+    },
     async users(obj, { options }, { db, req }) {
       const session = await getSession(req);
 

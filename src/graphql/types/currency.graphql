@@ -1,0 +1,31 @@
+type Currency {
+  id: UUID
+  name: String
+}
+
+type PageCurrency {
+  rows: [Currency]
+  length: Int
+  pages: Int
+}
+
+input CreateCurrency {
+  name: String!
+}
+
+input UpdateCurrency {
+  id: UUID!
+  name: String
+}
+
+type Query {
+  currencies(options: Options = { page: 1 }): PageCurrency
+  # currencies(options: Options = { page: 1 }): [Currency]
+  currency(id: UUID!): Currency
+}
+
+type Mutation {
+  createCurrency(input: CreateCurrency!): Currency
+  updateCurrency(input: UpdateCurrency!): Currency
+  deleteCurrency(id: UUID!): Currency
+}

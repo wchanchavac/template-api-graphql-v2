@@ -28,6 +28,7 @@ input UpdateUser {
 }
 
 type Query {
+  me: User
   users(options: Options = { page: 1 }): PageUser
   # users(options: Options = { page: 1 }): [User]
   user(id: UUID!): User
