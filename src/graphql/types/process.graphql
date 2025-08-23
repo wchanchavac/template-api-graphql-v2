@@ -1,0 +1,31 @@
+type Process {
+  id: UUID
+  name: String
+}
+
+type PageProcess {
+  rows: [Process]
+  length: Int
+  pages: Int
+}
+
+input CreateProcess {
+  name: String!
+}
+
+input UpdateProcess {
+  id: UUID!
+  name: String
+}
+
+type Query {
+  processes(options: Options = { page: 1 }): PageProcess
+  # processes(options: Options = { page: 1 }): [Process]
+  process(id: UUID!): Process
+}
+
+type Mutation {
+  createProcess(input: CreateProcess!): Process
+  updateProcess(input: UpdateProcess!): Process
+  deleteProcess(id: UUID!): Process
+}

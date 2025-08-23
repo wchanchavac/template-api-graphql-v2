@@ -1,5 +1,6 @@
 import sequelize from '#config/database';
 import Country from '#models/country.model';
+import Currency from '#models/currency.model';
 import State from '#models/state.model';
 import Region from '#models/region.model';
 import Department from '#models/department.model';
@@ -19,9 +20,16 @@ import Status from '#models/status.model';
 import Speciality from '#models/speciality.model';
 import User from '#models/user.model';
 import Organization from '#models/organization.model';
+import Price from '#models/price.model';
+import Concept from '#models/concept.model';
+import Process from '#models/process.model';
 
 const db = {
   Country,
+  Currency,
+  Price,
+  Concept,
+  Process,
   State,
   Region,
   Department,
@@ -52,5 +60,7 @@ for (const key in db) {
     }
   }
 }
+
+await sequelize.sync();
 
 export default db;

@@ -1,0 +1,52 @@
+type Concept {
+  id: UUID
+  code: String
+  date: LocalDate
+  description: String
+  process: Process
+  serviceType: ServiceType
+  service: Service
+  measurementUnit: MeasurementUnit
+  currency: Currency
+}
+
+type PageConcept {
+  rows: [Concept]
+  length: Int
+  pages: Int
+}
+
+input CreateConcept {
+  code: String!
+  date: LocalDate!
+  description: String
+  processId: UUID!
+  serviceTypeId: UUID!
+  serviceId: UUID!
+  measurementUnitId: UUID!
+  currencyId: UUID!
+}
+
+input UpdateConcept {
+  id: UUID!
+  code: String
+  date: LocalDate
+  description: String
+  processId: UUID
+  serviceTypeId: UUID
+  serviceId: UUID
+  measurementUnitId: UUID
+  currencyId: UUID
+}
+
+type Query {
+  concepts(options: Options = { page: 1 }): PageConcept
+  # concepts(options: Options = { page: 1 }): [Concept]
+  concept(id: UUID!): Concept
+}
+
+type Mutation {
+  createConcept(input: CreateConcept!): Concept
+  updateConcept(input: UpdateConcept!): Concept
+  deleteConcept(id: UUID!): Concept
+}

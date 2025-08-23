@@ -1,0 +1,40 @@
+type Price {
+  id: UUID
+  amount: Float
+  concept: Concept
+  vendor: Vendor
+  region: Region
+}
+
+type PagePrice {
+  rows: [Price]
+  length: Int
+  pages: Int
+}
+
+input CreatePrice {
+  amount: Float!
+  conceptId: UUID!
+  vendorId: UUID!
+  regionId: UUID!
+}
+
+input UpdatePrice {
+  id: UUID!
+  amount: Float
+  conceptId: UUID
+  vendorId: UUID
+  regionId: UUID
+}
+
+type Query {
+  prices(options: Options = { page: 1 }): PagePrice
+  # prices(options: Options = { page: 1 }): [Price]
+  price(id: UUID!): Price
+}
+
+type Mutation {
+  createPrice(input: CreatePrice!): Price
+  updatePrice(input: UpdatePrice!): Price
+  deletePrice(id: UUID!): Price
+}
