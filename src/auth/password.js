@@ -1,11 +1,16 @@
 import argon2 from 'argon2';
+
+const secret = process.env.ARGOM2_SECRET;
+
 /**
  *
  * @param {string} password
  */
 export async function hashPassword(password) {
   try {
-    const hash = await argon2.hash(password);
+    const hash = await argon2.hash(password, {
+      secret: Buffer.from(secret),
+    });
 
     return hash;
   } catch (err) {
@@ -21,7 +26,9 @@ export async function hashPassword(password) {
  */
 export async function verifyPassword(password, hash) {
   try {
-    const verified = await argon2.verify(hash, password);
+    const verified = await argon2.verify(hash, password, {
+      secret: Buffer.from(secret),
+    });
 
     return verified;
   } catch (err) {
