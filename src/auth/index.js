@@ -213,6 +213,8 @@ export function addAuditHooksToModel(model, associations = []) {
     const changedFields = instance.changed();
     let newData = {};
 
+    console.log(changedFields);
+
     if (Array.isArray(changedFields)) {
       for (const field of changedFields || []) {
         const association = associations.find(
@@ -226,6 +228,9 @@ export function addAuditHooksToModel(model, associations = []) {
               attributes: association.attributes,
             },
           );
+
+          console.log(relatedData[field].toJSON());
+          console.log(relatedData[field].toJSON());
 
           const property = association.field.slice(0, -2);
           newData[property] = relatedData[field];
