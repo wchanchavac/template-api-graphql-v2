@@ -92,6 +92,8 @@ export async function verifyToken(req) {
 export async function getSession(req) {
   const decoded = await verifyToken(req);
 
+  // const organizationId = req.headers['x-organization-id'];
+
   const user = await User.findByPk(decoded.sub);
 
   if (!user) {
@@ -106,6 +108,10 @@ export async function getSession(req) {
 
   return {
     decoded,
+    userData: {
+      id: userData.id,
+      name: userData.name,
+    },
     createdData: {
       organizationId: userData.organizationId,
       createdBy: userData.id,
@@ -143,6 +149,7 @@ export function addAuditHooksToModel(model, associations = []) {
    * @param {import('sequelize').Options} options
    */
   model.addHook('afterCreate', async (instance, options) => {
+    const { createdBy = {} } = options || {};
     const transaction = options.transaction || null;
     const relatedData = {};
 
@@ -181,7 +188,7 @@ export function addAuditHooksToModel(model, associations = []) {
           entityId: instance.dataValues.id,
           newData,
           previousData: {},
-          createdBy: {},
+          createdBy,
         },
         { transaction },
       );
@@ -205,6 +212,7 @@ export function addAuditHooksToModel(model, associations = []) {
 
   // Hook for updates
   model.addHook('beforeUpdate', async (instance, options) => {
+    const { createdBy = {} } = options || {};
     const transaction = options.transaction || null;
     const previousData = instance._previousDataValues;
     const relatedData = {};
@@ -249,7 +257,7 @@ export function addAuditHooksToModel(model, associations = []) {
         previousData: {
           ...previousData,
         },
-        createdBy: {},
+        createdBy,
       });
     } catch (error) {
       console.error(error);
@@ -258,12 +266,14 @@ export function addAuditHooksToModel(model, associations = []) {
         entity: table,
         entityId: instance.dataValues.id,
         error: error.message,
+        createdBy,
       });
     }
   });
 
   // Hook for deletions
   model.addHook('beforeDestroy', async (instance, options) => {
+    const { createdBy = {} } = options || {};
     const transaction = options.transaction || null;
     const relatedData = {};
 
@@ -276,7 +286,7 @@ export function addAuditHooksToModel(model, associations = []) {
         entityId: instance.dataValues.id,
         previousData: {},
         newData: {},
-        createdBy: {},
+        createdBy,
       });
     } catch (error) {
       console.error(error);
@@ -287,7 +297,7 @@ export function addAuditHooksToModel(model, associations = []) {
         error: error.message,
         previousData: {},
         newData: {},
-        createdBy: {},
+        createdBy,
       });
     }
 

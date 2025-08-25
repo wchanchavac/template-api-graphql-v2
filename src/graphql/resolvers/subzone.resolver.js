@@ -26,7 +26,12 @@ export default {
     async createSubzone(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Subzone.create({ ...session.createdData, ...input });
+      return await db.Subzone.create(
+        { ...session.createdData, ...input },
+        {
+          createdBy: session.userData,
+        },
+      );
     },
     async updateSubzone(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -40,7 +45,9 @@ export default {
             code: 'NOT_FOUND',
           },
         });
-      await data.update(input);
+      await data.update(input, {
+        createdBy: session.userData,
+      });
       return data;
     },
     async deleteSubzone(obj, { id }, { db, req }) {
@@ -53,7 +60,9 @@ export default {
             code: 'NOT_FOUND',
           },
         });
-      await data.destroy();
+      await data.destroy({
+        createdBy: session.userData,
+      });
 
       return data;
     },

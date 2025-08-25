@@ -40,7 +40,12 @@ export default {
     async createUser(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.User.create({ ...session.createdData, ...input });
+      return await db.User.create(
+        { ...session.createdData, ...input },
+        {
+          createdBy: session.userData,
+        },
+      );
     },
     async updateUser(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -54,7 +59,9 @@ export default {
             code: 'NOT_FOUND',
           },
         });
-      await data.update(input);
+      await data.update(input, {
+        createdBy: session.userData,
+      });
       return data;
     },
     async deleteUser(obj, { id }, { db, req }) {
@@ -67,7 +74,9 @@ export default {
             code: 'NOT_FOUND',
           },
         });
-      await data.destroy();
+      await data.destroy({
+        createdBy: session.userData,
+      });
 
       return data;
     },
