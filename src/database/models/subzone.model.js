@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
+import { addAuditHooksToModel } from '#auth';
 
 class Subzone extends BaseModel {
   static associate(models) {
@@ -16,6 +17,21 @@ class Subzone extends BaseModel {
         allowNull: false,
       },
     });
+  }
+
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.Subzone, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Zone,
+        field: 'zoneId',
+        attributes: ['id', 'name'],
+      },
+    ]);
   }
 }
 

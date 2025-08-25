@@ -148,7 +148,28 @@ export function addAuditHooksToModel(model, associations = []) {
 
     const table = model.getTableName();
 
-    // const entity = table.charAt(0).toUpperCase() + table.slice(1);
+    const changedFields = instance.changed();
+    let newData = {};
+
+    if (Array.isArray(changedFields)) {
+      for (const field of changedFields || []) {
+        const association = associations.find(
+          (association) => association.field === field,
+        );
+
+        if (association) {
+          relatedData[field] = await association.model.findByPk(
+            instance[field],
+            association.attributes,
+          );
+
+          const property = association.field.slice(0, -2);
+          newData[property] = relatedData[field];
+        }
+
+        newData[field] = instance.dataValues[field];
+      }
+    }
 
     try {
       await AuditLog.create(
@@ -156,9 +177,7 @@ export function addAuditHooksToModel(model, associations = []) {
           event: 'CREATE',
           entity: table,
           entityId: instance.dataValues.id,
-          newData: {
-            ...instance.dataValues,
-          },
+          newData,
           previousData: {},
           createdBy: {},
         },
@@ -189,15 +208,35 @@ export function addAuditHooksToModel(model, associations = []) {
     const relatedData = {};
 
     const table = model.getTableName();
+    const changedFields = instance.changed();
+    let newData = {};
+
+    if (Array.isArray(changedFields)) {
+      for (const field of changedFields || []) {
+        const association = associations.find(
+          (association) => association.field === field,
+        );
+
+        if (association) {
+          relatedData[field] = await association.model.findByPk(
+            instance[field],
+            association.attributes,
+          );
+
+          const property = association.field.slice(0, -2);
+          newData[property] = relatedData[field];
+        }
+
+        newData[field] = instance.dataValues[field];
+      }
+    }
 
     try {
       await AuditLog.create({
         event: 'UPDATE',
         entity: table,
         entityId: instance.dataValues.id,
-        newData: {
-          ...instance.dataValues,
-        },
+        newData,
         previousData: {
           ...previousData,
         },
@@ -226,9 +265,8 @@ export function addAuditHooksToModel(model, associations = []) {
         event: 'DELETE',
         entity: table,
         entityId: instance.dataValues.id,
-        previousData: {
-          ...instance.dataValues,
-        },
+        previousData: {},
+        newData: {},
         createdBy: {},
       });
     } catch (error) {
@@ -238,9 +276,8 @@ export function addAuditHooksToModel(model, associations = []) {
         entity: table,
         entityId: instance.dataValues.id,
         error: error.message,
-        previousData: {
-          ...instance.dataValues,
-        },
+        previousData: {},
+        newData: {},
         createdBy: {},
       });
     }
