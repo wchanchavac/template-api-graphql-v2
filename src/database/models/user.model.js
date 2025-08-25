@@ -49,10 +49,10 @@ User.init(
     paranoid: true,
     defaultScope: {
       attributes: {
-        exclude: ['updatedAt', 'deletedAt'],
+        exclude: ['updatedAt', 'deletedAt', 'password'],
       },
     },
-    scopes: {},
+    // scopes: {},
     /*indexes: [
 				{
 					fields: [ "organizationId"],

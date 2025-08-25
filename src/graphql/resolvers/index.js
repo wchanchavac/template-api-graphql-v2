@@ -17,6 +17,10 @@ import {
 
 import areaResolver from '#resolvers/area.resolver';
 import countryResolver from '#resolvers/country.resolver';
+import currencyResolver from '#resolvers/currency.resolver';
+import conceptResolver from '#resolvers/concept.resolver';
+import priceResolver from '#resolvers/price.resolver';
+import processResolver from '#resolvers/process.resolver';
 import departmentResolver from '#resolvers/department.resolver';
 import globalResolver from '#resolvers/global.resolver';
 import jobResolver from '#resolvers/job.resolver';
@@ -40,6 +44,10 @@ import zoneResolver from '#resolvers/zone.resolver';
 const resolversArray = [
   areaResolver,
   countryResolver,
+  currencyResolver,
+  conceptResolver,
+  processResolver,
+  priceResolver,
   departmentResolver,
   globalResolver,
   jobResolver,

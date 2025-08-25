@@ -25,7 +25,16 @@ export default {
     async createCurrency(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.Currency.create({ ...session.createdData, ...input });
+      try {
+        return await db.Currency.create({ ...session.createdData, ...input });
+      } catch (error) {
+        console.error(error);
+        throw new GraphQLError(error.message, {
+          extensions: {
+            code: 'INTERNAL_SERVER_ERROR',
+          },
+        });
+      }
     },
     async updateCurrency(obj, { input }, { db, req }) {
       const session = await getSession(req);

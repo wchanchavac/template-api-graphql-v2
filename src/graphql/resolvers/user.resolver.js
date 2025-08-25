@@ -7,7 +7,7 @@ export default {
     async me(obj, { options }, { db, req }) {
       const session = await getSession(req);
 
-      const user = await db.User.findByPk(session.sub);
+      const user = await db.User.findByPk(session.userData.id);
 
       if (!user)
         throw new GraphQLError('Unauthorized', {
