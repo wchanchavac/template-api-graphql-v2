@@ -5,12 +5,16 @@ class BaseModel extends Model {
    *
    * @param {number} limit
    * @param {number} page
-   * @returns {{offset: number, limit: number}}
+   * @returns {{offset: number, limit: number} | {}}
    */
   static setPagination(limit = 10, page = 1) {
+    if (limit === -1) {
+      return {};
+    }
+
     return {
-      offset: (page - 1) * limit,
-      limit,
+      offset: page === Infinity ? 0 : (page - 1) * limit,
+      limit: limit <= 100 ? limit : 100,
     };
   }
 
@@ -47,7 +51,7 @@ class BaseModel extends Model {
       ...rest,
     });
 
-    const pages = Math.ceil(count / limit);
+    const pages = limit === -1 ? 1 : Math.ceil(count / limit);
 
     return { count, rows, pages };
   }

@@ -27,6 +27,7 @@
     "generate:secret": "node ./src/shared/generate-secrets.js",
     "generate:project": "bunx @satelite/engineer-cli@latest build && bunx run prettier",
     "db:seed:all": "node --env-file=.env ./node_modules/.bin/sequelize-cli db:seed:all",
+    "db:seed:specific": "node --env-file=.env ./node_modules/.bin/sequelize-cli db:seed --seed ",
     "db:seed:undo:all": "node --env-file=.env ./node_modules/.bin/sequelize-cli db:seed:undo:all"
   },
   "keywords": [],
