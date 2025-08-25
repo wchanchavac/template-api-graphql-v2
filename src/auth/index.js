@@ -160,7 +160,9 @@ export function addAuditHooksToModel(model, associations = []) {
         if (association) {
           relatedData[field] = await association.model.findByPk(
             instance[field],
-            association.attributes,
+            {
+              attributes: association.attributes,
+            },
           );
 
           const property = association.field.slice(0, -2);
@@ -220,7 +222,9 @@ export function addAuditHooksToModel(model, associations = []) {
         if (association) {
           relatedData[field] = await association.model.findByPk(
             instance[field],
-            association.attributes,
+            {
+              attributes: association.attributes,
+            },
           );
 
           const property = association.field.slice(0, -2);
