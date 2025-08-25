@@ -16,7 +16,8 @@ AuditLog.init(
     },
     createdBy: {
       type: DataTypes.JSON,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: {},
     },
     event: {
       type: DataTypes.ENUM,
@@ -25,15 +26,18 @@ AuditLog.init(
     },
     previousData: {
       type: DataTypes.JSON,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: {},
     },
     newData: {
       type: DataTypes.JSON,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: {},
     },
     error: {
       type: DataTypes.JSON,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: {},
     },
     entity: {
       type: DataTypes.STRING,

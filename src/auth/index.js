@@ -2,7 +2,9 @@ import { GraphQLError } from 'graphql';
 import { importPKCS8, importSPKI, jwtVerify, SignJWT } from 'jose';
 import { hashPassword, verifyPassword } from '#auth/password';
 import User from '#models/user.model';
-import AuditLog from '#models/auditLog.model';
+import AuditLog from '#database/models/audit.model';
+import { Model } from 'sequelize';
+// import AuditLog from '#models/';
 
 const issuer = process.env.ISSUER;
 const audience = process.env.AUDIENCE;
@@ -131,51 +133,120 @@ export function addAuthMethodsToModel(model, options = { field: 'password' }) {
   });
 }
 
-export function addAuditHooksToModel(model) {
-  // Hook for creation
+/**
+ * @param {import('sequelize').Model} model
+ * @param {import('sequelize').Association<Model<any, any>, Model<any, any>>[]} associations
+ */
+export function addAuditHooksToModel(model, associations = []) {
+  /**
+   * @param {import('sequelize').Model} instance
+   * @param {import('sequelize').Options} options
+   */
   model.addHook('afterCreate', async (instance, options) => {
     const transaction = options.transaction || null;
-    await AuditLog.create(
-      {
+    const relatedData = {};
+
+    const table = model.getTableName();
+
+    // const entity = table.charAt(0).toUpperCase() + table.slice(1);
+
+    try {
+      await AuditLog.create(
+        {
+          event: 'CREATE',
+          entity: table,
+          entityId: instance.dataValues.id,
+          newData: {
+            ...instance.dataValues,
+          },
+          previousData: {},
+          createdBy: {},
+        },
+        { transaction },
+      );
+    } catch (error) {
+      console.error(error);
+      await AuditLog.create({
         event: 'CREATE',
-        entity: model.name,
-        entityId: instance.id,
-        newData: instance.toJSON(),
-        createdBy: options.user ? options.user.id : null,
-      },
-      { transaction },
-    );
+        entity: table,
+        entityId: instance.dataValues.id,
+        error: error.message,
+        createdBy: {},
+        newData: {
+          ...instance.dataValues,
+        },
+        previousData: {},
+      });
+    }
+
+    return instance;
   });
 
   // Hook for updates
   model.addHook('beforeUpdate', async (instance, options) => {
     const transaction = options.transaction || null;
     const previousData = instance._previousDataValues;
-    await AuditLog.create(
-      {
+    const relatedData = {};
+
+    const table = model.getTableName();
+
+    try {
+      await AuditLog.create({
         event: 'UPDATE',
-        entity: model.name,
-        entityId: instance.id,
-        previousData: previousData,
-        newData: instance.toJSON(),
-        createdBy: options.user ? options.user.id : null,
-      },
-      { transaction },
-    );
+        entity: table,
+        entityId: instance.dataValues.id,
+        newData: {
+          ...instance.dataValues,
+        },
+        previousData: {
+          ...previousData,
+        },
+        createdBy: {},
+      });
+    } catch (error) {
+      console.error(error);
+      await AuditLog.create({
+        event: 'UPDATE',
+        entity: table,
+        entityId: instance.dataValues.id,
+        error: error.message,
+      });
+    }
   });
 
   // Hook for deletions
   model.addHook('beforeDestroy', async (instance, options) => {
     const transaction = options.transaction || null;
-    await AuditLog.create(
-      {
+    const relatedData = {};
+
+    const table = model.getTableName();
+
+    try {
+      await AuditLog.create({
         event: 'DELETE',
-        entity: model.name,
-        entityId: instance.id,
-        previousData: instance.toJSON(),
-        createdBy: options.user ? options.user.id : null,
-      },
-      { transaction },
-    );
+        entity: table,
+        entityId: instance.dataValues.id,
+        previousData: {
+          ...instance.dataValues,
+        },
+        createdBy: {},
+      });
+    } catch (error) {
+      console.error(error);
+      await AuditLog.create({
+        event: 'DELETE',
+        entity: table,
+        entityId: instance.dataValues.id,
+        error: error.message,
+        previousData: {
+          ...instance.dataValues,
+        },
+        createdBy: {},
+      });
+    }
+
+    return instance;
   });
+
+  return model;
 }

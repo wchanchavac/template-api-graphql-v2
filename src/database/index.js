@@ -58,9 +58,15 @@ for (const key in db) {
     if (entity.associate) {
       entity.associate(db);
     }
+
+    if (entity.addAuditHooks) {
+      entity.addAuditHooks(db);
+    }
   }
 }
 
 await sequelize.sync();
+
+// console.log(sequelize.models);
 
 export default db;
