@@ -1,6 +1,10 @@
 import { GraphQLError } from 'graphql';
 import { importPKCS8, importSPKI, jwtVerify, SignJWT } from 'jose';
-import { hashPassword, verifyPassword } from '#auth/password';
+import {
+  hashPassword,
+  hashPasswordDeterministic,
+  verifyPassword,
+} from '#auth/password';
 import User from '#models/user.model';
 import AuditLog from '#database/models/audit.model';
 import { Model } from 'sequelize';
@@ -136,6 +140,20 @@ export function addAuthMethodsToModel(model, options = { field: 'password' }) {
   model.addHook('beforeSave', async (instance) => {
     if (instance.changed(options.field)) {
       instance[options.field] = await hashPassword(instance[options.field]);
+    }
+  });
+}
+
+export function addDeterministicAuthMethodsToModel(
+  model,
+  options = { field: 'password' },
+) {
+  // Hook para hashear el password antes de crear o actualizar
+  model.addHook('beforeSave', async (instance) => {
+    if (instance.changed(options.field)) {
+      instance[options.field] = await hashPasswordDeterministic(
+        instance[options.field],
+      );
     }
   });
 }

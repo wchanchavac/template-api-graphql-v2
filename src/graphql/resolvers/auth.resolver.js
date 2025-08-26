@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { Op } from 'sequelize';
 import { GraphQLError } from 'graphql';
 import { sendPasswordResetEmail } from '#config/nodemailer';
+import { hashPasswordDeterministic } from '#auth/password';
 
 export default {
   Mutation: {
@@ -66,9 +67,12 @@ export default {
 
     validatePasswordResetToken: async (_, { token }, { db }) => {
       const now = new Date();
+
+      const tmpToken = hashPasswordDeterministic(token);
+
       const resetToken = await db.PasswordResetToken.findOne({
         where: {
-          token,
+          token: tmpToken,
           usedAt: null,
         },
       });
@@ -99,9 +103,11 @@ export default {
       const { token, password } = input;
       const now = new Date();
 
+      const tmpToken = hashPasswordDeterministic(token);
+
       const resetToken = await db.PasswordResetToken.findOne({
         where: {
-          token,
+          token: tmpToken,
           usedAt: null,
         },
         include: [db.User],

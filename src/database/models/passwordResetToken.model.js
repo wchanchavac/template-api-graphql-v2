@@ -1,4 +1,4 @@
-import { addAuthMethodsToModel } from '#auth';
+import { addDeterministicAuthMethodsToModel } from '#auth';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { DataTypes } from 'sequelize';
@@ -57,6 +57,6 @@ PasswordResetToken.init(
   },
 );
 
-addAuthMethodsToModel(PasswordResetToken, { field: 'token' });
+addDeterministicAuthMethodsToModel(PasswordResetToken, { field: 'token' });
 
 export default PasswordResetToken;

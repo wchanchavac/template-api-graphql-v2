@@ -1,4 +1,5 @@
 import argon2 from 'argon2';
+import crypto from 'crypto';
 
 const secret = process.env.ARGOM2_SECRET;
 
@@ -35,4 +36,15 @@ export async function verifyPassword(password, hash) {
     console.error(err);
     throw new Error('Failed to verify password');
   }
+}
+
+/**
+ *
+ * @param {string} password
+ */
+export async function hashPasswordDeterministic(password) {
+  return crypto
+    .createHash('sha256')
+    .update(password + process.env.TOKEN_SECRET)
+    .digest('hex');
 }
