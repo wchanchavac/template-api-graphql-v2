@@ -1,6 +1,7 @@
 type Organization {
   id: UUID
   name: String
+  image: URL
   # users: [User]
   # countries: [Country]
 }
@@ -13,6 +14,7 @@ type PageOrganization {
 
 input CreateOrganization {
   name: String!
+  image: URL!
   # users: [UUID]
   # countries: [UUID]
 }
@@ -20,6 +22,7 @@ input CreateOrganization {
 input UpdateOrganization {
   id: UUID!
   name: String
+  image: URL
   # users: [UUID]
   # countries: [UUID]
 }
