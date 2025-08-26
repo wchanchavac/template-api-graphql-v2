@@ -132,7 +132,7 @@ export function addAuthMethodsToModel(model, options = { field: 'password' }) {
 
   // Método de instancia para cambiar el password
   model.prototype.changePassword = async function (newPassword) {
-    this[options.field] = await hashPassword(newPassword);
+    this[options.field] = newPassword;
     await this.save();
   };
 
