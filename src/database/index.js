@@ -23,6 +23,7 @@ import Organization from '#models/organization.model';
 import Price from '#models/price.model';
 import Concept from '#models/concept.model';
 import Process from '#models/process.model';
+import PasswordResetToken from '#models/passwordResetToken.model';
 
 const db = {
   Country,
@@ -49,6 +50,7 @@ const db = {
   Speciality,
   User,
   Organization,
+  PasswordResetToken,
   sequelize,
 };
 

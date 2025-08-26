@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { Op } from 'sequelize';
 import { GraphQLError } from 'graphql';
+import { sendPasswordResetEmail } from '#config/nodemailer';
 
 export default {
   Mutation: {
@@ -50,8 +51,10 @@ export default {
         requestAgent,
       });
 
-      // Here you would typically send an email with the token.
-      // e.g., sendPasswordResetEmail(user.email, token);
+      // Send password reset email
+      const resetUrl =
+        process.env.FRONTEND_URL || 'http://localhost:3000/reset-password';
+      await sendPasswordResetEmail(user.email, token, resetUrl);
 
       return {
         code: 'PASSWORD_RESET_REQUESTED',
