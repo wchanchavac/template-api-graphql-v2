@@ -1,0 +1,24 @@
+type Mutation {
+  requestPasswordReset(email: EmailAddress!): RequestPasswordResetPayload
+  validatePasswordResetToken(token: String!): ValidatePasswordResetTokenPayload
+  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload
+}
+
+input ResetPasswordInput {
+  token: String!
+  password: String!
+}
+
+type RequestPasswordResetPayload {
+  success: Boolean!
+  message: String
+}
+
+type ValidatePasswordResetTokenPayload {
+  isValid: Boolean!
+}
+
+type ResetPasswordPayload {
+  success: Boolean!
+  message: String
+}

@@ -16,6 +16,7 @@ import {
 // import path from 'path';
 
 import areaResolver from '#resolvers/area.resolver';
+import authResolver from '#resolvers/auth.resolver';
 import countryResolver from '#resolvers/country.resolver';
 import currencyResolver from '#resolvers/currency.resolver';
 import conceptResolver from '#resolvers/concept.resolver';
@@ -43,6 +44,7 @@ import zoneResolver from '#resolvers/zone.resolver';
 
 const resolversArray = [
   areaResolver,
+  authResolver,
   countryResolver,
   currencyResolver,
   conceptResolver,

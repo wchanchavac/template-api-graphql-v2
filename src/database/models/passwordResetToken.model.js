@@ -1,7 +1,7 @@
-import { DataTypes } from 'sequelize';
+import { addAuthMethodsToModel } from '#auth';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
-import User from '#models/user.model';
+import { DataTypes } from 'sequelize';
 
 class PasswordResetToken extends BaseModel {
   static associate(models) {
@@ -56,5 +56,7 @@ PasswordResetToken.init(
     scopes: {},
   },
 );
+
+addAuthMethodsToModel(PasswordResetToken, { field: 'token' });
 
 export default PasswordResetToken;
