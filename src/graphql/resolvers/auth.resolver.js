@@ -53,7 +53,8 @@ export default {
 
       // Send password reset email
       const resetUrl =
-        process.env.FRONTEND_URL || 'http://localhost:3000/reset-password';
+        process.env.APP_RESET_PASSWORD_URL ||
+        'http://localhost:3000/reset-password';
       await sendPasswordResetEmail(user.email, token, resetUrl);
 
       return {
