@@ -17,7 +17,6 @@ type RequestPasswordResetPayload {
 type ValidatePasswordResetTokenPayload {
   code: String!
   message: String!
-  isValid: Boolean!
 }
 
 type ResetPasswordPayload {

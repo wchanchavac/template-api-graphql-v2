@@ -151,7 +151,7 @@ export function addDeterministicAuthMethodsToModel(
   // Hook para hashear el password antes de crear o actualizar
   model.addHook('beforeSave', async (instance) => {
     if (instance.changed(options.field)) {
-      instance[options.field] = await hashPasswordDeterministic(
+      instance[options.field] = hashPasswordDeterministic(
         instance[options.field],
       );
     }

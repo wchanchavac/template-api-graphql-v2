@@ -42,7 +42,7 @@ export async function verifyPassword(password, hash) {
  *
  * @param {string} password
  */
-export async function hashPasswordDeterministic(password) {
+export function hashPasswordDeterministic(password) {
   return crypto
     .createHash('sha256')
     .update(password + process.env.TOKEN_SECRET)
