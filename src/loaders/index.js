@@ -18,6 +18,9 @@ import statusLoader from '#loaders/status.loader';
 import specialityLoader from '#loaders/speciality.loader';
 import userLoader from '#loaders/user.loader';
 import organizationLoader from '#loaders/organization.loader';
+import currencyLoader from '#loaders/currency.loader';
+import processLoader from '#loaders/process.loader';
+import priceLoader from '#loaders/price.loader';
 
 export {
   countryLoader,
@@ -40,4 +43,7 @@ export {
   specialityLoader,
   userLoader,
   organizationLoader,
+  currencyLoader,
+  processLoader,
+  priceLoader,
 };

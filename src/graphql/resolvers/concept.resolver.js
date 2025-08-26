@@ -1,5 +1,12 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
+import {
+  currencyLoader,
+  measurementUnitLoader,
+  processLoader,
+  serviceLoader,
+  serviceTypeLoader,
+} from '#loaders';
 
 export default {
   Query: {
@@ -57,5 +64,21 @@ export default {
       return data;
     },
   },
-  Concept: {},
+  Concept: {
+    async process(obj, args, { db, req }) {
+      return await processLoader.load(obj.processId);
+    },
+    async serviceType(obj, args, { db, req }) {
+      return await serviceTypeLoader.load(obj.serviceTypeId);
+    },
+    async service(obj, args, { db, req }) {
+      return await serviceLoader.load(obj.serviceId);
+    },
+    async measurementUnit(obj, args, { db, req }) {
+      return await measurementUnitLoader.load(obj.measurementUnitId);
+    },
+    async currency(obj, args, { db, req }) {
+      return await currencyLoader.load(obj.currencyId);
+    },
+  },
 };

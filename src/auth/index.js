@@ -111,6 +111,7 @@ export async function getSession(req) {
     userData: {
       id: userData.id,
       name: userData.name,
+      email: userData.email,
     },
     createdData: {
       organizationId: userData.organizationId,
