@@ -10,15 +10,17 @@ input ResetPasswordInput {
 }
 
 type RequestPasswordResetPayload {
-  success: Boolean!
-  message: String
+  code: String!
+  message: String!
 }
 
 type ValidatePasswordResetTokenPayload {
+  code: String!
+  message: String!
   isValid: Boolean!
 }
 
 type ResetPasswordPayload {
-  success: Boolean!
-  message: String
+  code: String!
+  message: String!
 }

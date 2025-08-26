@@ -1,23 +1,24 @@
 import crypto from 'crypto';
 import { Op } from 'sequelize';
-import { User, PasswordResetToken } from '#database/models';
+import { GraphQLError } from 'graphql';
 
 export default {
   Mutation: {
-    requestPasswordReset: async (_, { email }, { req }) => {
-      const user = await User.findOne({ where: { email } });
+    requestPasswordReset: async (_, { email }, { db, req }) => {
+      const user = await db.User.findOne({ where: { email } });
 
       if (!user) {
         return {
-          success: true,
-          message: 'Your password has been generated.',
+          code: 'SUCCESS',
+          message:
+            'If an account with this email exists, a password reset link has been sent.',
         };
       }
 
       const now = new Date();
       const fiveMinutesFromNow = new Date(now.getTime() + 5 * 60 * 1000);
 
-      const existingToken = await PasswordResetToken.findOne({
+      const existingToken = await db.PasswordResetToken.findOne({
         where: {
           userId: user.id,
           expiratedAt: {
@@ -29,8 +30,9 @@ export default {
 
       if (existingToken) {
         return {
-          success: true,
-          message: 'Your password has been generated.',
+          code: 'SUCCESS',
+          message:
+            'If an account with this email exists, a password reset link has been sent.',
         };
       }
 
@@ -40,7 +42,7 @@ export default {
         req.headers['x-forwarded-for'] || req.socket.remoteAddress;
       const requestAgent = req.headers['user-agent'];
 
-      await PasswordResetToken.create({
+      await db.PasswordResetToken.create({
         token,
         userId: user.id,
         expiratedAt: thirtyMinutesFromNow,
@@ -52,48 +54,77 @@ export default {
       // e.g., sendPasswordResetEmail(user.email, token);
 
       return {
-        success: true,
-        message: 'Your password has been generated.',
+        code: 'SUCCESS',
+        message:
+          'If an account with this email exists, a password reset link has been sent.',
       };
     },
 
-    validatePasswordResetToken: async (_, { token }) => {
+    validatePasswordResetToken: async (_, { token }, { db }) => {
       const now = new Date();
-      const resetToken = await PasswordResetToken.findOne({
+      const resetToken = await db.PasswordResetToken.findOne({
         where: {
           token,
-          expiratedAt: {
-            [Op.gt]: now,
-          },
           usedAt: null,
         },
       });
 
+      if (!resetToken) {
+        throw new GraphQLError('Token does not exist.', {
+          extensions: {
+            code: 'TOKEN_NOT_FOUND',
+          },
+        });
+      }
+
+      if (resetToken.expiratedAt <= now) {
+        throw new GraphQLError('Token has expired.', {
+          extensions: {
+            code: 'TOKEN_EXPIRED',
+          },
+        });
+      }
+
       return {
-        isValid: !!resetToken,
+        code: 'SUCCESS',
+        message: 'Token is valid.',
       };
     },
 
-    resetPassword: async (_, { input }) => {
+    resetPassword: async (_, { input }, { db }) => {
       const { token, password } = input;
       const now = new Date();
 
-      const resetToken = await PasswordResetToken.findOne({
+      const resetToken = await db.PasswordResetToken.findOne({
         where: {
           token,
-          expiratedAt: {
-            [Op.gt]: now,
-          },
           usedAt: null,
         },
-        include: [User],
+        include: [db.User],
       });
 
-      if (!resetToken || !resetToken.user) {
-        return {
-          success: false,
-          message: 'Token is invalid or has expired.',
-        };
+      if (!resetToken) {
+        throw new GraphQLError('Token does not exist.', {
+          extensions: {
+            code: 'TOKEN_NOT_FOUND',
+          },
+        });
+      }
+
+      if (resetToken.expiratedAt <= now) {
+        throw new GraphQLError('Token has expired.', {
+          extensions: {
+            code: 'TOKEN_EXPIRED',
+          },
+        });
+      }
+
+      if (!resetToken.user) {
+        throw new GraphQLError('Token is not associated with a valid user.', {
+          extensions: {
+            code: 'INVALID_TOKEN',
+          },
+        });
       }
 
       const user = resetToken.user;
@@ -103,7 +134,7 @@ export default {
       await resetToken.save();
 
       return {
-        success: true,
+        code: 'SUCCESS',
         message: 'Password has been reset successfully.',
       };
     },
