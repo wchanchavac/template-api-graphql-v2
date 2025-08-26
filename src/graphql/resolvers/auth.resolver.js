@@ -9,7 +9,7 @@ export default {
 
       if (!user) {
         return {
-          code: 'SUCCESS',
+          code: 'PASSWORD_RESET_REQUESTED',
           message:
             'If an account with this email exists, a password reset link has been sent.',
         };
@@ -30,7 +30,7 @@ export default {
 
       if (existingToken) {
         return {
-          code: 'SUCCESS',
+          code: 'PASSWORD_RESET_REQUESTED',
           message:
             'If an account with this email exists, a password reset link has been sent.',
         };
@@ -54,7 +54,7 @@ export default {
       // e.g., sendPasswordResetEmail(user.email, token);
 
       return {
-        code: 'SUCCESS',
+        code: 'PASSWORD_RESET_REQUESTED',
         message:
           'If an account with this email exists, a password reset link has been sent.',
       };
@@ -86,7 +86,7 @@ export default {
       }
 
       return {
-        code: 'SUCCESS',
+        code: 'TOKEN_VALID',
         message: 'Token is valid.',
       };
     },
@@ -134,7 +134,7 @@ export default {
       await resetToken.save();
 
       return {
-        code: 'SUCCESS',
+        code: 'PASSWORD_RESET_COMPLETED',
         message: 'Password has been reset successfully.',
       };
     },

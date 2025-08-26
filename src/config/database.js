@@ -21,6 +21,7 @@ const config = {
     acquire: 30000,
     idle: 10000,
   },
+  timezone: '+00:00',
 };
 
 const { database, username, password, ...configWithoutCredentials } = config;
