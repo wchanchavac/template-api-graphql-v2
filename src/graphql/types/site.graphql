@@ -14,8 +14,9 @@ type Site {
   serviceNumber: String
   manager: User
   analyst: User
-  vendors: [Vendor]
+  # vendors: [Vendor]
   technologies: [SiteTechnology]
+  vendors: [SiteVendor]
 }
 
 type PageSite {

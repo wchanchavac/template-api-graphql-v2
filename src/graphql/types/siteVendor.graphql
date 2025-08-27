@@ -1,0 +1,38 @@
+type SiteVendor {
+  id: UUID
+  isDefault: Boolean
+  #   site: Site
+  vendor: Vendor
+  #   organization: Organization
+  #   createdAt: DateTime
+}
+
+type PageSiteVendor {
+  rows: [SiteVendor]
+  length: Int
+  pages: Int
+}
+
+input CreateSiteVendor {
+  isDefault: Boolean
+  siteId: UUID!
+  vendorId: UUID!
+}
+
+input UpdateSiteVendor {
+  id: UUID!
+  isDefault: Boolean
+  siteId: UUID
+  vendorId: UUID
+}
+
+type Query {
+  siteVendors(options: Options = { page: 1 }): PageSiteVendor
+  siteVendor(id: UUID!): SiteVendor
+}
+
+type Mutation {
+  createSiteVendor(input: CreateSiteVendor!): SiteVendor
+  updateSiteVendor(input: UpdateSiteVendor!): SiteVendor
+  deleteSiteVendor(id: UUID!): SiteVendor
+}

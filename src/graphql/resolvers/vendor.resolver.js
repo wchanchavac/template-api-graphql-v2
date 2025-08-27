@@ -1,5 +1,6 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
+import { siteVendorByVendorLoader } from '#loaders';
 
 export default {
   Query: {
@@ -57,5 +58,9 @@ export default {
       return data;
     },
   },
-  Vendor: {},
+  Vendor: {
+    // async siteVendors(vendor, { options }, { db, literal }) {
+    //   return await siteVendorByVendorLoader.load(vendor.id);
+    // },
+  },
 };

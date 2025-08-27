@@ -8,6 +8,7 @@ import {
   stateLoader,
   siteTechnologyLoader,
   siteTechnologyBySiteLoader,
+  siteVendorBySiteLoader,
 } from '#loaders';
 
 export default {
@@ -92,6 +93,9 @@ export default {
       const data = await siteTechnologyBySiteLoader.load(site.id);
       console.log('data', data);
       return data;
+    },
+    async vendors(site, { options }, { db, literal }) {
+      return await siteVendorBySiteLoader.load(site.id);
     },
   },
 };

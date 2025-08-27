@@ -6,9 +6,9 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     // const salt = await bcrypt.genSalt(10);
     // const hashedPassword = await bcrypt.hash('password', salt);
-    const processId = uuidv4();
-    const processId2 = uuidv4();
-    const processId3 = uuidv4();
+    const processId = '5dad4da5-a13b-4283-9754-c0d911379f68';
+    const processId2 = 'b053c9ae-58ba-4848-8582-3c162eb54b42';
+    const processId3 = 'af194a73-f581-4b04-8802-b0c1aeea332b';
 
     const processes = [
       {

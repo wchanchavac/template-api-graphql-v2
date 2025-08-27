@@ -21,7 +21,7 @@ input CreateSupportTicket {
   origin: String!
   description: String!
   processId: UUID!
-  stageId: UUID!
+  # stageId: UUID!
   siteId: UUID!
   vendorId: UUID!
 }

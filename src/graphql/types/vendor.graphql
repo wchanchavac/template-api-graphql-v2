@@ -7,6 +7,7 @@ type Vendor {
   phones: [String]
   image: String
   isActive: Boolean
+  # siteVendors: [SiteVendor]
 }
 
 type PageVendor {

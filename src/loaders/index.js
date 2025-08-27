@@ -29,6 +29,9 @@ import stageLoader from '#loaders/stage.loader';
 import supportTicketLoader from '#loaders/supportTicket.loader';
 import quoteLoader from '#loaders/quote.loader';
 import quoteBySiteLoader from '#loaders/quote_by_site.loader';
+import siteVendorLoader from '#loaders/siteVendor.loader';
+import siteVendorBySiteLoader from '#loaders/site_vendor_by_site.loader';
+import siteVendorByVendorLoader from '#loaders/site_vendor_by_vendor.loader';
 
 export {
   countryLoader,
@@ -62,4 +65,7 @@ export {
   supportTicketLoader,
   quoteLoader,
   quoteBySiteLoader,
+  siteVendorLoader,
+  siteVendorBySiteLoader,
+  siteVendorByVendorLoader,
 };

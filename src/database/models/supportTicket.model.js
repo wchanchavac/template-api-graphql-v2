@@ -22,7 +22,7 @@ class SupportTicket extends BaseModel {
     models.SupportTicket.belongsTo(models.Stage, {
       constraints: false,
       foreignKey: {
-        allowNull: false,
+        allowNull: true,
         name: 'stageId',
       },
     });
