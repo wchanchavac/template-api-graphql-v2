@@ -1,5 +1,8 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
+import conceptLoader from '#loaders/concept.loader';
+import vendorLoader from '#loaders/vendor.loader';
+import regionLoader from '#loaders/region.loader';
 
 export default {
   Query: {
@@ -57,5 +60,15 @@ export default {
       return data;
     },
   },
-  Price: {},
+  Price: {
+    async concept(price) {
+      return await conceptLoader.load(price.conceptId);
+    },
+    async vendor(price) {
+      return await vendorLoader.load(price.vendorId);
+    },
+    async region(price) {
+      return await regionLoader.load(price.regionId);
+    },
+  },
 };
