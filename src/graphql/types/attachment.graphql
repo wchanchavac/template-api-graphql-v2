@@ -1,7 +1,7 @@
 type Attachment {
   id: UUID
   name: String
-  type: String
+  mimeType: String
   size: Int
   # comment: Comment
   # organization: Organization
@@ -16,7 +16,7 @@ type PageAttachment {
 
 input CreateAttachment {
   name: String!
-  type: String!
+  mimeType: String!
   size: Int!
   data: String!
   commentId: UUID!
@@ -25,7 +25,7 @@ input CreateAttachment {
 input UpdateAttachment {
   id: UUID!
   name: String
-  type: String
+  mimeType: String
   size: Int
   data: String
   commentId: UUID

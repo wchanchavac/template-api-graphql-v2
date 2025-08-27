@@ -50,7 +50,7 @@ Attachment.init(
       comment: 'File name',
       allowNull: false,
     },
-    type: {
+    mimeType: {
       type: DataTypes.STRING,
       comment: 'File MIME type',
       allowNull: false,
