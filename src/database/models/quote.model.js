@@ -1,6 +1,7 @@
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { DataTypes } from 'sequelize';
+import { addAuditHooksToModel } from '#auth';
 
 class Quote extends BaseModel {
   static associate(models) {
@@ -51,16 +52,62 @@ class Quote extends BaseModel {
       },
     });
 
-    models.Quote.belongsTo(models.Site, {
+    models.Quote.belongsTo(models.Price, {
       constraints: false,
       foreignKey: {
         allowNull: false,
-        name: 'siteId',
+        name: 'priceId',
       },
     });
+
+    // models.Quote.belongsTo(models.Site, {
+    //   constraints: false,
+    //   foreignKey: {
+    //     allowNull: false,
+    //     name: 'siteId',
+    //   },
+    // });
   }
 
-  static addAuditHooks(models) {}
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.Quote, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.SupportTicket,
+        field: 'supportTicketId',
+        attributes: ['id', 'origin', 'description'],
+      },
+      {
+        model: models.ServiceType,
+        field: 'serviceTypeId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Service,
+        field: 'serviceId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Concept,
+        field: 'conceptId',
+        attributes: ['id', 'code', 'description'],
+      },
+      {
+        model: models.MeasurementUnit,
+        field: 'measurementUnitId',
+        attributes: ['id', 'name', 'abbreviation'],
+      },
+      {
+        model: models.Site,
+        field: 'siteId',
+        attributes: ['id', 'name'],
+      },
+    ]);
+  }
 }
 
 Quote.init(
@@ -74,6 +121,7 @@ Quote.init(
     consumedQuantity: {
       type: DataTypes.INTEGER,
       comment: 'Quantity consumed',
+      defaultValue: 0,
       allowNull: false,
     },
     authorizedQuantity: {
@@ -81,7 +129,7 @@ Quote.init(
       comment: 'Quantity authorized',
       allowNull: false,
     },
-    price: {
+    unitPrice: {
       type: DataTypes.FLOAT,
       comment: 'Price per unit',
       allowNull: false,
@@ -90,6 +138,13 @@ Quote.init(
       type: DataTypes.FLOAT,
       comment: 'Total amount',
       allowNull: false,
+      set(value) {
+        this.setDataValue(
+          'amount',
+          this.getDataValue('authorizedQuantity') *
+            this.getDataValue('unitPrice'),
+        );
+      },
     },
     isComplete: {
       type: DataTypes.BOOLEAN,
@@ -103,11 +158,11 @@ Quote.init(
       allowNull: false,
       defaultValue: false,
     },
-    siteId: {
-      type: DataTypes.UUID,
-      comment: 'Site ID reference',
-      allowNull: false,
-    },
+    // siteId: {
+    //   type: DataTypes.UUID,
+    //   comment: 'Site ID reference',
+    //   allowNull: false,
+    // },
   },
   {
     sequelize,

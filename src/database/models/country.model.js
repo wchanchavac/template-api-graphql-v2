@@ -1,9 +1,20 @@
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { DataTypes } from 'sequelize';
+import { addAuditHooksToModel } from '#auth';
 
 class Country extends BaseModel {
   static associate(models) {}
+
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.Country, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+    ]);
+  }
 }
 
 Country.init(

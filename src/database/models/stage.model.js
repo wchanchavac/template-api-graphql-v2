@@ -1,11 +1,20 @@
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { DataTypes } from 'sequelize';
+import { addAuditHooksToModel } from '#auth';
 
 class Stage extends BaseModel {
   static associate(models) {}
 
-  static addAuditHooks(models) {}
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.Stage, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+    ]);
+  }
 }
 
 Stage.init(

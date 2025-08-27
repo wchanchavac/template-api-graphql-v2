@@ -7,6 +7,7 @@ import {
   serviceLoader,
   conceptLoader,
   measurementUnitLoader,
+  siteLoader,
 } from '#loaders';
 
 export default {
@@ -69,12 +70,12 @@ export default {
     },
   },
   Quote: {
-    async organization(quote, { options }, { db, literal }) {
-      return await organizationLoader.load(quote.organizationId);
-    },
-    async supportTicket(quote, { options }, { db, literal }) {
-      return await supportTicketLoader.load(quote.supportTicketId);
-    },
+    // async organization(quote, { options }, { db, literal }) {
+    //   return await organizationLoader.load(quote.organizationId);
+    // },
+    // async supportTicket(quote, { options }, { db, literal }) {
+    //   return await supportTicketLoader.load(quote.supportTicketId);
+    // },
     async serviceType(quote, { options }, { db, literal }) {
       return await serviceTypeLoader.load(quote.serviceTypeId);
     },
@@ -87,8 +88,8 @@ export default {
     async measurementUnit(quote, { options }, { db, literal }) {
       return await measurementUnitLoader.load(quote.measurementUnitId);
     },
-    async site(quote, { options }, { db, literal }) {
-      return await siteLoader.load(quote.siteId);
-    },
+    // async site(quote, { options }, { db, literal }) {
+    //   return await siteLoader.load(quote.siteId);
+    // },
   },
 };

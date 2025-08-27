@@ -2,18 +2,19 @@ type Quote {
   id: UUID
   consumedQuantity: Int
   authorizedQuantity: Int
-  price: Float
+  unitPrice: Float
   amount: Float
   isComplete: Boolean
   isApproved: Boolean
-  organization: Organization
-  supportTicket: SupportTicket
+  # organization: Organization
+  # supportTicket: SupportTicket
   serviceType: ServiceType
   service: Service
   concept: Concept
   measurementUnit: MeasurementUnit
-  site: Site
-  createdAt: DateTime
+  # site: Site
+  # createdAt: DateTime
+  price: Price
 }
 
 type PageQuote {
@@ -23,26 +24,27 @@ type PageQuote {
 }
 
 input CreateQuote {
-  consumedQuantity: Int!
+  # consumedQuantity: Int!
   authorizedQuantity: Int!
-  price: Float!
-  amount: Float!
-  isComplete: Boolean
-  isApproved: Boolean
+  unitPrice: Float!
+  # amount: Float!
+  # isComplete: Boolean
+  # isApproved: Boolean
   supportTicketId: UUID!
   serviceTypeId: UUID!
   serviceId: UUID!
   conceptId: UUID!
   measurementUnitId: UUID!
-  siteId: UUID!
+  priceId: UUID!
+  # siteId: UUID!
 }
 
 input UpdateQuote {
   id: UUID!
   consumedQuantity: Int
   authorizedQuantity: Int
-  price: Float
-  amount: Float
+  unitPrice: Float
+  # amount: Float
   isComplete: Boolean
   isApproved: Boolean
   supportTicketId: UUID
@@ -50,7 +52,8 @@ input UpdateQuote {
   serviceId: UUID
   conceptId: UUID
   measurementUnitId: UUID
-  siteId: UUID
+  priceId: UUID
+  # siteId: UUID
 }
 
 type Query {

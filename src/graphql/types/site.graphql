@@ -40,6 +40,7 @@ input CreateSite {
   managerId: UUID
   analystId: UUID
   vendors: [UUID]
+  serviceNumber: String
 }
 
 input UpdateSite {
@@ -58,6 +59,7 @@ input UpdateSite {
   managerId: UUID
   analystId: UUID
   vendors: [UUID]
+  serviceNumber: String
 }
 
 type Query {

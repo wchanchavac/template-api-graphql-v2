@@ -1,6 +1,7 @@
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { DataTypes } from 'sequelize';
+import { addAuditHooksToModel } from '#auth';
 
 class SupportTicket extends BaseModel {
   static associate(models) {
@@ -44,7 +45,35 @@ class SupportTicket extends BaseModel {
     });
   }
 
-  static addAuditHooks(models) {}
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.SupportTicket, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Process,
+        field: 'processId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Stage,
+        field: 'stageId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Site,
+        field: 'siteId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Vendor,
+        field: 'vendorId',
+        attributes: ['id', 'name'],
+      },
+    ]);
+  }
 }
 
 SupportTicket.init(
