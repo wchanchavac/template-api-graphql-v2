@@ -9,6 +9,7 @@ import {
   siteTechnologyLoader,
   siteTechnologyBySiteLoader,
   siteVendorBySiteLoader,
+  userLoader,
 } from '#loaders';
 
 export default {
@@ -89,13 +90,16 @@ export default {
         },
         */
     async technologies(site, { options }, { db, literal }) {
-      console.log('site', site);
-      const data = await siteTechnologyBySiteLoader.load(site.id);
-      console.log('data', data);
-      return data;
+      return await siteTechnologyBySiteLoader.load(site.id);
     },
     async vendors(site, { options }, { db, literal }) {
       return await siteVendorBySiteLoader.load(site.id);
+    },
+    async manager(site, { options }, { db, literal }) {
+      return await userLoader.load(site.id);
+    },
+    async analyst(site, { options }, { db, literal }) {
+      return await userLoader.load(site.id);
     },
   },
 };
