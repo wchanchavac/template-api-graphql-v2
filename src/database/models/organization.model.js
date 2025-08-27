@@ -10,12 +10,6 @@ class Organization extends BaseModel {
         allowNull: true,
       },
     });
-    models.Organization.hasMany(models.Country, {
-      constraints: false,
-      foreignKey: {
-        allowNull: true,
-      },
-    });
   }
 }
 
@@ -26,10 +20,6 @@ Organization.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
-    },
-    createdBy: {
-      type: DataTypes.UUID,
-      allowNull: true,
     },
     name: {
       type: DataTypes.STRING,

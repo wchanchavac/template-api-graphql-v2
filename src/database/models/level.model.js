@@ -3,14 +3,7 @@ import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 
 class Level extends BaseModel {
-  static associate(models) {
-    models.Level.belongsTo(models.Organization, {
-      constraints: false,
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  }
+  static associate(models) {}
 }
 
 Level.init(
@@ -20,10 +13,6 @@ Level.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
-    },
-    createdBy: {
-      type: DataTypes.UUID,
-      allowNull: true,
     },
     name: {
       type: DataTypes.STRING,

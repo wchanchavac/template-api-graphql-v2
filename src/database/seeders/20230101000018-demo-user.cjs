@@ -9,13 +9,12 @@ module.exports = {
     // const hashedPassword = await bcrypt.hash('password', salt);
 
     const organizationId = 'f47ac10b-58cc-4372-a567-0e02b2c3d479';
-    const organizationId2 = 'f47ac10b-58cc-4372-a567-0e02b2c3d479';
 
     const users = [
       {
         id: uuidv4(),
-        name: 'Admin',
-        email: 'admin@example.com',
+        name: 'Gerente Claro',
+        email: 'gerente@claro.com',
         password: await hashPassword('password'),
         organizationId: organizationId, // Replace with a valid organizationId
         createdAt: new Date(),
@@ -23,19 +22,10 @@ module.exports = {
       },
       {
         id: uuidv4(),
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'Analista Claro',
+        email: 'analista@claro.com',
         password: await hashPassword('password'),
         organizationId: organizationId, // Replace with a valid organizationId
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: uuidv4(),
-        name: 'Jane Doe',
-        email: 'jane.doe@example.com',
-        password: await hashPassword('password'),
-        organizationId: organizationId2, // Replace with a valid organizationId
         createdAt: new Date(),
         updatedAt: new Date(),
       },

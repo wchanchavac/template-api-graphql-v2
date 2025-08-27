@@ -48,6 +48,34 @@ class Site extends BaseModel {
       },
       through: 'site_vendor',
     });
+
+    models.Site.belongsTo(models.User, {
+      constraints: false,
+      foreignKey: {
+        allowNull: true,
+        name: 'analystId',
+      },
+      as: 'analyst',
+    });
+
+    models.Site.belongsTo(models.User, {
+      constraints: false,
+      foreignKey: {
+        allowNull: true,
+        name: 'managerId',
+      },
+      as: 'manager',
+    });
+
+    models.Site.belongsToMany(models.Technology, {
+      constraints: false,
+      foreignKey: {
+        allowNull: false,
+        name: 'siteId',
+      },
+      through: 'site_technology',
+      as: 'technologies',
+    });
   }
 }
 
@@ -90,6 +118,11 @@ Site.init(
     },
     longitude: {
       type: DataTypes.FLOAT,
+      comment: '',
+      allowNull: true,
+    },
+    serviceNumber: {
+      type: DataTypes.STRING,
       comment: '',
       allowNull: true,
     },

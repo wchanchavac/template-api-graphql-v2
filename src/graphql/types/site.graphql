@@ -11,7 +11,11 @@ type Site {
   subzone: Subzone
   area: Area
   state: State
-  # vendors: [Vendor]
+  serviceNumber: String
+  manager: User
+  analyst: User
+  vendors: [Vendor]
+  technologies: [Technology]
 }
 
 type PageSite {
@@ -32,7 +36,9 @@ input CreateSite {
   subzoneId: UUID!
   areaId: UUID!
   stateId: UUID!
-  # vendors: [UUID]
+  managerId: UUID
+  analystId: UUID
+  vendors: [UUID]
 }
 
 input UpdateSite {
@@ -48,7 +54,9 @@ input UpdateSite {
   subzoneId: UUID!
   areaId: UUID!
   stateId: UUID!
-  # vendors: [UUID]
+  managerId: UUID
+  analystId: UUID
+  vendors: [UUID]
 }
 
 type Query {

@@ -3,14 +3,7 @@ import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 
 class MeasurementUnit extends BaseModel {
-  static associate(models) {
-    models.MeasurementUnit.belongsTo(models.Organization, {
-      constraints: false,
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  }
+  static associate(models) {}
 }
 
 MeasurementUnit.init(
@@ -20,10 +13,6 @@ MeasurementUnit.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
-    },
-    createdBy: {
-      type: DataTypes.UUID,
-      allowNull: true,
     },
     name: {
       type: DataTypes.STRING,

@@ -1,7 +1,6 @@
-import { merge } from 'es-toolkit';
-import { DataTypes } from 'sequelize';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
+import { DataTypes } from 'sequelize';
 
 class Vendor extends BaseModel {
   static associate(models) {
@@ -50,10 +49,11 @@ Vendor.init(
       type: DataTypes.JSON,
       comment: '',
       allowNull: true,
-      set(val) {
-        let phones = this.getDataValue('phones');
-        this.setDataValue('phones', merge({}, phones, val));
-      },
+      defaultValue: [],
+      // set(val) {
+      //   let phones = this.getDataValue('phones');
+      //   this.setDataValue('phones', merge([], phones, val));
+      // },
     },
     image: {
       type: DataTypes.STRING,

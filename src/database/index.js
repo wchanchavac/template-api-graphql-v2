@@ -24,6 +24,7 @@ import Price from '#models/price.model';
 import Concept from '#models/concept.model';
 import Process from '#models/process.model';
 import PasswordResetToken from '#models/passwordResetToken.model';
+import SiteTechnology from '#models/site_technology.model';
 
 const db = {
   Country,
@@ -51,6 +52,7 @@ const db = {
   User,
   Organization,
   PasswordResetToken,
+  SiteTechnology,
   sequelize,
 };
 

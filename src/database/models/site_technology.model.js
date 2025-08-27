@@ -2,21 +2,27 @@ import { DataTypes } from 'sequelize';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 
-class Technology extends BaseModel {
+class SiteTechnology extends BaseModel {
   static associate(models) {
-    models.Technology.belongsToMany(models.Site, {
+    models.SiteTechnology.belongsTo(models.Site, {
+      constraints: false,
+      foreignKey: {
+        allowNull: false,
+        name: 'siteId',
+      },
+    });
+
+    models.SiteTechnology.belongsTo(models.Technology, {
       constraints: false,
       foreignKey: {
         allowNull: false,
         name: 'technologyId',
       },
-      through: 'site_technology',
-      as: 'sites',
     });
   }
 }
 
-Technology.init(
+SiteTechnology.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -24,7 +30,7 @@ Technology.init(
       primaryKey: true,
       allowNull: false,
     },
-    name: {
+    mnemonic: {
       type: DataTypes.STRING,
       comment: '',
       allowNull: false,
@@ -32,7 +38,7 @@ Technology.init(
   },
   {
     sequelize,
-    modelName: 'technology',
+    modelName: 'site_technology',
     freezeTableName: true,
     paranoid: true,
     defaultScope: {
@@ -56,4 +62,4 @@ Technology.init(
 // this add authenticate and changePassword methods to the model
 // and a hook to hash the password before saving
 
-export default Technology;
+export default SiteTechnology;
