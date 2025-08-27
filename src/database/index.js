@@ -27,6 +27,7 @@ import PasswordResetToken from '#models/passwordResetToken.model';
 import SiteTechnology from '#models/site_technology.model';
 import Stage from '#models/stage.model';
 import SupportTicket from '#database/models/supportTicket.model';
+import Quote from '#database/models/quote.model';
 
 const db = {
   Country,
@@ -57,6 +58,7 @@ const db = {
   SiteTechnology,
   Stage,
   SupportTicket,
+  Quote,
   sequelize,
 };
 
