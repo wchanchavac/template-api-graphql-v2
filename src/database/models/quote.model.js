@@ -138,6 +138,7 @@ Quote.init(
       type: DataTypes.FLOAT,
       comment: 'Total amount',
       allowNull: false,
+      defaultValue: 0,
       set(value) {
         this.setDataValue(
           'amount',

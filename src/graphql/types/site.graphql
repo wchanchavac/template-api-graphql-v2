@@ -39,7 +39,7 @@ input CreateSite {
   stateId: UUID!
   managerId: UUID
   analystId: UUID
-  vendors: [UUID]
+  # vendors: [UUID]
   serviceNumber: String
 }
 
@@ -58,7 +58,7 @@ input UpdateSite {
   stateId: UUID!
   managerId: UUID
   analystId: UUID
-  vendors: [UUID]
+  # vendors: [UUID]
   serviceNumber: String
 }
 
