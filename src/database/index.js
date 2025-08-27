@@ -25,6 +25,7 @@ import Concept from '#models/concept.model';
 import Process from '#models/process.model';
 import PasswordResetToken from '#models/passwordResetToken.model';
 import SiteTechnology from '#models/site_technology.model';
+import Stage from '#models/stage.model';
 
 const db = {
   Country,
@@ -53,6 +54,7 @@ const db = {
   Organization,
   PasswordResetToken,
   SiteTechnology,
+  Stage,
   sequelize,
 };
 
