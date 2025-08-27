@@ -8,6 +8,7 @@ import {
   conceptLoader,
   measurementUnitLoader,
   siteLoader,
+  priceLoader,
 } from '#loaders';
 
 export default {
@@ -87,6 +88,9 @@ export default {
     },
     async measurementUnit(quote, { options }, { db, literal }) {
       return await measurementUnitLoader.load(quote.measurementUnitId);
+    },
+    async price(quote, { options }, { db, literal }) {
+      return await priceLoader.load(quote.priceId);
     },
     // async site(quote, { options }, { db, literal }) {
     //   return await siteLoader.load(quote.siteId);

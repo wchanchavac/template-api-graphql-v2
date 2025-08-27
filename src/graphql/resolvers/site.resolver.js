@@ -96,10 +96,10 @@ export default {
       return await siteVendorBySiteLoader.load(site.id);
     },
     async manager(site, { options }, { db, literal }) {
-      return await userLoader.load(site.id);
+      return await userLoader.load(site.managerId);
     },
     async analyst(site, { options }, { db, literal }) {
-      return await userLoader.load(site.id);
+      return await userLoader.load(site.analystId);
     },
   },
 };
