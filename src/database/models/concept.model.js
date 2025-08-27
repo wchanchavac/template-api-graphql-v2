@@ -1,9 +1,16 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
+import { addAuditHooksToModel } from '#auth';
 
 class Concept extends BaseModel {
   static associate(models) {
+    models.Concept.belongsTo(models.Organization, {
+      constraints: false,
+      foreignKey: {
+        allowNull: false,
+      },
+    });
     models.Concept.belongsTo(models.Process, {
       constraints: false,
       foreignKey: {
@@ -34,6 +41,42 @@ class Concept extends BaseModel {
         allowNull: false,
       },
     });
+  }
+
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.Concept, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Service,
+        field: 'serviceId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.ServiceType,
+        field: 'serviceTypeId',
+      },
+      {
+        model: models.Process,
+        field: 'processId',
+        attributes: ['id', 'name'],
+      },
+
+      {
+        model: models.MeasurementUnit,
+        field: 'measurementUnitId',
+        attributes: ['id', 'name'],
+      },
+
+      {
+        model: models.Currency,
+        field: 'currencyId',
+        attributes: ['id', 'name'],
+      },
+    ]);
   }
 }
 
