@@ -21,10 +21,10 @@ ServiceType.init(
       primaryKey: true,
       allowNull: false,
     },
-    createdBy: {
-      type: DataTypes.UUID,
-      allowNull: true,
-    },
+    //    createdBy: {
+    //      type: DataTypes.UUID,
+    //      allowNull: true,
+    //   },
     name: {
       type: DataTypes.STRING,
       comment: '',

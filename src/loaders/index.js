@@ -21,6 +21,7 @@ import organizationLoader from '#loaders/organization.loader';
 import currencyLoader from '#loaders/currency.loader';
 import processLoader from '#loaders/process.loader';
 import priceLoader from '#loaders/price.loader';
+import siteTechnologyLoader from '#loaders/site_technology.loader';
 
 export {
   countryLoader,
@@ -46,4 +47,5 @@ export {
   currencyLoader,
   processLoader,
   priceLoader,
+  siteTechnologyLoader,
 };

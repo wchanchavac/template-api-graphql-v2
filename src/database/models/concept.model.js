@@ -45,10 +45,10 @@ Concept.init(
       primaryKey: true,
       allowNull: false,
     },
-    createdBy: {
-      type: DataTypes.UUID,
-      allowNull: true,
-    },
+    //    createdBy: {
+    //      type: DataTypes.UUID,
+    //      allowNull: true,
+    //   },
     code: {
       type: DataTypes.STRING,
       allowNull: false,

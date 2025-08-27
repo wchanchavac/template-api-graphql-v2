@@ -1,0 +1,37 @@
+type SiteTechnology {
+  id: UUID
+  mnemonic: String
+  site: Site
+  technology: Technology
+  createdAt: DateTime
+}
+
+type PageSiteTechnology {
+  rows: [SiteTechnology]
+  length: Int
+  pages: Int
+}
+
+input CreateSiteTechnology {
+  mnemonic: String!
+  siteId: UUID!
+  technologyId: UUID!
+}
+
+input UpdateSiteTechnology {
+  id: UUID!
+  mnemonic: String
+  siteId: UUID
+  technologyId: UUID
+}
+
+type Query {
+  siteTechnologies(options: Options = { page: 1 }): PageSiteTechnology
+  siteTechnology(id: UUID!): SiteTechnology
+}
+
+type Mutation {
+  createSiteTechnology(input: CreateSiteTechnology!): SiteTechnology
+  updateSiteTechnology(input: UpdateSiteTechnology!): SiteTechnology
+  deleteSiteTechnology(id: UUID!): SiteTechnology
+}

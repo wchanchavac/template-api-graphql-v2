@@ -15,7 +15,7 @@ type Site {
   manager: User
   analyst: User
   vendors: [Vendor]
-  technologies: [Technology]
+  technologies: [SiteTechnology]
 }
 
 type PageSite {

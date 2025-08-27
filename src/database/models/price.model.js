@@ -39,10 +39,10 @@ Price.init(
       primaryKey: true,
       allowNull: false,
     },
-    createdBy: {
-      type: DataTypes.UUID,
-      allowNull: true,
-    },
+    //    createdBy: {
+    //      type: DataTypes.UUID,
+    //      allowNull: true,
+    //   },
     amount: {
       type: DataTypes.FLOAT,
       allowNull: false,

@@ -6,6 +6,7 @@ import {
   subzoneLoader,
   areaLoader,
   stateLoader,
+  siteTechnologyLoader,
 } from '#loaders';
 
 export default {
@@ -85,5 +86,8 @@ export default {
             return await vendorLoader.load(site.vendorId);
         },
         */
+    async technologies(site, { options }, { db, literal }) {
+      return await siteTechnologyLoader.load(site.id);
+    },
   },
 };

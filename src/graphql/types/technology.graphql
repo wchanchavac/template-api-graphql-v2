@@ -1,6 +1,7 @@
 type Technology {
   id: UUID
   name: String
+  sites: [SiteTechnology]
 }
 
 type PageTechnology {

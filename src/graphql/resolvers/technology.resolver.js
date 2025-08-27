@@ -1,5 +1,6 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
+import { siteTechnologyLoader } from '#loaders';
 
 export default {
   Query: {
@@ -57,5 +58,9 @@ export default {
       return data;
     },
   },
-  Technology: {},
+  Technology: {
+    async sites(technology, { options }, { db, literal }) {
+      return await siteTechnologyLoader.load(technology.id);
+    },
+  },
 };
