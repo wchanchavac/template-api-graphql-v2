@@ -25,6 +25,7 @@ import siteTechnologyLoader from '#loaders/site_technology.loader';
 import siteTechnologyBySiteLoader from '#loaders/site_technology_by_site.loader';
 import siteTechnologyByTechnologyLoader from '#loaders/site_technology_by_technology.loader';
 import stageLoader from '#loaders/stage.loader';
+import supportTicketLoader from '#loaders/supportTicket.loader';
 
 export {
   countryLoader,
@@ -54,4 +55,5 @@ export {
   siteTechnologyBySiteLoader,
   siteTechnologyByTechnologyLoader,
   stageLoader,
+  supportTicketLoader,
 };

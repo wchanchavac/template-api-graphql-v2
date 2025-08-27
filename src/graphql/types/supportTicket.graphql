@@ -1,0 +1,47 @@
+type SupportTicket {
+  id: UUID
+  origin: String
+  description: String
+  organization: Organization
+  process: Process
+  stage: Stage
+  site: Site
+  vendor: Vendor
+  createdAt: DateTime
+}
+
+type PageSupportTicket {
+  rows: [SupportTicket]
+  length: Int
+  pages: Int
+}
+
+input CreateSupportTicket {
+  origin: String!
+  description: String!
+  processId: UUID!
+  stageId: UUID!
+  siteId: UUID!
+  vendorId: UUID!
+}
+
+input UpdateSupportTicket {
+  id: UUID!
+  origin: String
+  description: String
+  processId: UUID
+  stageId: UUID
+  siteId: UUID
+  vendorId: UUID
+}
+
+type Query {
+  supportTickets(options: Options = { page: 1 }): PageSupportTicket
+  supportTicket(id: UUID!): SupportTicket
+}
+
+type Mutation {
+  createSupportTicket(input: CreateSupportTicket!): SupportTicket
+  updateSupportTicket(input: UpdateSupportTicket!): SupportTicket
+  deleteSupportTicket(id: UUID!): SupportTicket
+}
