@@ -9,6 +9,7 @@ type Comment {
   entityId: UUID
   entityType: CommentEntityType
   user: User
+  attachments: [Attachment]
   #   organization: Organization
   createdAt: DateTime
 }

@@ -30,6 +30,7 @@ import SupportTicket from '#database/models/supportTicket.model';
 import Quote from '#database/models/quote.model';
 import SiteVendor from '#database/models/site_vendor.model';
 import Comment from '#database/models/comment.model';
+import Attachment from '#database/models/attachment.model';
 
 const db = {
   Country,
@@ -63,6 +64,7 @@ const db = {
   Quote,
   SiteVendor,
   Comment,
+  Attachment,
   sequelize,
 };
 

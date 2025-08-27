@@ -1,0 +1,45 @@
+type Attachment {
+  id: UUID
+  name: String
+  type: String
+  size: Int
+  # comment: Comment
+  # organization: Organization
+  #   createdAt: DateTime
+}
+
+type PageAttachment {
+  rows: [Attachment]
+  length: Int
+  pages: Int
+}
+
+input CreateAttachment {
+  name: String!
+  type: String!
+  size: Int!
+  data: String!
+  commentId: UUID!
+}
+
+input UpdateAttachment {
+  id: UUID!
+  name: String
+  type: String
+  size: Int
+  data: String
+  commentId: UUID
+}
+
+type Query {
+  attachments(options: Options = { page: 1 }): PageAttachment
+  attachment(id: UUID!): Attachment
+  attachmentsByComment(commentId: UUID!): [Attachment]
+  attachmentWithData(id: UUID!): Attachment
+}
+
+type Mutation {
+  createAttachment(input: CreateAttachment!): Attachment
+  updateAttachment(input: UpdateAttachment!): Attachment
+  deleteAttachment(id: UUID!): Attachment
+}

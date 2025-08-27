@@ -19,6 +19,14 @@ class Comment extends BaseModel {
         name: 'userId',
       },
     });
+
+    models.Comment.hasMany(models.Attachment, {
+      constraints: false,
+      foreignKey: {
+        allowNull: false,
+        name: 'commentId',
+      },
+    });
   }
 
   static addAuditHooks(models) {

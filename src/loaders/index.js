@@ -34,6 +34,8 @@ import siteVendorBySiteLoader from '#loaders/site_vendor_by_site.loader';
 import siteVendorByVendorLoader from '#loaders/site_vendor_by_vendor.loader';
 import commentLoader from '#loaders/comment.loader';
 import commentByEntityLoader from '#loaders/comment_by_entity.loader';
+import attachmentLoader from '#loaders/attachment.loader';
+import attachmentByCommentLoader from '#loaders/attachment_by_comment.loader';
 
 export {
   countryLoader,
@@ -72,4 +74,6 @@ export {
   siteVendorByVendorLoader,
   commentLoader,
   commentByEntityLoader,
+  attachmentLoader,
+  attachmentByCommentLoader,
 };

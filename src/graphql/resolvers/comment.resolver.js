@@ -4,6 +4,7 @@ import {
   organizationLoader,
   userLoader,
   commentByEntityLoader,
+  attachmentByCommentLoader,
 } from '#loaders';
 
 export default {
@@ -76,6 +77,9 @@ export default {
     // },
     async user(comment, { options }, { db, literal }) {
       return await userLoader.load(comment.userId);
+    },
+    async attachments(comment, { options }, { db, literal }) {
+      return await attachmentByCommentLoader.load(comment.id);
     },
   },
 };
