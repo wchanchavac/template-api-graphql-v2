@@ -4,12 +4,12 @@ import BaseModel from '#shared/BaseModel';
 
 class Status extends BaseModel {
   static associate(models) {
-    models.Status.belongsTo(models.Organization, {
-      constraints: false,
-      foreignKey: {
-        allowNull: false,
-      },
-    });
+    // models.Status.belongsTo(models.Organization, {
+    //   constraints: false,
+    //   foreignKey: {
+    //     allowNull: false,
+    //   },
+    // });
   }
 }
 

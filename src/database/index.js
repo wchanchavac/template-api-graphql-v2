@@ -26,6 +26,7 @@ import Process from '#models/process.model';
 import PasswordResetToken from '#models/passwordResetToken.model';
 import SiteTechnology from '#models/site_technology.model';
 import Stage from '#models/stage.model';
+import SupportTicket from '#database/models/supportTicket.model';
 
 const db = {
   Country,
@@ -55,6 +56,7 @@ const db = {
   PasswordResetToken,
   SiteTechnology,
   Stage,
+  SupportTicket,
   sequelize,
 };
 
