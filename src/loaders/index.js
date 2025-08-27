@@ -32,6 +32,8 @@ import quoteBySiteLoader from '#loaders/quote_by_site.loader';
 import siteVendorLoader from '#loaders/siteVendor.loader';
 import siteVendorBySiteLoader from '#loaders/site_vendor_by_site.loader';
 import siteVendorByVendorLoader from '#loaders/site_vendor_by_vendor.loader';
+import commentLoader from '#loaders/comment.loader';
+import commentByEntityLoader from '#loaders/comment_by_entity.loader';
 
 export {
   countryLoader,
@@ -68,4 +70,6 @@ export {
   siteVendorLoader,
   siteVendorBySiteLoader,
   siteVendorByVendorLoader,
+  commentLoader,
+  commentByEntityLoader,
 };

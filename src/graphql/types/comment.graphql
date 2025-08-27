@@ -1,0 +1,47 @@
+enum CommentEntityType {
+  SUPPORT_TICKET
+}
+
+type Comment {
+  id: UUID
+  content: String
+  hasAttachment: Boolean
+  entityId: UUID
+  entityType: CommentEntityType
+  user: User
+  #   organization: Organization
+  createdAt: DateTime
+}
+
+type PageComment {
+  rows: [Comment]
+  length: Int
+  pages: Int
+}
+
+input CreateComment {
+  content: String!
+  #   hasAttachment: Boolean
+  entityId: UUID!
+  entityType: CommentEntityType!
+}
+
+input UpdateComment {
+  id: UUID!
+  content: String
+  #   hasAttachment: Boolean
+  entityId: UUID
+  entityType: CommentEntityType
+}
+
+type Query {
+  comments(options: Options = { page: 1 }): PageComment
+  comment(id: UUID!): Comment
+  commentsByEntity(entityId: UUID!, entityType: String!): [Comment]
+}
+
+type Mutation {
+  createComment(input: CreateComment!): Comment
+  updateComment(input: UpdateComment!): Comment
+  deleteComment(id: UUID!): Comment
+}
