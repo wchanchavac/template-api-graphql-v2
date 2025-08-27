@@ -28,6 +28,7 @@ import SiteTechnology from '#models/site_technology.model';
 import Stage from '#models/stage.model';
 import SupportTicket from '#database/models/supportTicket.model';
 import Quote from '#database/models/quote.model';
+import SiteVendor from '#database/models/site_vendor.model';
 
 const db = {
   Country,
@@ -59,6 +60,7 @@ const db = {
   Stage,
   SupportTicket,
   Quote,
+  SiteVendor,
   sequelize,
 };
 

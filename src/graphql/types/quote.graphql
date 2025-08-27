@@ -1,0 +1,65 @@
+type Quote {
+  id: UUID
+  consumedQuantity: Int
+  authorizedQuantity: Int
+  price: Float
+  amount: Float
+  isComplete: Boolean
+  isApproved: Boolean
+  organization: Organization
+  supportTicket: SupportTicket
+  serviceType: ServiceType
+  service: Service
+  concept: Concept
+  measurementUnit: MeasurementUnit
+  site: Site
+  createdAt: DateTime
+}
+
+type PageQuote {
+  rows: [Quote]
+  length: Int
+  pages: Int
+}
+
+input CreateQuote {
+  consumedQuantity: Int!
+  authorizedQuantity: Int!
+  price: Float!
+  amount: Float!
+  isComplete: Boolean
+  isApproved: Boolean
+  supportTicketId: UUID!
+  serviceTypeId: UUID!
+  serviceId: UUID!
+  conceptId: UUID!
+  measurementUnitId: UUID!
+  siteId: UUID!
+}
+
+input UpdateQuote {
+  id: UUID!
+  consumedQuantity: Int
+  authorizedQuantity: Int
+  price: Float
+  amount: Float
+  isComplete: Boolean
+  isApproved: Boolean
+  supportTicketId: UUID
+  serviceTypeId: UUID
+  serviceId: UUID
+  conceptId: UUID
+  measurementUnitId: UUID
+  siteId: UUID
+}
+
+type Query {
+  quotes(options: Options = { page: 1 }): PageQuote
+  quote(id: UUID!): Quote
+}
+
+type Mutation {
+  createQuote(input: CreateQuote!): Quote
+  updateQuote(input: UpdateQuote!): Quote
+  deleteQuote(id: UUID!): Quote
+}

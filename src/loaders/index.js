@@ -19,6 +19,7 @@ import specialityLoader from '#loaders/speciality.loader';
 import userLoader from '#loaders/user.loader';
 import organizationLoader from '#loaders/organization.loader';
 import currencyLoader from '#loaders/currency.loader';
+import conceptLoader from '#loaders/concept.loader';
 import processLoader from '#loaders/process.loader';
 import priceLoader from '#loaders/price.loader';
 import siteTechnologyLoader from '#loaders/site_technology.loader';
@@ -26,6 +27,8 @@ import siteTechnologyBySiteLoader from '#loaders/site_technology_by_site.loader'
 import siteTechnologyByTechnologyLoader from '#loaders/site_technology_by_technology.loader';
 import stageLoader from '#loaders/stage.loader';
 import supportTicketLoader from '#loaders/supportTicket.loader';
+import quoteLoader from '#loaders/quote.loader';
+import quoteBySiteLoader from '#loaders/quote_by_site.loader';
 
 export {
   countryLoader,
@@ -49,6 +52,7 @@ export {
   userLoader,
   organizationLoader,
   currencyLoader,
+  conceptLoader,
   processLoader,
   priceLoader,
   siteTechnologyLoader,
@@ -56,4 +60,6 @@ export {
   siteTechnologyByTechnologyLoader,
   stageLoader,
   supportTicketLoader,
+  quoteLoader,
+  quoteBySiteLoader,
 };

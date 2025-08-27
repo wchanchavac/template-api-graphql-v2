@@ -44,6 +44,7 @@ import zoneResolver from '#resolvers/zone.resolver';
 import siteTechnologyResolver from '#resolvers/site_technology.resolver';
 import stageResolver from '#resolvers/stage.resolver';
 import supportTicketResolver from '#resolvers/supportTicket.resolver';
+import quoteResolver from '#resolvers/quote.resolver';
 
 const resolversArray = [
   areaResolver,
@@ -75,6 +76,7 @@ const resolversArray = [
   siteTechnologyResolver,
   stageResolver,
   supportTicketResolver,
+  quoteResolver,
 ];
 
 console.log('the amount of resolvers', resolversArray.length);

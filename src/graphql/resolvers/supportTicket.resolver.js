@@ -6,6 +6,8 @@ import {
   stageLoader,
   siteLoader,
   vendorLoader,
+  quoteLoader,
+  quoteBySiteLoader,
 } from '#loaders';
 
 export default {
@@ -82,6 +84,9 @@ export default {
     },
     async vendor(supportTicket, { options }, { db, literal }) {
       return await vendorLoader.load(supportTicket.vendorId);
+    },
+    async quotes(supportTicket, { options }, { db, literal }) {
+      return await quoteBySiteLoader.load(supportTicket.id);
     },
   },
 };

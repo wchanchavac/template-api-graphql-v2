@@ -50,6 +50,14 @@ class Quote extends BaseModel {
         name: 'measurementUnitId',
       },
     });
+
+    models.Quote.belongsTo(models.Site, {
+      constraints: false,
+      foreignKey: {
+        allowNull: false,
+        name: 'siteId',
+      },
+    });
   }
 
   static addAuditHooks(models) {}
@@ -94,6 +102,11 @@ Quote.init(
       comment: 'Whether the quote is approved',
       allowNull: false,
       defaultValue: false,
+    },
+    siteId: {
+      type: DataTypes.UUID,
+      comment: 'Site ID reference',
+      allowNull: false,
     },
   },
   {

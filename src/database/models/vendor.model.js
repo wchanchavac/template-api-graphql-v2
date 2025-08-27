@@ -10,6 +10,15 @@ class Vendor extends BaseModel {
         allowNull: false,
       },
     });
+
+    models.Vendor.belongsToMany(models.Site, {
+      constraints: false,
+      foreignKey: {
+        allowNull: true,
+        name: 'vendorId',
+      },
+      through: 'site_vendor',
+    });
   }
 }
 
