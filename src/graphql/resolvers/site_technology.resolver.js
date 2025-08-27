@@ -1,6 +1,9 @@
-import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
-import { siteLoader, technologyLoader } from '#loaders';
+import {
+  //  siteLoader,
+  technologyLoader,
+} from '#loaders';
+import { GraphQLError } from 'graphql';
 
 export default {
   Query: {
@@ -62,10 +65,12 @@ export default {
     },
   },
   SiteTechnology: {
-    async site(siteTechnology, { options }, { db, literal }) {
-      return await siteLoader.load(siteTechnology.siteId);
-    },
+    // async site(siteTechnology, { options }, { db, literal }) {
+    //   console.log('siteTechnology', siteTechnology);
+    //   return await siteLoader.load(siteTechnology.siteId);
+    // },
     async technology(siteTechnology, { options }, { db, literal }) {
+      console.log('technology', siteTechnology);
       return await technologyLoader.load(siteTechnology.technologyId);
     },
   },

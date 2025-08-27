@@ -7,6 +7,7 @@ import {
   areaLoader,
   stateLoader,
   siteTechnologyLoader,
+  siteTechnologyBySiteLoader,
 } from '#loaders';
 
 export default {
@@ -87,7 +88,10 @@ export default {
         },
         */
     async technologies(site, { options }, { db, literal }) {
-      return await siteTechnologyLoader.load(site.id);
+      console.log('site', site);
+      const data = await siteTechnologyBySiteLoader.load(site.id);
+      console.log('data', data);
+      return data;
     },
   },
 };

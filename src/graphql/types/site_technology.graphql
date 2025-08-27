@@ -1,9 +1,9 @@
 type SiteTechnology {
   id: UUID
   mnemonic: String
-  site: Site
+  # site: Site
   technology: Technology
-  createdAt: DateTime
+  # createdAt: DateTime
 }
 
 type PageSiteTechnology {

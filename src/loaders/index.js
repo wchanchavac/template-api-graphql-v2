@@ -22,6 +22,8 @@ import currencyLoader from '#loaders/currency.loader';
 import processLoader from '#loaders/process.loader';
 import priceLoader from '#loaders/price.loader';
 import siteTechnologyLoader from '#loaders/site_technology.loader';
+import siteTechnologyBySiteLoader from '#loaders/site_technology_by_site.loader';
+import siteTechnologyByTechnologyLoader from '#loaders/site_technology_by_technology.loader';
 
 export {
   countryLoader,
@@ -48,4 +50,6 @@ export {
   processLoader,
   priceLoader,
   siteTechnologyLoader,
+  siteTechnologyBySiteLoader,
+  siteTechnologyByTechnologyLoader,
 };
