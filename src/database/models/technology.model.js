@@ -10,7 +10,10 @@ class Technology extends BaseModel {
         allowNull: false,
         name: 'technologyId',
       },
-      through: 'site_technology',
+      through: {
+        model: models.SiteTechnology,
+        unique: false,
+      },
       as: 'sites',
     });
   }

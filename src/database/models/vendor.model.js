@@ -1,3 +1,4 @@
+import { addAuditHooksToModel } from '#auth';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { DataTypes } from 'sequelize';
@@ -17,8 +18,21 @@ class Vendor extends BaseModel {
         allowNull: true,
         name: 'vendorId',
       },
-      through: 'site_vendor',
+      through: {
+        model: models.SiteVendor,
+        unique: false,
+      },
     });
+  }
+
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.Vendor, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+    ]);
   }
 }
 

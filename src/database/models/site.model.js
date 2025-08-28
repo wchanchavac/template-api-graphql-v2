@@ -46,7 +46,10 @@ class Site extends BaseModel {
         allowNull: true,
         name: 'siteId',
       },
-      through: 'site_vendor',
+      through: {
+        model: models.SiteVendor,
+        unique: false,
+      },
     });
 
     models.Site.belongsTo(models.User, {
@@ -73,7 +76,10 @@ class Site extends BaseModel {
         allowNull: false,
         name: 'siteId',
       },
-      through: 'site_technology',
+      through: {
+        model: models.SiteTechnology,
+        unique: false,
+      },
       as: 'technologies',
     });
   }
