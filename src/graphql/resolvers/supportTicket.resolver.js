@@ -48,16 +48,28 @@ export default {
 
       // '4f49b243-0fc9-4528-b10e-72e4321aed99'
       const { processId } = input;
+
       if (
-        [MANTENIMIENTO_CORRECTIVO, MANTENIMIENTO_PREVENTIVO].includes(processId)
+        [MANTENIMIENTO_CORRECTIVO, ABASTECIMIENTO_DE_COMBUSTIBLE].includes(
+          processId,
+        )
       ) {
         input.stageId = COTIZACION;
       }
 
-      return await db.SupportTicket.create({
+      const supportTicket = await db.SupportTicket.create({
         ...session.createdData,
         ...input,
       });
+
+      if ([ABASTECIMIENTO_DE_COMBUSTIBLE].includes(processId)) {
+        db.FuelQuote.create({
+          ...session.createdData,
+          supportTicketId: supportTicket.id,
+        });
+      }
+
+      return supportTicket;
     },
     async updateSupportTicket(obj, { input }, { db, req }) {
       const session = await getSession(req);

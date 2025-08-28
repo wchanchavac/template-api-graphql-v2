@@ -55,9 +55,11 @@ FuelQuote.init(
       type: DataTypes.INTEGER,
       comment: 'Quantity authorized',
       allowNull: false,
+      defaultValue: 0,
     },
     authorizedUnitPrice: {
       type: DataTypes.FLOAT,
+      defaultValue: 0,
       comment: 'Price per unit authorized',
       allowNull: false,
     },
@@ -65,6 +67,7 @@ FuelQuote.init(
       type: DataTypes.FLOAT,
       comment: 'Price per unit consumed',
       allowNull: false,
+      defaultValue: 0,
     },
     authorizedAmount: {
       type: DataTypes.FLOAT,
