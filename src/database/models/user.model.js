@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
-import { addAuthMethodsToModel } from '#auth';
+import { addAuditHooksToModel, addAuthMethodsToModel } from '#auth';
 
 class User extends BaseModel {
   static associate(models) {
@@ -11,6 +11,16 @@ class User extends BaseModel {
         allowNull: false,
       },
     });
+  }
+
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.User, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+    ]);
   }
 }
 

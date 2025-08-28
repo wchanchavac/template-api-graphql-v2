@@ -1,3 +1,4 @@
+import { addAuditHooksToModel } from '#auth';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { DataTypes } from 'sequelize';
@@ -10,6 +11,16 @@ class Currency extends BaseModel {
         allowNull: false,
       },
     });
+  }
+
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.Currency, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+    ]);
   }
 }
 

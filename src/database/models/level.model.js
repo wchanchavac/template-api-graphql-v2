@@ -3,7 +3,14 @@ import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 
 class Level extends BaseModel {
-  static associate(models) {}
+  static associate(models) {
+    models.Level.belongsTo(models.Organization, {
+      constraints: false,
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  }
 }
 
 Level.init(

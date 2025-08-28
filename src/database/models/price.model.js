@@ -1,9 +1,16 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
+import { addAuditHooksToModel } from '#auth';
 
 class Price extends BaseModel {
   static associate(models) {
+    models.Price.belongsTo(models.Organization, {
+      constraints: false,
+      foreignKey: {
+        allowNull: false,
+      },
+    });
     models.Price.belongsTo(models.Concept, {
       constraints: false,
       foreignKey: {
@@ -22,12 +29,31 @@ class Price extends BaseModel {
         allowNull: false,
       },
     });
-    models.Price.belongsTo(models.Organization, {
-      constraints: false,
-      foreignKey: {
-        allowNull: false,
+  }
+
+  static addAuditHooks(models) {
+    addAuditHooksToModel(models.Price, [
+      {
+        model: models.Organization,
+        field: 'organizationId',
+        attributes: ['id', 'name'],
       },
-    });
+      {
+        model: models.Concept,
+        field: 'conceptId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Vendor,
+        field: 'vendorId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Region,
+        field: 'regionId',
+        attributes: ['id', 'name'],
+      },
+    ]);
   }
 }
 

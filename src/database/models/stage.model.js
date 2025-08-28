@@ -7,13 +7,7 @@ class Stage extends BaseModel {
   static associate(models) {}
 
   static addAuditHooks(models) {
-    addAuditHooksToModel(models.Stage, [
-      {
-        model: models.Organization,
-        field: 'organizationId',
-        attributes: ['id', 'name'],
-      },
-    ]);
+    addAuditHooksToModel(models.Stage, []);
   }
 }
 
