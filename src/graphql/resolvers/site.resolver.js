@@ -1,16 +1,15 @@
-import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
 import {
-  regionLoader,
-  zoneLoader,
-  subzoneLoader,
   areaLoader,
-  stateLoader,
-  siteTechnologyLoader,
+  regionLoader,
   siteTechnologyBySiteLoader,
   siteVendorBySiteLoader,
+  stateLoader,
+  subzoneLoader,
   userLoader,
+  zoneLoader,
 } from '#loaders';
+import { GraphQLError } from 'graphql';
 
 export default {
   Query: {
@@ -96,9 +95,11 @@ export default {
       return await siteVendorBySiteLoader.load(site.id);
     },
     async manager(site, { options }, { db, literal }) {
+      if (!site.managerId) return null;
       return await userLoader.load(site.managerId);
     },
     async analyst(site, { options }, { db, literal }) {
+      if (!site.analystId) return null;
       return await userLoader.load(site.analystId);
     },
   },
