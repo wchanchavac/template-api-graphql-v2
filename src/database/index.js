@@ -31,6 +31,7 @@ import Quote from '#database/models/quote.model';
 import SiteVendor from '#database/models/site_vendor.model';
 import Comment from '#database/models/comment.model';
 import Attachment from '#database/models/attachment.model';
+import FuelQuote from '#database/models/fuelQuote.model';
 
 const db = {
   Country,
@@ -65,6 +66,7 @@ const db = {
   SiteVendor,
   Comment,
   Attachment,
+  FuelQuote,
   sequelize,
 };
 

@@ -48,6 +48,7 @@ import quoteResolver from '#resolvers/quote.resolver';
 import siteVendorResolver from '#resolvers/siteVendor.resolver';
 import commentResolver from '#resolvers/comment.resolver';
 import attachmentResolver from '#resolvers/attachment.resolver';
+import fuelQuoteResolver from '#resolvers/fuelQuote.resolver';
 
 const resolversArray = [
   areaResolver,
@@ -83,6 +84,7 @@ const resolversArray = [
   siteVendorResolver,
   commentResolver,
   attachmentResolver,
+  fuelQuoteResolver,
 ];
 
 console.log('the amount of resolvers', resolversArray.length);

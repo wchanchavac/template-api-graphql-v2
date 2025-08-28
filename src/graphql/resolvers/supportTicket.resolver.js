@@ -8,6 +8,7 @@ import {
   vendorLoader,
   quoteLoader,
   quoteBySiteLoader,
+  fuelQuoteBySupportTicketLoader,
 } from '#loaders';
 
 const ABASTECIMIENTO_DE_COMBUSTIBLE = '5dad4da5-a13b-4283-9754-c0d911379f68'; // 'Abastecimiento de combustible'
@@ -107,6 +108,9 @@ export default {
     },
     async quotes(supportTicket, { options }, { db, literal }) {
       return await quoteBySiteLoader.load(supportTicket.id);
+    },
+    async fuelQuotes(supportTicket, { options }, { db, literal }) {
+      return await fuelQuoteBySupportTicketLoader.load(supportTicket.id);
     },
   },
 };

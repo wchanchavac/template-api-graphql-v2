@@ -8,6 +8,7 @@ type SupportTicket {
   site: Site
   vendor: Vendor
   quotes: [Quote]
+  fuelQuotes: [FuelQuote]
   createdAt: DateTime
 }
 

@@ -36,6 +36,8 @@ import commentLoader from '#loaders/comment.loader';
 import commentByEntityLoader from '#loaders/comment_by_entity.loader';
 import attachmentLoader from '#loaders/attachment.loader';
 import attachmentByCommentLoader from '#loaders/attachment_by_comment.loader';
+import fuelQuoteLoader from '#loaders/fuelQuote.loader';
+import fuelQuoteBySupportTicketLoader from '#loaders/fuel_quote_by_support_ticket.loader';
 
 export {
   countryLoader,
@@ -76,4 +78,6 @@ export {
   commentByEntityLoader,
   attachmentLoader,
   attachmentByCommentLoader,
+  fuelQuoteLoader,
+  fuelQuoteBySupportTicketLoader,
 };

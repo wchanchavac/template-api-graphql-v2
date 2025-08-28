@@ -1,0 +1,53 @@
+type FuelQuote {
+  id: UUID
+  consumedQuantity: Int
+  authorizedQuantity: Int
+  authorizedUnitPrice: Float
+  consumedUnitPrice: Float
+  authorizedAmount: Float
+  consumedAmount: Float
+  isComplete: Boolean
+  isApproved: Boolean
+  #   organization: Organization
+  #   supportTicket: SupportTicket
+  #   createdAt: DateTime
+}
+
+type PageFuelQuote {
+  rows: [FuelQuote]
+  length: Int
+  pages: Int
+}
+
+input CreateFuelQuote {
+  consumedQuantity: Int
+  authorizedQuantity: Int!
+  authorizedUnitPrice: Float!
+  consumedUnitPrice: Float!
+  isComplete: Boolean
+  isApproved: Boolean
+  supportTicketId: UUID!
+}
+
+input UpdateFuelQuote {
+  id: UUID!
+  consumedQuantity: Int
+  authorizedQuantity: Int
+  authorizedUnitPrice: Float
+  consumedUnitPrice: Float
+  isComplete: Boolean
+  isApproved: Boolean
+  supportTicketId: UUID
+}
+
+type Query {
+  fuelQuotes(options: Options = { page: 1 }): PageFuelQuote
+  fuelQuote(id: UUID!): FuelQuote
+  fuelQuotesBySupportTicket(supportTicketId: UUID!): [FuelQuote]
+}
+
+type Mutation {
+  createFuelQuote(input: CreateFuelQuote!): FuelQuote
+  updateFuelQuote(input: UpdateFuelQuote!): FuelQuote
+  deleteFuelQuote(id: UUID!): FuelQuote
+}
