@@ -91,9 +91,10 @@ export async function verifyToken(req) {
 /**
  *
  * @param {import('http').Request} req
+ * @param {boolean} noThrow - If true, return null if the user is not found
  * @returns
  */
-export async function getSession(req) {
+export async function getSession(req, noThrow = false) {
   const decoded = await verifyToken(req);
 
   // const organizationId = req.headers['x-organization-id'];
@@ -101,6 +102,10 @@ export async function getSession(req) {
   const user = await User.findByPk(decoded.sub);
 
   if (!user) {
+    if (noThrow) {
+      return null;
+    }
+
     throw new GraphQLError('Unauthorized', {
       extensions: {
         code: 'UNAUTHORIZED',
