@@ -13,23 +13,26 @@ module.exports = {
     const users = [
       {
         id: uuidv4(),
-        name: 'Gerente Claro',
+        name: 'Super Administrador',
         email: 'gerente@claro.com',
         password: await hashPassword('password'),
+        userTypeId: 'acbe289b-656d-4036-b010-ef2ce540ab00',
         organizationId: organizationId, // Replace with a valid organizationId
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: uuidv4(),
-        name: 'Analista Claro',
+        name: 'Administrador',
         email: 'analista@claro.com',
         password: await hashPassword('password'),
+        userTypeId: 'a2c9d673-ec8a-4ab9-9778-7fbf8b96228c',
         organizationId: organizationId, // Replace with a valid organizationId
         createdAt: new Date(),
         updatedAt: new Date(),
       },
     ];
+
     await queryInterface.bulkInsert('user', users, {});
   },
 

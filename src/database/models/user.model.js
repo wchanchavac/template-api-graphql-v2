@@ -11,6 +11,32 @@ class User extends BaseModel {
         allowNull: false,
       },
     });
+
+    models.User.belongsTo(models.UserType, {
+      constraints: false,
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+
+    models.User.belongsTo(models.Vendor, {
+      constraints: false,
+      foreignKey: {
+        allowNull: true,
+      },
+    });
+
+    models.User.belongsToMany(models.Region, {
+      constraints: false,
+      foreignKey: {
+        allowNull: true,
+        name: 'userId',
+      },
+      through: {
+        model: models.UserRegion,
+        unique: false,
+      },
+    });
   }
 
   static addAuditHooks(models) {
@@ -18,6 +44,16 @@ class User extends BaseModel {
       {
         model: models.Organization,
         field: 'organizationId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.UserType,
+        field: 'userTypeId',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: models.Vendor,
+        field: 'vendorId',
         attributes: ['id', 'name'],
       },
     ]);

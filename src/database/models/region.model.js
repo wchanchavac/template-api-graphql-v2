@@ -11,6 +11,18 @@ class Region extends BaseModel {
         allowNull: false,
       },
     });
+
+    models.Region.belongsToMany(models.User, {
+      constraints: false,
+      foreignKey: {
+        allowNull: true,
+        name: 'regionId',
+      },
+      through: {
+        model: models.UserRegion,
+        unique: false,
+      },
+    });
   }
 
   static addAuditHooks(models) {
