@@ -20,6 +20,7 @@ import Status from '#models/status.model';
 import Speciality from '#models/speciality.model';
 import User from '#models/user.model';
 import UserType from '#models/userType.model';
+import UserRegion from '#models/user_region.model';
 import Organization from '#models/organization.model';
 import Price from '#models/price.model';
 import Concept from '#models/concept.model';
@@ -59,6 +60,7 @@ const db = {
   Speciality,
   User,
   UserType,
+  UserRegion,
   Organization,
   PasswordResetToken,
   SiteTechnology,
@@ -85,7 +87,7 @@ for (const key in db) {
   }
 }
 
-// await sequelize.sync();
+await sequelize.sync();
 
 // console.log(sequelize.models);
 

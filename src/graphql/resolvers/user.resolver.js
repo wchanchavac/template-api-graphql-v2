@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth/index';
-import { organizationLoader } from '#loaders';
+import { organizationLoader, userRegionByUserLoader } from '#loaders';
 
 export default {
   Query: {
@@ -40,12 +40,25 @@ export default {
     async createUser(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.User.create(
+      const { regions } = input;
+
+      const user = await db.User.create(
         { ...session.createdData, ...input },
         {
           createdBy: session.userData,
         },
       );
+
+      if (Array.isArray(regions)) {
+        await db.UserRegion.bulkCreate(
+          regions.map((region) => ({
+            userId: user.id,
+            regionId: region,
+          })),
+        );
+      }
+
+      return user;
     },
     async updateUser(obj, { input }, { db, req }) {
       const session = await getSession(req);
@@ -84,6 +97,9 @@ export default {
   User: {
     async organization(user, { options }, { db, literal }) {
       return await organizationLoader.load(user.organizationId);
+    },
+    async regions(user, { options }, { db, literal }) {
+      return await userRegionByUserLoader.load(user.id);
     },
   },
 };

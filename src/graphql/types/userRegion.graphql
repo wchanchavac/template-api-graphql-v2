@@ -1,0 +1,33 @@
+type UserRegion {
+  id: UUID
+  #   user: User
+  region: Region
+}
+
+type PageUserRegion {
+  rows: [UserRegion]
+  length: Int
+  pages: Int
+}
+
+input CreateUserRegion {
+  userId: UUID!
+  regionId: UUID!
+}
+
+input UpdateUserRegion {
+  id: UUID!
+  userId: UUID
+  regionId: UUID
+}
+
+type Query {
+  userRegions(options: Options = { page: 1 }): PageUserRegion
+  userRegion(id: UUID!): UserRegion
+}
+
+type Mutation {
+  createUserRegion(input: CreateUserRegion!): UserRegion
+  updateUserRegion(input: UpdateUserRegion!): UserRegion
+  deleteUserRegion(id: UUID!): UserRegion
+}

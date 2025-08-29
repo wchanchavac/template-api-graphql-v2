@@ -3,6 +3,8 @@ type User {
   name: String
   email: EmailAddress
   organization: Organization
+  vendor: Vendor
+  regions: [UserRegion]
 }
 
 type PageUser {
@@ -15,7 +17,10 @@ input CreateUser {
   name: String!
   email: EmailAddress!
   password: String!
-  organizationId: UUID!
+  # organizationId: UUID!
+  userTypeId: UUID!
+  vendorId: UUID
+  regions: [UUID]
 }
 
 input UpdateUser {
@@ -23,7 +28,10 @@ input UpdateUser {
   name: String
   email: EmailAddress
   password: String
-  organizationId: UUID!
+  # organizationId: UUID!
+  userTypeId: UUID
+  vendorId: UUID
+  regions: [UUID]
 }
 
 type Query {

@@ -18,6 +18,9 @@ import statusLoader from '#loaders/status.loader';
 import specialityLoader from '#loaders/speciality.loader';
 import userLoader from '#loaders/user.loader';
 import userTypeLoader from '#loaders/userType.loader';
+import userRegionLoader from '#loaders/user_region.loader';
+import userRegionByUserLoader from '#loaders/user_region_by_user.loader';
+import userRegionByRegionLoader from '#loaders/user_region_by_region.loader';
 import organizationLoader from '#loaders/organization.loader';
 import currencyLoader from '#loaders/currency.loader';
 import conceptLoader from '#loaders/concept.loader';
@@ -61,6 +64,9 @@ export {
   specialityLoader,
   userLoader,
   userTypeLoader,
+  userRegionLoader,
+  userRegionByUserLoader,
+  userRegionByRegionLoader,
   organizationLoader,
   currencyLoader,
   conceptLoader,

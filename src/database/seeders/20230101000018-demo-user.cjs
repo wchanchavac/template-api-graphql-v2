@@ -12,7 +12,7 @@ module.exports = {
 
     const users = [
       {
-        id: uuidv4(),
+        id: '6d8b5f7c-db7d-4613-8af4-b1c41c163929',
         name: 'Super Administrador',
         email: 'gerente@claro.com',
         password: await hashPassword('password'),
@@ -22,7 +22,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: uuidv4(),
+        id: '7d2cd811-1bf6-4118-b4fc-a3d138fd4ce7',
         name: 'Administrador',
         email: 'analista@claro.com',
         password: await hashPassword('password'),

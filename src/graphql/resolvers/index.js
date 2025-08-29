@@ -40,6 +40,7 @@ import subzoneResolver from '#resolvers/subzone.resolver';
 import technologyResolver from '#resolvers/technology.resolver';
 import userResolver from '#resolvers/user.resolver';
 import userTypeResolver from '#resolvers/userType.resolver';
+import userRegionResolver from '#resolvers/userRegion.resolver';
 import vendorResolver from '#resolvers/vendor.resolver';
 import zoneResolver from '#resolvers/zone.resolver';
 import siteTechnologyResolver from '#resolvers/site_technology.resolver';
@@ -77,6 +78,7 @@ const resolversArray = [
   technologyResolver,
   userResolver,
   userTypeResolver,
+  userRegionResolver,
   vendorResolver,
   zoneResolver,
   siteTechnologyResolver,
