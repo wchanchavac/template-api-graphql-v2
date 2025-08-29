@@ -28,7 +28,13 @@ export default {
     async commentsByEntity(obj, { entityId, entityType }, { db, req }) {
       const session = await getSession(req);
 
-      return await commentByEntityLoader.load({ entityId, entityType });
+      return await db.Comment.findAll({
+        where: {
+          entityId,
+          entityType,
+        },
+        sort: [['createdAt', 'DESC']],
+      });
     },
   },
   Mutation: {
