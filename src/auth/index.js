@@ -7,7 +7,6 @@ import {
 } from '#auth/password';
 import User from '#models/user.model';
 import AuditLog from '#database/models/audit.model';
-import { Model } from 'sequelize';
 // import AuditLog from '#models/';
 
 const issuer = process.env.ISSUER;

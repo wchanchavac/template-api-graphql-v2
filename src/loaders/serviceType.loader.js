@@ -1,19 +1,24 @@
 import DataLoader from 'dataloader';
 import ServiceType from '#models/serviceType.model';
 
-const serviceTypeLoader = new DataLoader(async (serviceTypeIds) => {
-  const serviceTypes = await ServiceType.findAll({
-    where: {
-      id: serviceTypeIds,
-    },
-  });
+const serviceTypeLoader = new DataLoader(
+  async (serviceTypeIds) => {
+    const serviceTypes = await ServiceType.findAll({
+      where: {
+        id: serviceTypeIds,
+      },
+    });
 
-  const serviceTypeMap = {};
-  serviceTypes.forEach((serviceType) => {
-    serviceTypeMap[serviceType.id] = serviceType;
-  });
+    const serviceTypeMap = {};
+    serviceTypes.forEach((serviceType) => {
+      serviceTypeMap[serviceType.id] = serviceType;
+    });
 
-  return serviceTypeIds.map((id) => serviceTypeMap[id]);
-});
+    return serviceTypeIds.map((id) => serviceTypeMap[id]);
+  },
+  {
+    cache: false,
+  },
+);
 
 export default serviceTypeLoader;

@@ -1,19 +1,24 @@
 import DataLoader from 'dataloader';
 import Quote from '#models/quote.model';
 
-const quoteLoader = new DataLoader(async (quoteIds) => {
-  const quotes = await Quote.findAll({
-    where: {
-      id: quoteIds,
-    },
-  });
+const quoteLoader = new DataLoader(
+  async (quoteIds) => {
+    const quotes = await Quote.findAll({
+      where: {
+        id: quoteIds,
+      },
+    });
 
-  const quoteMap = {};
-  quotes.forEach((quote) => {
-    quoteMap[quote.id] = quote;
-  });
+    const quoteMap = {};
+    quotes.forEach((quote) => {
+      quoteMap[quote.id] = quote;
+    });
 
-  return quoteIds.map((id) => quoteMap[id]);
-});
+    return quoteIds.map((id) => quoteMap[id]);
+  },
+  {
+    cache: false,
+  },
+);
 
 export default quoteLoader;

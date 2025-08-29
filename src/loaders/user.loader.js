@@ -1,19 +1,24 @@
 import DataLoader from 'dataloader';
 import User from '#models/user.model';
 
-const userLoader = new DataLoader(async (userIds) => {
-  const users = await User.findAll({
-    where: {
-      id: userIds,
-    },
-  });
+const userLoader = new DataLoader(
+  async (userIds) => {
+    const users = await User.findAll({
+      where: {
+        id: userIds,
+      },
+    });
 
-  const userMap = {};
-  users.forEach((user) => {
-    userMap[user.id] = user;
-  });
+    const userMap = {};
+    users.forEach((user) => {
+      userMap[user.id] = user;
+    });
 
-  return userIds.map((id) => userMap[id]);
-});
+    return userIds.map((id) => userMap[id]);
+  },
+  {
+    cache: false,
+  },
+);
 
 export default userLoader;

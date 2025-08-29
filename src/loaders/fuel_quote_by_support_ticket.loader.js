@@ -21,6 +21,9 @@ const fuelQuoteBySupportTicketLoader = new DataLoader(
       (supportTicketId) => fuelQuotesBySupportTicketMap[supportTicketId] || [],
     );
   },
+  {
+    cache: false,
+  },
 );
 
 export default fuelQuoteBySupportTicketLoader;

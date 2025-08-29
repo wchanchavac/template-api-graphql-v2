@@ -1,6 +1,5 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
-import { siteVendorByVendorLoader } from '#loaders';
 
 export default {
   Query: {

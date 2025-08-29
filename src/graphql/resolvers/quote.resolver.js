@@ -1,13 +1,10 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
 import {
-  organizationLoader,
-  supportTicketLoader,
   serviceTypeLoader,
   serviceLoader,
   conceptLoader,
   measurementUnitLoader,
-  siteLoader,
   priceLoader,
 } from '#loaders';
 

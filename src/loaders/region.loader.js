@@ -1,19 +1,24 @@
 import DataLoader from 'dataloader';
 import Region from '#models/region.model';
 
-const regionLoader = new DataLoader(async (regionIds) => {
-  const regions = await Region.findAll({
-    where: {
-      id: regionIds,
-    },
-  });
+const regionLoader = new DataLoader(
+  async (regionIds) => {
+    const regions = await Region.findAll({
+      where: {
+        id: regionIds,
+      },
+    });
 
-  const regionMap = {};
-  regions.forEach((region) => {
-    regionMap[region.id] = region;
-  });
+    const regionMap = {};
+    regions.forEach((region) => {
+      regionMap[region.id] = region;
+    });
 
-  return regionIds.map((id) => regionMap[id]);
-});
+    return regionIds.map((id) => regionMap[id]);
+  },
+  {
+    cache: false,
+  },
+);
 
 export default regionLoader;

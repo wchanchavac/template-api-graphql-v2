@@ -1,7 +1,6 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
 import {
-  organizationLoader,
   userLoader,
   commentByEntityLoader,
   attachmentByCommentLoader,

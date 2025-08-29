@@ -1,10 +1,6 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth';
-import {
-  organizationLoader,
-  commentLoader,
-  attachmentByCommentLoader,
-} from '#loaders';
+import { attachmentByCommentLoader } from '#loaders';
 
 export default {
   Query: {

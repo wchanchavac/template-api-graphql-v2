@@ -6,7 +6,6 @@ import {
   stageLoader,
   siteLoader,
   vendorLoader,
-  quoteLoader,
   quoteBySiteLoader,
   fuelQuoteBySupportTicketLoader,
 } from '#loaders';
