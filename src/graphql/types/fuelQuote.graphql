@@ -37,7 +37,7 @@ input UpdateFuelQuote {
   consumedUnitPrice: Float
   isComplete: Boolean
   isApproved: Boolean
-  supportTicketId: UUID
+  # supportTicketId: UUID
 }
 
 type Query {

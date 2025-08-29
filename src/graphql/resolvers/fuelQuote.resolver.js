@@ -24,7 +24,12 @@ export default {
     async fuelQuotesBySupportTicket(obj, { supportTicketId }, { db, req }) {
       const session = await getSession(req);
 
-      return await fuelQuoteBySupportTicketLoader.load(supportTicketId);
+      return await db.FuelQuote.findAll({
+        where: {
+          supportTicketId,
+        },
+        sort: [['createdAt', 'DESC']],
+      });
     },
   },
   Mutation: {
