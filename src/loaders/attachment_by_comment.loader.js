@@ -3,21 +3,19 @@ import Attachment from '#models/attachment.model';
 
 const attachmentByCommentLoader = new DataLoader(async (commentIds) => {
   const attachments = await Attachment.findAll({
+    attributes: {
+      exclude: ['updatedAt', 'deletedAt', 'data'],
+    },
     where: {
       commentId: commentIds,
     },
     order: [['createdAt', 'ASC']],
   });
 
-  const attachmentsByCommentMap = {};
-  commentIds.forEach((commentId) => {
-    attachmentsByCommentMap[commentId] = attachments.filter(
-      (attachment) => attachment.commentId === commentId,
-    );
-  });
-
   return commentIds.map(
-    (commentId) => attachmentsByCommentMap[commentId] || [],
+    (commentId) =>
+      attachments.filter((attachment) => attachment.commentId === commentId) ||
+      [],
   );
 });
 

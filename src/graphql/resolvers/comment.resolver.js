@@ -39,6 +39,7 @@ export default {
       return await db.Comment.create({
         ...session.createdData,
         ...input,
+        userId: session.userData.id,
       });
     },
     async updateComment(obj, { input }, { db, req }) {

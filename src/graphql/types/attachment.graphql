@@ -32,10 +32,10 @@ input UpdateAttachment {
 }
 
 type Query {
-  attachments(options: Options = { page: 1 }): PageAttachment
+  # attachments(options: Options = { page: 1 }): PageAttachment
   attachment(id: UUID!): Attachment
   attachmentsByComment(commentId: UUID!): [Attachment]
-  attachmentWithData(id: UUID!): Attachment
+  # attachmentWithData(id: UUID!): Attachment
 }
 
 type Mutation {

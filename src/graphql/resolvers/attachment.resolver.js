@@ -8,11 +8,11 @@ import {
 
 export default {
   Query: {
-    async attachments(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+    // async attachments(obj, { options }, { db, req }) {
+    //   const session = await getSession(req);
 
-      return await db.Attachment.findAndCountAllByPage(options);
-    },
+    //   return await db.Attachment.findAndCountAllByPage(options);
+    // },
     async attachment(obj, { id }, { db, req }) {
       const session = await getSession(req);
 
@@ -30,18 +30,18 @@ export default {
 
       return await attachmentByCommentLoader.load(commentId);
     },
-    async attachmentWithData(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+    // async attachmentWithData(obj, { id }, { db, req }) {
+    //   const session = await getSession(req);
 
-      let data = await db.Attachment.scope('withData').findByPk(id);
-      if (!data)
-        throw new GraphQLError(`Attachment with id: ${id} not found`, {
-          extensions: {
-            code: 'NOT_FOUND',
-          },
-        });
-      return data;
-    },
+    //   let data = await db.Attachment.scope('withData').findByPk(id);
+    //   if (!data)
+    //     throw new GraphQLError(`Attachment with id: ${id} not found`, {
+    //       extensions: {
+    //         code: 'NOT_FOUND',
+    //       },
+    //     });
+    //   return data;
+    // },
   },
   Mutation: {
     async createAttachment(obj, { input }, { db, req }) {

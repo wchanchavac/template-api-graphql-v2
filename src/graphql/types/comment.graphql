@@ -5,7 +5,7 @@ enum CommentEntityType {
 type Comment {
   id: UUID
   content: String
-  hasAttachment: Boolean
+  # hasAttachment: Boolean
   entityId: UUID
   entityType: CommentEntityType
   user: User
