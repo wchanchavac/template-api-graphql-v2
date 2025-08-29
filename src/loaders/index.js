@@ -17,6 +17,7 @@ import serviceLoader from '#loaders/service.loader';
 import statusLoader from '#loaders/status.loader';
 import specialityLoader from '#loaders/speciality.loader';
 import userLoader from '#loaders/user.loader';
+import userTypeLoader from '#loaders/userType.loader';
 import organizationLoader from '#loaders/organization.loader';
 import currencyLoader from '#loaders/currency.loader';
 import conceptLoader from '#loaders/concept.loader';
@@ -59,6 +60,7 @@ export {
   statusLoader,
   specialityLoader,
   userLoader,
+  userTypeLoader,
   organizationLoader,
   currencyLoader,
   conceptLoader,

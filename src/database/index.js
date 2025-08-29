@@ -19,6 +19,7 @@ import Service from '#models/service.model';
 import Status from '#models/status.model';
 import Speciality from '#models/speciality.model';
 import User from '#models/user.model';
+import UserType from '#models/userType.model';
 import Organization from '#models/organization.model';
 import Price from '#models/price.model';
 import Concept from '#models/concept.model';
@@ -57,6 +58,7 @@ const db = {
   Status,
   Speciality,
   User,
+  UserType,
   Organization,
   PasswordResetToken,
   SiteTechnology,

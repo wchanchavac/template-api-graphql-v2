@@ -1,0 +1,33 @@
+type UserType {
+  id: UUID
+  level: Int
+  name: String
+}
+
+type PageUserType {
+  rows: [UserType]
+  length: Int
+  pages: Int
+}
+
+input CreateUserType {
+  level: Int!
+  name: String!
+}
+
+input UpdateUserType {
+  id: UUID!
+  level: Int
+  name: String
+}
+
+type Query {
+  userTypes(options: Options = { page: 1 }): PageUserType
+  userType(id: UUID!): UserType
+}
+
+type Mutation {
+  createUserType(input: CreateUserType!): UserType
+  updateUserType(input: UpdateUserType!): UserType
+  deleteUserType(id: UUID!): UserType
+}
