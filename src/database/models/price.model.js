@@ -41,7 +41,7 @@ class Price extends BaseModel {
       {
         model: models.Concept,
         field: 'conceptId',
-        attributes: ['id', 'name'],
+        attributes: ['id', 'code'],
       },
       {
         model: models.Vendor,
