@@ -50,12 +50,14 @@ export default {
       );
 
       if (Array.isArray(regions)) {
-        await db.UserRegion.bulkCreate(
-          regions.map((region) => ({
-            userId: user.id,
-            regionId: region,
-          })),
-        );
+        const regionsIds = await db.Region.findAll({
+          attributes: ['id'],
+          where: {
+            id: regions,
+          },
+        });
+
+        await db.User.setRegions(regionsIds);
       }
 
       return user;
@@ -63,7 +65,7 @@ export default {
     async updateUser(obj, { input }, { db, req }) {
       const session = await getSession(req);
 
-      const { id } = input;
+      const { id, regions } = input;
 
       let data = await db.User.findByPk(id);
       if (!data)
@@ -72,9 +74,22 @@ export default {
             code: 'NOT_FOUND',
           },
         });
+
       await data.update(input, {
         createdBy: session.userData,
       });
+
+      if (Array.isArray(regions)) {
+        const regionsIds = await db.Region.findAll({
+          attributes: ['id'],
+          where: {
+            id: regions,
+          },
+        });
+
+        await db.User.setRegions(regionsIds);
+      }
+
       return data;
     },
     async deleteUser(obj, { id }, { db, req }) {
