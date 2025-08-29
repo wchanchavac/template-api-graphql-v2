@@ -18,7 +18,9 @@
     "#shared/*": "./src/shared/*.js",
     "#types": "./src/graphql/types/index.js",
     "#types/*": "./src/graphql/types/*.js",
-    "#utils/*": "./src/graphql/utils/*.js"
+    "#utils/*": "./src/graphql/utils/*.js",
+    "#routes/*": "./src/routes/*.js",
+    "#services/*": "./src/services/*.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -41,6 +43,7 @@
     "@graphql-tools/load-files": "^7.0.1",
     "@graphql-tools/merge": "^9.1.1",
     "argon2": "^0.44.0",
+    "busboy": "^1.6.0",
     "cors": "^2.8.5",
     "dataloader": "^2.2.3",
     "es-toolkit": "^1.39.10",

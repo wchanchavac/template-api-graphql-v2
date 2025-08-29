@@ -9,6 +9,7 @@ import express from 'express';
 import db from '#database';
 import resolvers from '#resolvers';
 import typeDefs from '#types';
+import uploadRoutes from '#routes/upload';
 
 // Required logic for integrating with Express
 const app = express();
@@ -24,6 +25,9 @@ const server = new ApolloServer({
 });
 // Ensure we wait for our server to start
 await server.start();
+
+// Set up file upload routes (before GraphQL middleware)
+app.use('/api/v1', cors(), uploadRoutes);
 
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
