@@ -5,7 +5,7 @@ type User {
   organization: Organization
   userType: UserType
   vendor: Vendor
-  regions: [UserRegion]
+  regions: [Region]
 }
 
 type PageUser {

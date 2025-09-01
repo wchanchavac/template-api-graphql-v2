@@ -125,6 +125,7 @@ export default {
       return await userTypeLoader.load(user.userTypeId);
     },
     async vendor(user, { options }, { db, literal }) {
+      if (!user.vendorId) return null;
       return await vendorLoader.load(user.vendorId);
     },
   },
