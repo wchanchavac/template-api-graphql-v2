@@ -96,7 +96,7 @@ export async function verifyToken(req) {
  * @param {boolean} noThrow - If true, return null if the user is not found
  * @returns
  */
-export async function getSession(req, noThrow = false) {
+export async function getSession(req, permissions = [], noThrow = false) {
   const decoded = await verifyToken(req);
 
   const organizationId = req.headers['x-organization-id'];
@@ -136,11 +136,16 @@ export async function getSession(req, noThrow = false) {
     scopes: {},
     session: {
       ...userData,
+      organizationId:
+        userData.userType.id == 'acbe289b-656d-4036-b010-ef2ce540ab00'
+          ? organizationId
+          : userData.organizationId,
     },
     userData: {
       id: userData.id,
       name: userData.name,
       email: userData.email,
+      organizationId: userData.organizationId,
     },
     createdData: {
       organizationId: userData.organizationId,

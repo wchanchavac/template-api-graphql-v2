@@ -4,12 +4,15 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async currencies(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['currency.read']);
 
-      return await db.Currency.findAndCountAllByPage(options);
+      return await db.Currency.findAndCountAllByPage({
+        ...options,
+        scopes: [{ method: ['byUserType', session.session] }],
+      });
     },
     async currency(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['currency.read']);
 
       let data = await db.Currency.findByPk(id);
       if (!data)
@@ -23,7 +26,7 @@ export default {
   },
   Mutation: {
     async createCurrency(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['currency.create']);
 
       try {
         return await db.Currency.create({ ...session.createdData, ...input });
@@ -37,7 +40,7 @@ export default {
       }
     },
     async updateCurrency(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['currency.update']);
 
       const { id } = input;
 
@@ -52,7 +55,7 @@ export default {
       return data;
     },
     async deleteCurrency(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['currency.delete']);
 
       let data = await db.Currency.findByPk(id);
       if (!data)
