@@ -8,7 +8,7 @@ export default {
 
       return await db.Currency.findAndCountAllByPage({
         ...options,
-        scopes: [{ method: ['byUserType', session.session] }],
+        scopes: [{ method: ['byOrganization', session.session] }],
       });
     },
     async currency(obj, { id }, { db, req }) {
