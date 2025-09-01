@@ -111,7 +111,7 @@ export async function getSession(req, permissions = '', noThrow = false) {
       },
       {
         model: UserType,
-        attributes: ['id', 'name', 'level'],
+        attributes: ['id', 'name', 'level', 'permissions'],
       },
     ],
   });
