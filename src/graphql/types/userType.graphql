@@ -3,6 +3,7 @@ type UserType {
   level: Int
   name: String
   permissions: [String]
+  stages: [String]
 }
 
 type PageUserType {
@@ -15,6 +16,7 @@ input CreateUserType {
   level: Int!
   name: String!
   permissions: [String]!
+  stages: [String]!
 }
 
 input UpdateUserType {
@@ -22,6 +24,7 @@ input UpdateUserType {
   level: Int
   name: String
   permissions: [String]
+  stages: [String]
 }
 
 type Query {

@@ -10,9 +10,11 @@ export default {
     //   return await db.Attachment.findAndCountAllByPage(options);
     // },
     async attachment(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'attachment.read');
 
-      let data = await db.Attachment.findByPk(id);
+      let data = await db.Attachment.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Attachment with id: ${id} not found`, {
           extensions: {
@@ -22,9 +24,18 @@ export default {
       return data;
     },
     async attachmentsByComment(obj, { commentId }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'attachment.read');
 
-      return await attachmentByCommentLoader.load(commentId);
+      return await db.Attachment.findAll({
+        where: {
+          commentId,
+        },
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
+
+      // return await attachmentByCommentLoader.load(commentId, {
+      //   scopes: [{ method: ['byOrganization', session.session] }],
+      // });
     },
     // async attachmentWithData(obj, { id }, { db, req }) {
     //   const session = await getSession(req);
@@ -41,24 +52,27 @@ export default {
   },
   Mutation: {
     async createAttachment(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'attachment.upload');
 
       // Convert base64 data to buffer for BLOB storage
       const { data, ...attachmentData } = input;
       const binaryData = Buffer.from(data, 'base64');
 
       return await db.Attachment.create({
+        ...session.session,
         ...session.createdData,
         ...attachmentData,
         data: binaryData,
       });
     },
     async updateAttachment(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'attachment.upload');
 
       const { id, data, ...updateData } = input;
 
-      let attachment = await db.Attachment.findByPk(id);
+      let attachment = await db.Attachment.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!attachment)
         throw new GraphQLError(`Attachment with id: ${id} not found`, {
           extensions: {
@@ -75,9 +89,11 @@ export default {
       return attachment;
     },
     async deleteAttachment(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'attachment.delete');
 
-      let data = await db.Attachment.findByPk(id);
+      let data = await db.Attachment.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Attachment with id: ${id} not found`, {
           extensions: {

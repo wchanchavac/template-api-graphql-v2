@@ -30,6 +30,12 @@ UserType.init(
       allowNull: false,
       defaultValue: [],
     },
+    stages: {
+      type: DataTypes.JSON,
+      comment: '',
+      allowNull: false,
+      defaultValue: [],
+    },
   },
   {
     sequelize,

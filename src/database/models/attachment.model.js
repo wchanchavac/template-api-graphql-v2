@@ -82,6 +82,13 @@ Attachment.init(
           exclude: ['updatedAt', 'deletedAt'],
         },
       },
+      byOrganization({ organizationId }) {
+        return {
+          where: {
+            organizationId,
+          },
+        };
+      },
     },
     /*indexes: [
       {
