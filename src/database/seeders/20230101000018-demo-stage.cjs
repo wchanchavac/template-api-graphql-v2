@@ -9,6 +9,7 @@ module.exports = {
       ['2b6d08e5-ff16-41e1-918c-1844b4a2cf03', 'APROBACIÓN POR PROVEEDOR'],
       ['7b7b675f-a939-48d9-ad0f-afaae9bd744c', 'VALIDACIÓN POR ANALISTA'],
       ['446c4964-86bf-4fd1-a689-a497015982a7', 'FINALIZADO'],
+      ['ae76a53d-3f1f-4e7b-994a-07bc6da70bff', 'PENALIZADO'],
     ];
     const stages = data.map(([id, name]) => ({
       id,

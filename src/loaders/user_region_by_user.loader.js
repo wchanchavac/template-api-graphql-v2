@@ -5,38 +5,44 @@ import Region from '#database/models/region.model';
 const userRegionByUserLoader = new DataLoader(
   async (userIds) => {
     const userRegions = await UserRegion.findAll({
-      attributes: ['userId', 'regionId'],
       where: {
         userId: userIds,
       },
       order: [['createdAt', 'DESC']],
     });
 
-    const userRegionsByUserMap = {};
-    const regionIds = userRegions.map((userRegion) => userRegion.regionId);
+    // Extract unique regionIds to fetch regions in a single query
+    const regionIds = [
+      ...new Set(userRegions.map((ur) => ur.dataValues.regionId)),
+    ];
 
-    userIds.forEach((userId) => {
-      userRegionsByUserMap[userId] = userRegions.filter(
-        (userRegion) => userRegion.userId === userId,
-      );
-    });
+    const regions =
+      regionIds.length > 0
+        ? await Region.findAll({
+            where: {
+              id: regionIds,
+            },
+          })
+        : [];
 
-    const regions = await Region.findAll({
-      where: {
-        id: regionIds,
-      },
-    });
-
-    const regionMap = {};
-    regions.forEach((region) => {
-      regionMap[region.id] = region;
-    });
-
-    return userIds.map((userId) =>
-      userRegionsByUserMap[userId].map(
-        (userRegion) => regionMap[userRegion.regionId],
-      ),
+    // Create a map for O(1) region lookup
+    const regionMap = new Map(
+      regions.map((region) => [region.dataValues.id, region]),
     );
+
+    // Group userRegions by userId efficiently
+    const userRegionsByUserMap = userRegions.reduce((acc, userRegion) => {
+      const { userId, regionId } = userRegion.dataValues;
+      const region = regionMap.get(regionId);
+
+      if (region) {
+        (acc[userId] ??= []).push(region);
+      }
+      return acc;
+    }, {});
+
+    // Ensure all userIds are represented, even if they have no regions
+    return userIds.map((userId) => userRegionsByUserMap[userId] || []);
   },
   {
     cache: false,
