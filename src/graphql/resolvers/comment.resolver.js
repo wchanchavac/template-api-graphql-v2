@@ -9,7 +9,7 @@ import {
 export default {
   Query: {
     async comments(obj, { options }, { db, req }) {
-      const session = await getSession(req, []);
+      const session = await getSession(req, ['comment.read']);
 
       return await db.Comment.findAndCountAllByPage({
         ...options,
@@ -17,7 +17,7 @@ export default {
       });
     },
     async comment(obj, { id }, { db, req }) {
-      const session = await getSession(req, []);
+      const session = await getSession(req, ['comment.read']);
 
       let data = await db.Comment.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],
@@ -31,7 +31,7 @@ export default {
       return data;
     },
     async commentsByEntity(obj, { entityId, entityType }, { db, req }) {
-      const session = await getSession(req, []);
+      const session = await getSession(req, ['comment.read']);
 
       return await db.Comment.findAll({
         where: {
