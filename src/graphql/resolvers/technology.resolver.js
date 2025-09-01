@@ -5,12 +5,12 @@ import { GraphQLError } from 'graphql';
 export default {
   Query: {
     async technologies(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['technology.read']);
 
       return await db.Technology.findAndCountAllByPage(options);
     },
     async technology(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['technology.read']);
 
       let data = await db.Technology.findByPk(id);
       if (!data)
@@ -24,12 +24,12 @@ export default {
   },
   Mutation: {
     async createTechnology(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['technology.create']);
 
       return await db.Technology.create({ ...session.createdData, ...input });
     },
     async updateTechnology(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['technology.update']);
 
       const { id } = input;
 
@@ -44,7 +44,7 @@ export default {
       return data;
     },
     async deleteTechnology(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['technology.delete']);
 
       let data = await db.Technology.findByPk(id);
       if (!data)

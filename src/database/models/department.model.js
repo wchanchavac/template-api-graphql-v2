@@ -52,7 +52,15 @@ Department.init(
         exclude: ['updatedAt', 'deletedAt'],
       },
     },
-    scopes: {},
+    scopes: {
+      byOrganization({ organizationId }) {
+        return {
+          where: {
+            organizationId,
+          },
+        };
+      },
+    },
     /*indexes: [
 				{
 					fields: [ "organizationId"],

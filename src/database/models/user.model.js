@@ -98,7 +98,15 @@ User.init(
         exclude: ['updatedAt', 'deletedAt', 'password'],
       },
     },
-    // scopes: {},
+    scopes: {
+      byOrganization({ organizationId }) {
+        return {
+          where: {
+            organizationId,
+          },
+        };
+      },
+    },
     /*indexes: [
 				{
 					fields: [ "organizationId"],

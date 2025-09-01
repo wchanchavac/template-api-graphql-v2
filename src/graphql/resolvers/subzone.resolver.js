@@ -5,14 +5,19 @@ import { zoneLoader } from '#loaders';
 export default {
   Query: {
     async subzones(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['subzone.read']);
 
-      return await db.Subzone.findAndCountAllByPage(options);
+      return await db.Subzone.findAndCountAllByPage({
+        ...options,
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
     },
     async subzone(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['subzone.read']);
 
-      let data = await db.Subzone.findByPk(id);
+      let data = await db.Subzone.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Subzone with id: ${id} not found`, {
           extensions: {
@@ -24,7 +29,7 @@ export default {
   },
   Mutation: {
     async createSubzone(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['subzone.create']);
 
       return await db.Subzone.create(
         { ...session.createdData, ...input },
@@ -34,11 +39,13 @@ export default {
       );
     },
     async updateSubzone(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['subzone.update']);
 
       const { id } = input;
 
-      let data = await db.Subzone.findByPk(id);
+      let data = await db.Subzone.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Subzone with id: ${id} not found`, {
           extensions: {
@@ -51,9 +58,11 @@ export default {
       return data;
     },
     async deleteSubzone(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['subzone.delete']);
 
-      let data = await db.Subzone.findByPk(id);
+      let data = await db.Subzone.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Subzone with id: ${id} not found`, {
           extensions: {

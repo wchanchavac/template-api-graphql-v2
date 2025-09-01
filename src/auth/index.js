@@ -140,6 +140,7 @@ export async function getSession(req, permissions = [], noThrow = false) {
         userData.userType.id == 'acbe289b-656d-4036-b010-ef2ce540ab00'
           ? organizationId
           : userData.organizationId,
+      regionId: 'ALL',
     },
     userData: {
       id: userData.id,

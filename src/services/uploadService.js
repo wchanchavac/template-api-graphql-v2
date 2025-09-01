@@ -10,7 +10,7 @@ import db from '#database';
 export const handleFileUpload = async (req, res) => {
   try {
     // Get session for authentication
-    const session = await getSession(req, ['file.upload'], true);
+    const session = await getSession(req, ['attachment.upload'], true);
 
     if (!session) {
       return res.status(401).json({
@@ -156,7 +156,7 @@ export const handleFileUpload = async (req, res) => {
 export const downloadFile = async (req, res) => {
   try {
     const { id } = req.params;
-    const session = await getSession(req, ['file.download'], true);
+    const session = await getSession(req, ['attachment.download'], true);
 
     if (!session) {
       return res.status(401).json({

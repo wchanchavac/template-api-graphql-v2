@@ -11,14 +11,19 @@ import {
 export default {
   Query: {
     async quotes(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['quote.read']);
 
-      return await db.Quote.findAndCountAllByPage(options);
+      return await db.Quote.findAndCountAllByPage({
+        ...options,
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
     },
     async quote(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['quote.read']);
 
-      let data = await db.Quote.findByPk(id);
+      let data = await db.Quote.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Quote with id: ${id} not found`, {
           extensions: {
@@ -30,7 +35,7 @@ export default {
   },
   Mutation: {
     async createQuote(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['quote.create']);
 
       return await db.Quote.create({
         ...session.createdData,
@@ -38,11 +43,13 @@ export default {
       });
     },
     async updateQuote(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['quote.update']);
 
       const { id } = input;
 
-      let data = await db.Quote.findByPk(id);
+      let data = await db.Quote.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Quote with id: ${id} not found`, {
           extensions: {
@@ -53,9 +60,11 @@ export default {
       return data;
     },
     async deleteQuote(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['quote.delete']);
 
-      let data = await db.Quote.findByPk(id);
+      let data = await db.Quote.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Quote with id: ${id} not found`, {
           extensions: {

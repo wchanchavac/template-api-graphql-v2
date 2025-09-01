@@ -14,14 +14,25 @@ import { GraphQLError } from 'graphql';
 export default {
   Query: {
     async sites(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['site.read']);
 
-      return await db.Site.findAndCountAllByPage(options);
+      return await db.Site.findAndCountAllByPage({
+        ...options,
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
     },
     async site(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['site.read']);
 
-      let data = await db.Site.findByPk(id);
+      let data = await db.Site.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
       if (!data)
         throw new GraphQLError(`Site with id: ${id} not found`, {
           extensions: {
@@ -33,16 +44,21 @@ export default {
   },
   Mutation: {
     async createSite(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['site.create']);
 
       return await db.Site.create({ ...session.createdData, ...input });
     },
     async updateSite(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['site.update']);
 
       const { id } = input;
 
-      let data = await db.Site.findByPk(id);
+      let data = await db.Site.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
       if (!data)
         throw new GraphQLError(`Site with id: ${id} not found`, {
           extensions: {
@@ -53,9 +69,14 @@ export default {
       return data;
     },
     async deleteSite(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['site.delete']);
 
-      let data = await db.Site.findByPk(id);
+      let data = await db.Site.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
       if (!data)
         throw new GraphQLError(`Site with id: ${id} not found`, {
           extensions: {

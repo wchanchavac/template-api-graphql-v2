@@ -14,7 +14,9 @@ export default {
     async currency(obj, { id }, { db, req }) {
       const session = await getSession(req, ['currency.read']);
 
-      let data = await db.Currency.findByPk(id);
+      let data = await db.Currency.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Currency with id: ${id} not found`, {
           extensions: {
@@ -44,7 +46,9 @@ export default {
 
       const { id } = input;
 
-      let data = await db.Currency.findByPk(id);
+      let data = await db.Currency.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Currency with id: ${id} not found`, {
           extensions: {
@@ -57,7 +61,9 @@ export default {
     async deleteCurrency(obj, { id }, { db, req }) {
       const session = await getSession(req, ['currency.delete']);
 
-      let data = await db.Currency.findByPk(id);
+      let data = await db.Currency.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Currency with id: ${id} not found`, {
           extensions: {

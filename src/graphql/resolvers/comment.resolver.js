@@ -9,14 +9,19 @@ import {
 export default {
   Query: {
     async comments(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, []);
 
-      return await db.Comment.findAndCountAllByPage(options);
+      return await db.Comment.findAndCountAllByPage({
+        ...options,
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
     },
     async comment(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, []);
 
-      let data = await db.Comment.findByPk(id);
+      let data = await db.Comment.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Comment with id: ${id} not found`, {
           extensions: {
@@ -26,7 +31,7 @@ export default {
       return data;
     },
     async commentsByEntity(obj, { entityId, entityType }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, []);
 
       return await db.Comment.findAll({
         where: {
@@ -34,12 +39,13 @@ export default {
           entityType,
         },
         sort: [['createdAt', 'DESC']],
+        scopes: [{ method: ['byOrganization', session.session] }],
       });
     },
   },
   Mutation: {
     async createComment(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['comment.create']);
 
       return await db.Comment.create({
         ...session.createdData,
@@ -48,11 +54,13 @@ export default {
       });
     },
     async updateComment(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['comment.update']);
 
       const { id } = input;
 
-      let data = await db.Comment.findByPk(id);
+      let data = await db.Comment.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Comment with id: ${id} not found`, {
           extensions: {
@@ -63,9 +71,11 @@ export default {
       return data;
     },
     async deleteComment(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['comment.delete']);
 
-      let data = await db.Comment.findByPk(id);
+      let data = await db.Comment.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Comment with id: ${id} not found`, {
           extensions: {

@@ -24,14 +24,26 @@ const FINALIZADO = '446c4964-86bf-4fd1-a689-a497015982a7';
 export default {
   Query: {
     async supportTickets(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['supportTicket.read']);
 
-      return await db.SupportTicket.findAndCountAllByPage(options);
+      return await db.SupportTicket.findAndCountAllByPage({
+        ...options,
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
     },
     async supportTicket(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['supportTicket.read']);
 
-      let data = await db.SupportTicket.findByPk(id);
+      let data = await db.SupportTicket.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
+
       if (!data)
         throw new GraphQLError(`SupportTicket with id: ${id} not found`, {
           extensions: {
@@ -43,7 +55,7 @@ export default {
   },
   Mutation: {
     async createSupportTicket(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['supportTicket.create']);
 
       // '4f49b243-0fc9-4528-b10e-72e4321aed99'
       const { processId } = input;
@@ -71,11 +83,16 @@ export default {
       return supportTicket;
     },
     async updateSupportTicket(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['supportTicket.update']);
 
       const { id } = input;
 
-      let data = await db.SupportTicket.findByPk(id);
+      let data = await db.SupportTicket.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
       if (!data)
         throw new GraphQLError(`SupportTicket with id: ${id} not found`, {
           extensions: {
@@ -86,9 +103,14 @@ export default {
       return data;
     },
     async deleteSupportTicket(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['supportTicket.delete']);
 
-      let data = await db.SupportTicket.findByPk(id);
+      let data = await db.SupportTicket.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
       if (!data)
         throw new GraphQLError(`SupportTicket with id: ${id} not found`, {
           extensions: {

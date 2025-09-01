@@ -4,12 +4,12 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async measurementUnits(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['measurementUnit.read']);
 
       return await db.MeasurementUnit.findAndCountAllByPage(options);
     },
     async measurementUnit(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['measurementUnit.read']);
 
       let data = await db.MeasurementUnit.findByPk(id);
       if (!data)
@@ -23,7 +23,7 @@ export default {
   },
   Mutation: {
     async createMeasurementUnit(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['measurementUnit.create']);
 
       return await db.MeasurementUnit.create({
         ...session.createdData,
@@ -31,7 +31,7 @@ export default {
       });
     },
     async updateMeasurementUnit(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['measurementUnit.update']);
 
       const { id } = input;
 
@@ -46,7 +46,7 @@ export default {
       return data;
     },
     async deleteMeasurementUnit(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['measurementUnit.delete']);
 
       let data = await db.MeasurementUnit.findByPk(id);
       if (!data)

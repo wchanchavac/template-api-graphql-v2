@@ -4,12 +4,12 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async levels(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['level.read']);
 
       return await db.Level.findAndCountAllByPage(options);
     },
     async level(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['level.read']);
 
       let data = await db.Level.findByPk(id);
       if (!data)
@@ -23,12 +23,12 @@ export default {
   },
   Mutation: {
     async createLevel(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['level.create']);
 
       return await db.Level.create({ ...session.createdData, ...input });
     },
     async updateLevel(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['level.update']);
 
       const { id } = input;
 
@@ -43,7 +43,7 @@ export default {
       return data;
     },
     async deleteLevel(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['level.delete']);
 
       let data = await db.Level.findByPk(id);
       if (!data)

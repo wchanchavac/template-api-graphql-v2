@@ -4,14 +4,19 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async vendors(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['vendor.read']);
 
-      return await db.Vendor.findAndCountAllByPage(options);
+      return await db.Vendor.findAndCountAllByPage({
+        ...options,
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
     },
     async vendor(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['vendor.read']);
 
-      let data = await db.Vendor.findByPk(id);
+      let data = await db.Vendor.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Vendor with id: ${id} not found`, {
           extensions: {
@@ -23,16 +28,18 @@ export default {
   },
   Mutation: {
     async createVendor(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['vendor.create']);
 
       return await db.Vendor.create({ ...session.createdData, ...input });
     },
     async updateVendor(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['vendor.update']);
 
       const { id } = input;
 
-      let data = await db.Vendor.findByPk(id);
+      let data = await db.Vendor.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Vendor with id: ${id} not found`, {
           extensions: {
@@ -43,9 +50,11 @@ export default {
       return data;
     },
     async deleteVendor(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['vendor.delete']);
 
-      let data = await db.Vendor.findByPk(id);
+      let data = await db.Vendor.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Vendor with id: ${id} not found`, {
           extensions: {

@@ -7,7 +7,7 @@ module.exports = {
     // const salt = await bcrypt.genSalt(10);
     // const hashedPassword = await bcrypt.hash('password', salt);
     const organizationId = 'f47ac10b-58cc-4372-a567-0e02b2c3d479';
-    const zoneId = 'c9b013d9-8a74-4ed9-a4b9-1069e4ed5efb';
+    const zoneId = 'a5983f30-76a7-4ec2-a29e-ccda41b69984',;
     const names = [
       ['CentroOccidente'],
       ['CentroOccidenteFija'],

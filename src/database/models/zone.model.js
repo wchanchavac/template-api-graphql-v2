@@ -58,7 +58,26 @@ Zone.init(
         exclude: ['updatedAt', 'deletedAt'],
       },
     },
-    scopes: {},
+    scopes: {
+      byOrganization({ organizationId }) {
+        return {
+          where: {
+            organizationId,
+          },
+        };
+      },
+      byRegion({ regionId }) {
+        if (regionId === 'ALL') {
+          return {};
+        }
+
+        return {
+          where: {
+            regionId,
+          },
+        };
+      },
+    },
     /*indexes: [
 				{
 					fields: [ "organizationId"],

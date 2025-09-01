@@ -11,14 +11,19 @@ import {
 export default {
   Query: {
     async concepts(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['concept.read']);
 
-      return await db.Concept.findAndCountAllByPage(options);
+      return await db.Concept.findAndCountAllByPage({
+        ...options,
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
     },
     async concept(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['concept.read']);
 
-      let data = await db.Concept.findByPk(id);
+      let data = await db.Concept.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Concept with id: ${id} not found`, {
           extensions: {
@@ -30,16 +35,18 @@ export default {
   },
   Mutation: {
     async createConcept(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['concept.create']);
 
       return await db.Concept.create({ ...session.createdData, ...input });
     },
     async updateConcept(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['concept.update']);
 
       const { id } = input;
 
-      let data = await db.Concept.findByPk(id);
+      let data = await db.Concept.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Concept with id: ${id} not found`, {
           extensions: {
@@ -50,9 +57,11 @@ export default {
       return data;
     },
     async deleteConcept(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, ['concept.delete']);
 
-      let data = await db.Concept.findByPk(id);
+      let data = await db.Concept.findByPk(id, {
+        scopes: [{ method: ['byOrganization', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`Concept with id: ${id} not found`, {
           extensions: {
