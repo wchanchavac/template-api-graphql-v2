@@ -33,7 +33,9 @@ app.use('/api/v1', cors(), uploadRoutes);
 // and our expressMiddleware function.
 app.use(
   '/',
-  cors(),
+  cors({
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Organization-Id'],
+  }),
   express.json(),
   // expressMiddleware accepts the same arguments:
   // an Apollo Server instance and optional configuration options

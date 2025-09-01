@@ -99,7 +99,7 @@ export async function verifyToken(req) {
 export async function getSession(req, noThrow = false) {
   const decoded = await verifyToken(req);
 
-  // const organizationId = req.headers['x-organization-id'];
+  const organizationId = req.headers['x-organization-id'];
 
   const user = await User.findByPk(decoded.sub, {
     include: [
