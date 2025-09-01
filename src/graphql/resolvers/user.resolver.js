@@ -1,6 +1,11 @@
 import { GraphQLError } from 'graphql';
 import { getSession } from '#auth/index';
-import { organizationLoader, userRegionByUserLoader } from '#loaders';
+import {
+  organizationLoader,
+  userRegionByUserLoader,
+  userTypeLoader,
+  vendorLoader,
+} from '#loaders';
 
 export default {
   Query: {
@@ -115,6 +120,12 @@ export default {
     },
     async regions(user, { options }, { db, literal }) {
       return await userRegionByUserLoader.load(user.id);
+    },
+    async userType(user, { options }, { db, literal }) {
+      return await userTypeLoader.load(user.userTypeId);
+    },
+    async vendor(user, { options }, { db, literal }) {
+      return await vendorLoader.load(user.vendorId);
     },
   },
 };
