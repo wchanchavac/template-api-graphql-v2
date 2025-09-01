@@ -7,12 +7,18 @@ export default {
     async userTypes(obj, { options }, { db, req }) {
       const session = await getSession(req);
 
-      return await db.UserType.findAndCountAllByPage(options);
+      return await db.UserType.findAndCountAllByPage({
+        ...options,
+        scopes: [{ method: ['byUserType', session.session] }],
+      });
     },
     async userType(obj, { id }, { db, req }) {
       const session = await getSession(req);
 
-      let data = await db.UserType.findByPk(id);
+      let data = await db.UserType.findByPk(id, {
+        scopes: [{ method: ['byUserType', session.session] }],
+      });
+
       if (!data)
         throw new GraphQLError(`UserType with id: ${id} not found`, {
           extensions: {
@@ -38,7 +44,9 @@ export default {
 
       const { id } = input;
 
-      let data = await db.UserType.findByPk(id);
+      let data = await db.UserType.findByPk(id, {
+        scopes: [{ method: ['byUserType', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`UserType with id: ${id} not found`, {
           extensions: {
@@ -53,13 +61,16 @@ export default {
     async deleteUserType(obj, { id }, { db, req }) {
       const session = await getSession(req);
 
-      let data = await db.UserType.findByPk(id);
+      let data = await db.UserType.findByPk(id, {
+        scopes: [{ method: ['byUserType', session.session] }],
+      });
       if (!data)
         throw new GraphQLError(`UserType with id: ${id} not found`, {
           extensions: {
             code: 'NOT_FOUND',
           },
         });
+
       await data.destroy({
         createdBy: session.userData,
       });

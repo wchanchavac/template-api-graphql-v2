@@ -7,6 +7,9 @@ import {
 } from '#auth/password';
 import User from '#models/user.model';
 import AuditLog from '#database/models/audit.model';
+import UserRegion from '#database/models/user_region.model';
+import Region from '#database/models/region.model';
+import UserType from '#database/models/userType.model';
 // import AuditLog from '#models/';
 
 const issuer = process.env.ISSUER;
@@ -98,7 +101,20 @@ export async function getSession(req, noThrow = false) {
 
   // const organizationId = req.headers['x-organization-id'];
 
-  const user = await User.findByPk(decoded.sub);
+  const user = await User.findByPk(decoded.sub, {
+    include: [
+      {
+        model: Region,
+        through: {
+          attributes: [],
+        },
+      },
+      {
+        model: UserType,
+        attributes: ['id', 'name', 'level'],
+      },
+    ],
+  });
 
   if (!user) {
     if (noThrow) {
@@ -113,9 +129,14 @@ export async function getSession(req, noThrow = false) {
   }
 
   const userData = user.toJSON();
+  console.log(userData);
 
   return {
     decoded,
+    scopes: {},
+    session: {
+      ...userData,
+    },
     userData: {
       id: userData.id,
       name: userData.name,

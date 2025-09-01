@@ -57,7 +57,7 @@ export default {
           },
         });
 
-        await db.User.setRegions(regionsIds);
+        await user.setRegions(regionsIds);
       }
 
       return user;
@@ -67,15 +67,15 @@ export default {
 
       const { id, regions } = input;
 
-      let data = await db.User.findByPk(id);
-      if (!data)
+      let user = await db.User.findByPk(id);
+      if (!user)
         throw new GraphQLError(`User with id: ${id} not found`, {
           extensions: {
             code: 'NOT_FOUND',
           },
         });
 
-      await data.update(input, {
+      await user.update(input, {
         createdBy: session.userData,
       });
 
@@ -87,10 +87,10 @@ export default {
           },
         });
 
-        await db.User.setRegions(regionsIds);
+        await user.setRegions(regionsIds);
       }
 
-      return data;
+      return user;
     },
     async deleteUser(obj, { id }, { db, req }) {
       const session = await getSession(req);

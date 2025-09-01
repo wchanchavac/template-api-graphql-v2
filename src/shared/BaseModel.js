@@ -20,14 +20,14 @@ class BaseModel extends Model {
 
   /**
    * @param {string
-   *   | import('sequelize').ScopeOptions
-   *   | readonly (string | import('sequelize').ScopeOptions)[]
-   *   | import('sequelize').WhereAttributeHashValue<import('sequelize').Model>
+   * | import('sequelize').ScopeOptions
+   * | readonly (string | import('sequelize').ScopeOptions)[]
+   * | import('sequelize').WhereAttributeHashValue<import('sequelize').Model>
    * } scopes
-   * @returns {import('sequelize').Model}
+   * @returns {import('sequelize').ModelStatic<import('sequelize').Model>}
    */
-  static setScopes(scopes) {
-    return scopes ? this.scope(scopes) : this.find;
+  static setScopes(scopes = null) {
+    return scopes ? this.scope(scopes) : this;
   }
 
   /**
@@ -46,7 +46,7 @@ class BaseModel extends Model {
 
     const pagination = this.setPagination(limit, page);
 
-    const { count, rows } = await this.scope(scopes).findAndCountAll({
+    const { count, rows } = await this.setScopes(scopes).findAndCountAll({
       ...pagination,
       ...rest,
     });
@@ -72,7 +72,7 @@ class BaseModel extends Model {
     // The call to `this.scope()` returns a new model class that has the scopes applied to it.
     // We then use `super.findByPk.call()` to invoke the original `findByPk` method, but with `this`
     // set to our new scoped model class. This prevents the recursive call to our overridden method.
-    return super.findByPk.call(this.scope(scopes), id, rest);
+    return super.findByPk.call(this.setScopes(scopes), id, rest);
   }
 
   /**
@@ -87,7 +87,7 @@ class BaseModel extends Model {
   static findOne(options = {}) {
     const { scopes, ...rest } = options;
 
-    return super.findOne.call(this.scope(scopes), rest);
+    return super.findOne.call(this.setScopes(scopes), rest);
   }
 }
 

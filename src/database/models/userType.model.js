@@ -24,6 +24,12 @@ UserType.init(
       comment: '',
       allowNull: false,
     },
+    // permissions: {
+    //   type: DataTypes.JSON,
+    //   comment: '',
+    //   allowNull: false,
+    //   defaultValue: [],
+    // },
   },
   {
     sequelize,
@@ -35,7 +41,21 @@ UserType.init(
         exclude: ['updatedAt', 'deletedAt'],
       },
     },
-    scopes: {},
+    scopes: {
+      byUserType({ userType }) {
+        return {
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'deletedAt'],
+          },
+          where: {
+            level: {
+              _lte: userType.level,
+            },
+          },
+          order: [['level', 'DESC']],
+        };
+      },
+    },
     /*indexes: [
 			{
 				fields: [ "organizationId"],
