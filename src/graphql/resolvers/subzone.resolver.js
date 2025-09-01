@@ -5,7 +5,7 @@ import { zoneLoader } from '#loaders';
 export default {
   Query: {
     async subzones(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['subzone.read']);
+      const session = await getSession(req, 'subzone.read');
 
       return await db.Subzone.findAndCountAllByPage({
         ...options,
@@ -13,7 +13,7 @@ export default {
       });
     },
     async subzone(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['subzone.read']);
+      const session = await getSession(req, 'subzone.read');
 
       let data = await db.Subzone.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],
@@ -29,7 +29,7 @@ export default {
   },
   Mutation: {
     async createSubzone(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['subzone.create']);
+      const session = await getSession(req, 'subzone.create');
 
       return await db.Subzone.create(
         { ...session.createdData, ...input },
@@ -39,7 +39,7 @@ export default {
       );
     },
     async updateSubzone(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['subzone.update']);
+      const session = await getSession(req, 'subzone.update');
 
       const { id } = input;
 
@@ -58,7 +58,7 @@ export default {
       return data;
     },
     async deleteSubzone(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['subzone.delete']);
+      const session = await getSession(req, 'subzone.delete');
 
       let data = await db.Subzone.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],

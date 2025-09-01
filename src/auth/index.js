@@ -96,7 +96,7 @@ export async function verifyToken(req) {
  * @param {boolean} noThrow - If true, return null if the user is not found
  * @returns
  */
-export async function getSession(req, permissions = [], noThrow = false) {
+export async function getSession(req, permissions = '', noThrow = false) {
   const decoded = await verifyToken(req);
 
   const organizationId = req.headers['x-organization-id'];
@@ -130,6 +130,18 @@ export async function getSession(req, permissions = [], noThrow = false) {
 
   const userData = user.toJSON();
   console.log(userData);
+
+  if (!userData.userType.permissions.includes(permissions)) {
+    if (noThrow) {
+      return null;
+    }
+
+    throw new GraphQLError('Forbidden', {
+      extensions: {
+        code: 'FORBIDDEN',
+      },
+    });
+  }
 
   return {
     decoded,

@@ -4,7 +4,7 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async serviceTypes(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['serviceType.read']);
+      const session = await getSession(req, 'serviceType.read');
 
       return await db.ServiceType.findAndCountAllByPage({
         ...options,
@@ -12,7 +12,7 @@ export default {
       });
     },
     async serviceType(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['serviceType.read']);
+      const session = await getSession(req, 'serviceType.read');
 
       let data = await db.ServiceType.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],
@@ -28,12 +28,12 @@ export default {
   },
   Mutation: {
     async createServiceType(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['serviceType.create']);
+      const session = await getSession(req, 'serviceType.create');
 
       return await db.ServiceType.create({ ...session.createdData, ...input });
     },
     async updateServiceType(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['serviceType.update']);
+      const session = await getSession(req, 'serviceType.update');
 
       const { id } = input;
 
@@ -50,7 +50,7 @@ export default {
       return data;
     },
     async deleteServiceType(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['serviceType.delete']);
+      const session = await getSession(req, 'serviceType.delete');
 
       let data = await db.ServiceType.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],

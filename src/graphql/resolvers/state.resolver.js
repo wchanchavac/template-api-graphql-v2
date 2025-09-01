@@ -4,7 +4,7 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async states(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['state.read']);
+      const session = await getSession(req, 'state.read');
 
       return await db.State.findAndCountAllByPage({
         ...options,
@@ -12,7 +12,7 @@ export default {
       });
     },
     async state(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['state.read']);
+      const session = await getSession(req, 'state.read');
 
       let data = await db.State.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],
@@ -28,12 +28,12 @@ export default {
   },
   Mutation: {
     async createState(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['state.create']);
+      const session = await getSession(req, 'state.create');
 
       return await db.State.create({ ...session.createdData, ...input });
     },
     async updateState(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['state.update']);
+      const session = await getSession(req, 'state.update');
 
       const { id } = input;
 
@@ -50,7 +50,7 @@ export default {
       return data;
     },
     async deleteState(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['state.delete']);
+      const session = await getSession(req, 'state.delete');
 
       let data = await db.State.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],

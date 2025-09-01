@@ -6,7 +6,7 @@ import { getSession, issueToken } from '#auth';
 export default {
   Query: {
     async downloadFile(obj, { input }, { req }) {
-      const session = await getSession(req, ['attachment.download']);
+      const session = await getSession(req, 'attachment.download');
 
       // const { url } = await s3.file.download(input);
 
@@ -88,7 +88,7 @@ export default {
       }
     },
     async uploadFile(obj, { input }, { req }) {
-      const session = await getSession(req, ['attachment.upload']);
+      const session = await getSession(req, 'attachment.upload');
       // input.file =
       //   input.key === 'profile' ? `${session.sub}.png` : ufid(input.file);
       // const { url } = await s3.file.upload(input);

@@ -4,12 +4,12 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async processes(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['process.read']);
+      const session = await getSession(req, 'process.read');
 
       return await db.Process.findAndCountAllByPage(options);
     },
     async process(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['process.read']);
+      const session = await getSession(req, 'process.read');
 
       let data = await db.Process.findByPk(id);
       if (!data)
@@ -23,12 +23,12 @@ export default {
   },
   Mutation: {
     async createProcess(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['process.create']);
+      const session = await getSession(req, 'process.create');
 
       return await db.Process.create({ ...session.createdData, ...input });
     },
     async updateProcess(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['process.update']);
+      const session = await getSession(req, 'process.update');
 
       const { id } = input;
 
@@ -43,7 +43,7 @@ export default {
       return data;
     },
     async deleteProcess(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['process.delete']);
+      const session = await getSession(req, 'process.delete');
 
       let data = await db.Process.findByPk(id);
       if (!data)

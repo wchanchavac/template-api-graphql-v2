@@ -24,7 +24,7 @@ const FINALIZADO = '446c4964-86bf-4fd1-a689-a497015982a7';
 export default {
   Query: {
     async supportTickets(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['supportTicket.read']);
+      const session = await getSession(req, 'supportTicket.read');
 
       return await db.SupportTicket.findAndCountAllByPage({
         ...options,
@@ -35,7 +35,7 @@ export default {
       });
     },
     async supportTicket(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['supportTicket.read']);
+      const session = await getSession(req, 'supportTicket.read');
 
       let data = await db.SupportTicket.findByPk(id, {
         scopes: [
@@ -55,7 +55,7 @@ export default {
   },
   Mutation: {
     async createSupportTicket(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['supportTicket.create']);
+      const session = await getSession(req, 'supportTicket.create');
 
       // '4f49b243-0fc9-4528-b10e-72e4321aed99'
       const { processId } = input;
@@ -83,7 +83,7 @@ export default {
       return supportTicket;
     },
     async updateSupportTicket(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['supportTicket.update']);
+      const session = await getSession(req, 'supportTicket.update');
 
       const { id } = input;
 
@@ -103,7 +103,7 @@ export default {
       return data;
     },
     async deleteSupportTicket(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['supportTicket.delete']);
+      const session = await getSession(req, 'supportTicket.delete');
 
       let data = await db.SupportTicket.findByPk(id, {
         scopes: [

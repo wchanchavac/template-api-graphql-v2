@@ -11,7 +11,7 @@ import {
 export default {
   Query: {
     async concepts(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['concept.read']);
+      const session = await getSession(req, 'concept.read');
 
       return await db.Concept.findAndCountAllByPage({
         ...options,
@@ -19,7 +19,7 @@ export default {
       });
     },
     async concept(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['concept.read']);
+      const session = await getSession(req, 'concept.read');
 
       let data = await db.Concept.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],
@@ -35,12 +35,12 @@ export default {
   },
   Mutation: {
     async createConcept(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['concept.create']);
+      const session = await getSession(req, 'concept.create');
 
       return await db.Concept.create({ ...session.createdData, ...input });
     },
     async updateConcept(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['concept.update']);
+      const session = await getSession(req, 'concept.update');
 
       const { id } = input;
 
@@ -57,7 +57,7 @@ export default {
       return data;
     },
     async deleteConcept(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['concept.delete']);
+      const session = await getSession(req, 'concept.delete');
 
       let data = await db.Concept.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],

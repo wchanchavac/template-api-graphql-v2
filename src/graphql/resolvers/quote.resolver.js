@@ -11,7 +11,7 @@ import {
 export default {
   Query: {
     async quotes(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['quote.read']);
+      const session = await getSession(req, 'quote.read');
 
       return await db.Quote.findAndCountAllByPage({
         ...options,
@@ -19,7 +19,7 @@ export default {
       });
     },
     async quote(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['quote.read']);
+      const session = await getSession(req, 'quote.read');
 
       let data = await db.Quote.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],
@@ -35,7 +35,7 @@ export default {
   },
   Mutation: {
     async createQuote(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['quote.create']);
+      const session = await getSession(req, 'quote.create');
 
       return await db.Quote.create({
         ...session.createdData,
@@ -43,7 +43,7 @@ export default {
       });
     },
     async updateQuote(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['quote.update']);
+      const session = await getSession(req, 'quote.update');
 
       const { id } = input;
 
@@ -60,7 +60,7 @@ export default {
       return data;
     },
     async deleteQuote(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['quote.delete']);
+      const session = await getSession(req, 'quote.delete');
 
       let data = await db.Quote.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],

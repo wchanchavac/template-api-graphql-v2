@@ -5,7 +5,7 @@ import { regionLoader } from '#loaders';
 export default {
   Query: {
     async zones(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['zone.read']);
+      const session = await getSession(req, 'zone.read');
 
       return await db.Zone.findAndCountAllByPage({
         ...options,
@@ -16,7 +16,7 @@ export default {
       });
     },
     async zone(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['zone.read']);
+      const session = await getSession(req, 'zone.read');
 
       let data = await db.Zone.findByPk(id, {
         scopes: [
@@ -35,12 +35,12 @@ export default {
   },
   Mutation: {
     async createZone(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['zone.create']);
+      const session = await getSession(req, 'zone.create');
 
       return await db.Zone.create({ ...session.createdData, ...input });
     },
     async updateZone(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['zone.update']);
+      const session = await getSession(req, 'zone.update');
 
       const { id } = input;
 
@@ -60,7 +60,7 @@ export default {
       return data;
     },
     async deleteZone(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['zone.delete']);
+      const session = await getSession(req, 'zone.delete');
 
       let data = await db.Zone.findByPk(id, {
         scopes: [

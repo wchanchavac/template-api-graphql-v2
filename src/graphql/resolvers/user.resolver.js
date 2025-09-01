@@ -10,7 +10,7 @@ import {
 export default {
   Query: {
     async me(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['user.read']);
+      const session = await getSession(req, 'user.read');
 
       const user = await db.User.findByPk(session.userData.id);
 
@@ -24,7 +24,7 @@ export default {
       return user;
     },
     async users(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['user.read']);
+      const session = await getSession(req, 'user.read');
 
       return await db.User.findAndCountAllByPage({
         ...options,
@@ -32,7 +32,7 @@ export default {
       });
     },
     async user(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['user.read']);
+      const session = await getSession(req, 'user.read');
 
       let data = await db.User.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],
@@ -48,7 +48,7 @@ export default {
   },
   Mutation: {
     async createUser(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['user.create']);
+      const session = await getSession(req, 'user.create');
 
       const { regions } = input;
 
@@ -73,7 +73,7 @@ export default {
       return user;
     },
     async updateUser(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['user.update']);
+      const session = await getSession(req, 'user.update');
 
       const { id, regions } = input;
 
@@ -105,7 +105,7 @@ export default {
       return user;
     },
     async deleteUser(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['user.delete']);
+      const session = await getSession(req, 'user.delete');
 
       let data = await db.User.findByPk(id, {
         scopes: [{ method: ['byOrganization', session.session] }],

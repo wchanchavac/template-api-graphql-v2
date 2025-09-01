@@ -4,12 +4,12 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async statuses(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['status.read']);
+      const session = await getSession(req, 'status.read');
 
       return await db.Status.findAndCountAllByPage(options);
     },
     async status(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['status.read']);
+      const session = await getSession(req, 'status.read');
 
       let data = await db.Status.findByPk(id);
       if (!data)
@@ -23,12 +23,12 @@ export default {
   },
   Mutation: {
     async createStatus(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['status.create']);
+      const session = await getSession(req, 'status.create');
 
       return await db.Status.create({ ...session.createdData, ...input });
     },
     async updateStatus(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['status.update']);
+      const session = await getSession(req, 'status.update');
 
       const { id } = input;
 
@@ -43,7 +43,7 @@ export default {
       return data;
     },
     async deleteStatus(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['status.delete']);
+      const session = await getSession(req, 'status.delete');
 
       let data = await db.Status.findByPk(id);
       if (!data)

@@ -4,7 +4,7 @@ import { getSession } from '#auth';
 export default {
   Query: {
     async regions(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['region.read']);
+      const session = await getSession(req, 'region.read');
 
       return await db.Region.findAndCountAllByPage({
         ...options,
@@ -15,7 +15,7 @@ export default {
       });
     },
     async region(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['region.read']);
+      const session = await getSession(req, 'region.read');
 
       let data = await db.Region.findByPk(id, {
         scopes: [
@@ -34,12 +34,12 @@ export default {
   },
   Mutation: {
     async createRegion(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['region.create']);
+      const session = await getSession(req, 'region.create');
 
       return await db.Region.create({ ...session.createdData, ...input });
     },
     async updateRegion(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['region.update']);
+      const session = await getSession(req, 'region.update');
 
       const { id } = input;
 
@@ -59,7 +59,7 @@ export default {
       return data;
     },
     async deleteRegion(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['region.delete']);
+      const session = await getSession(req, 'region.delete');
 
       let data = await db.Region.findByPk(id, {
         scopes: [

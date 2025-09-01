@@ -14,7 +14,7 @@ import { GraphQLError } from 'graphql';
 export default {
   Query: {
     async sites(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['site.read']);
+      const session = await getSession(req, 'site.read');
 
       return await db.Site.findAndCountAllByPage({
         ...options,
@@ -25,7 +25,7 @@ export default {
       });
     },
     async site(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['site.read']);
+      const session = await getSession(req, 'site.read');
 
       let data = await db.Site.findByPk(id, {
         scopes: [
@@ -44,12 +44,12 @@ export default {
   },
   Mutation: {
     async createSite(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['site.create']);
+      const session = await getSession(req, 'site.create');
 
       return await db.Site.create({ ...session.createdData, ...input });
     },
     async updateSite(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['site.update']);
+      const session = await getSession(req, 'site.update');
 
       const { id } = input;
 
@@ -69,7 +69,7 @@ export default {
       return data;
     },
     async deleteSite(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['site.delete']);
+      const session = await getSession(req, 'site.delete');
 
       let data = await db.Site.findByPk(id, {
         scopes: [

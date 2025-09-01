@@ -5,7 +5,7 @@ import { organizationLoader } from '#loaders';
 export default {
   Query: {
     async userTypes(obj, { options }, { db, req }) {
-      const session = await getSession(req, ['userType.read']);
+      const session = await getSession(req, 'userType.read');
 
       return await db.UserType.findAndCountAllByPage({
         ...options,
@@ -13,7 +13,7 @@ export default {
       });
     },
     async userType(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['userType.read']);
+      const session = await getSession(req, 'userType.read');
 
       let data = await db.UserType.findByPk(id, {
         scopes: [{ method: ['byUserType', session.session] }],
@@ -30,7 +30,7 @@ export default {
   },
   Mutation: {
     async createUserType(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['userType.create']);
+      const session = await getSession(req, 'userType.create');
 
       return await db.UserType.create(
         { ...session.createdData, ...input },
@@ -40,7 +40,7 @@ export default {
       );
     },
     async updateUserType(obj, { input }, { db, req }) {
-      const session = await getSession(req, ['userType.update']);
+      const session = await getSession(req, 'userType.update');
 
       const { id } = input;
 
@@ -59,7 +59,7 @@ export default {
       return data;
     },
     async deleteUserType(obj, { id }, { db, req }) {
-      const session = await getSession(req, ['userType.delete']);
+      const session = await getSession(req, 'userType.delete');
 
       let data = await db.UserType.findByPk(id, {
         scopes: [{ method: ['byUserType', session.session] }],
