@@ -145,7 +145,6 @@ export async function getSession(req, permissions = '', noThrow = false) {
 
   return {
     decoded,
-    scopes: {},
     session: {
       ...userData,
       organizationId:
@@ -153,6 +152,7 @@ export async function getSession(req, permissions = '', noThrow = false) {
           ? organizationId
           : userData.organizationId,
       regionId: 'ALL',
+      stageId: userData.userType.stages,
     },
     userData: {
       id: userData.id,

@@ -2,6 +2,7 @@
 
 import { GraphQLError } from 'graphql';
 import { getSession, issueToken } from '#auth';
+import { includes } from 'es-toolkit/compat';
 
 export default {
   Query: {
@@ -23,6 +24,9 @@ export default {
     async signIn(obj, { email, password }, { db }) {
       try {
         const user = await db.User.findOne({
+          attributes: {
+            include: ['password'],
+          },
           where: {
             email,
           },

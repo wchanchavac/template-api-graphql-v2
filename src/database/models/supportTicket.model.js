@@ -124,6 +124,13 @@ SupportTicket.init(
           },
         };
       },
+      byStage({ stageId }) {
+        return {
+          where: {
+            stageId,
+          },
+        };
+      },
     },
     /*indexes: [
 				{
