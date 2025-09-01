@@ -11,12 +11,144 @@ module.exports = {
       ['0ca93b7c-b92a-46ca-9cec-4c6363817fd6', 'Proveedor', 2],
     ];
 
+    const permissions = JSON.stringify([
+      'userType.read',
+
+      'currency.read',
+      'currency.create',
+      'currency.update',
+      'currency.delete',
+
+      'user.read',
+      'user.create',
+      'user.update',
+      'user.delete',
+
+      'region.read',
+      'region.create',
+      'region.update',
+      'region.delete',
+
+      'area.read',
+      'area.create',
+      'area.update',
+      'area.delete',
+
+      'concept.read',
+      'concept.create',
+      'concept.update',
+      'concept.delete',
+
+      'comment.read',
+      'comment.create',
+      'comment.update',
+      'comment.delete',
+
+      'state.read',
+      'state.create',
+      'state.update',
+      'state.delete',
+
+      'zone.read',
+      'zone.create',
+      'zone.update',
+      'zone.delete',
+
+      'status.read',
+
+      'vendor.read',
+      'vendor.create',
+      'vendor.update',
+      'vendor.delete',
+
+      'technology.read',
+      'technology.create',
+      'technology.update',
+      'technology.delete',
+
+      'subzone.read',
+      'subzone.create',
+      'subzone.update',
+      'subzone.delete',
+
+      'supportTicket.read',
+      'supportTicket.create',
+      'supportTicket.update',
+      'supportTicket.delete',
+
+      'stage.read',
+
+      'speciality.read',
+      'speciality.create',
+      'speciality.update',
+      'speciality.delete',
+
+      'organization.read',
+      'organization.create',
+      'organization.update',
+      'organization.delete',
+
+      'site.read',
+      'site.create',
+      'site.update',
+      'site.delete',
+
+      'serviceType.read',
+      'serviceType.create',
+      'serviceType.update',
+      'serviceType.delete',
+
+      'service.read',
+      'service.create',
+      'service.update',
+      'service.delete',
+
+      'region.read',
+      'region.create',
+      'region.update',
+      'region.delete',
+
+      'process.read',
+      'process.create',
+      'process.update',
+      'process.delete',
+
+      'price.read',
+      'price.create',
+      'price.update',
+      'price.delete',
+
+      'measurementUnit.read',
+      'measurementUnit.create',
+      'measurementUnit.update',
+      'measurementUnit.delete',
+
+      'quote.read',
+      'quote.create',
+      'quote.update',
+      'quote.delete',
+
+      'fuelQuote.read',
+      'fuelQuote.update',
+
+      'user.read',
+      'user.create',
+      'user.update',
+      'user.delete',
+
+      'userType.read',
+      'userType.create',
+      'userType.update',
+      'userType.delete',
+    ]);
+
     const userTypes = data.map(([id, name, level]) => ({
       id,
       name,
       level,
       createdAt: new Date(),
       updatedAt: new Date(),
+      permissions,
     }));
 
     await queryInterface.bulkInsert('userType', userTypes, {});

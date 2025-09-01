@@ -2,6 +2,7 @@ type UserType {
   id: UUID
   level: Int
   name: String
+  permissions: [String]
 }
 
 type PageUserType {
@@ -13,12 +14,14 @@ type PageUserType {
 input CreateUserType {
   level: Int!
   name: String!
+  permissions: [String]!
 }
 
 input UpdateUserType {
   id: UUID!
   level: Int
   name: String
+  permissions: [String]
 }
 
 type Query {

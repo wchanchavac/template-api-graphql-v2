@@ -87,6 +87,12 @@ User.init(
       comment: '',
       allowNull: false,
     },
+    permissions: {
+      type: DataTypes.JSON,
+      comment: '',
+      allowNull: false,
+      defaultValue: [],
+    },
   },
   {
     sequelize,
