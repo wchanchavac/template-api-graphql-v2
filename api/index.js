@@ -18,6 +18,8 @@ const app = express();
 // enabling our servers to shut down gracefully.
 // const httpServer = http.createServer(app);
 
+app.disable('x-powered-by');
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
