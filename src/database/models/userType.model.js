@@ -28,10 +28,16 @@ UserType.init(
       type: DataTypes.JSON,
       comment: '',
       allowNull: false,
+      get() {
+        return JSON.parse(this.getDataValue('permissions').toString('utf-8'));
+      },
       defaultValue: [],
     },
     stages: {
       type: DataTypes.JSON,
+      get() {
+        return JSON.parse(this.getDataValue('stages').toString('utf-8'));
+      },
       comment: '',
       allowNull: false,
       defaultValue: [],
