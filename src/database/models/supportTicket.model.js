@@ -95,17 +95,17 @@ SupportTicket.init(
       allowNull: false,
     },
     from: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       comment: '',
       allowNull: false,
     },
     to: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       comment: '',
       allowNull: false,
     },
     startDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       comment: '',
       allowNull: true,
     },
