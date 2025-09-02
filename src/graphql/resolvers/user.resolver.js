@@ -10,7 +10,7 @@ import {
 export default {
   Query: {
     async me(obj, { options }, { db, req }) {
-      const session = await getSession(req, 'user.read');
+      const session = await getSession(req, 'user.me');
 
       const user = await db.User.findByPk(session.userData.id);
 

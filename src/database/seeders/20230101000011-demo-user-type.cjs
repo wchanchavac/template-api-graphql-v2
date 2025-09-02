@@ -10,6 +10,7 @@ module.exports = {
       'currency.update',
       'currency.delete',
 
+      'user.me',
       'user.read',
       'user.create',
       'user.update',
@@ -139,6 +140,7 @@ module.exports = {
     ]);
 
     const readPermissions = JSON.stringify([
+      'user.me',
       'userType.read',
       'currency.read',
       'user.read',
@@ -171,6 +173,7 @@ module.exports = {
     ]);
 
     const claroPermissions = JSON.stringify([
+      'user.me',
       'process.read',
       'site.read',
       'vendor.read',
@@ -188,6 +191,7 @@ module.exports = {
     ]);
 
     const vendorPermissions = JSON.stringify([
+      'user.me',
       'supportTicket.read',
       'supportTicket.update',
       'quote.read',
