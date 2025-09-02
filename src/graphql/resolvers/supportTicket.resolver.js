@@ -31,6 +31,7 @@ export default {
         scopes: [
           { method: ['byOrganization', session.session] },
           { method: ['byRegion', session.session] },
+          { method: ['byStage', session.session] },
         ],
       });
     },
@@ -41,6 +42,7 @@ export default {
         scopes: [
           { method: ['byOrganization', session.session] },
           { method: ['byRegion', session.session] },
+          { method: ['byStage', session.session] },
         ],
       });
 
@@ -91,6 +93,7 @@ export default {
         scopes: [
           { method: ['byOrganization', session.session] },
           { method: ['byRegion', session.session] },
+          { method: ['byStage', session.session] },
         ],
       });
       if (!data)
@@ -109,6 +112,7 @@ export default {
         scopes: [
           { method: ['byOrganization', session.session] },
           { method: ['byRegion', session.session] },
+          { method: ['byStage', session.session] },
         ],
       });
       if (!data)

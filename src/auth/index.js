@@ -129,7 +129,6 @@ export async function getSession(req, permissions = '', noThrow = false) {
   }
 
   const userData = user.toJSON();
-  console.log(userData);
 
   if (!userData.userType.permissions.includes(permissions)) {
     if (noThrow) {
