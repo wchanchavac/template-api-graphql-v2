@@ -10,6 +10,10 @@ type SupportTicket {
   quotes: [Quote]
   fuelQuotes: [FuelQuote]
   createdAt: DateTime
+  from: LocalDate
+  to: LocalDate
+  startDate: LocalDate
+  startTime: LocalTime
 }
 
 type PageSupportTicket {
