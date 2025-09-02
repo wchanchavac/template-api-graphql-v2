@@ -8,14 +8,20 @@ export default {
 
       return await db.Vendor.findAndCountAllByPage({
         ...options,
-        scopes: [{ method: ['byOrganization', session.session] }],
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
       });
     },
     async vendor(obj, { id }, { db, req }) {
       const session = await getSession(req, 'vendor.read');
 
       let data = await db.Vendor.findByPk(id, {
-        scopes: [{ method: ['byOrganization', session.session] }],
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
       });
       if (!data)
         throw new GraphQLError(`Vendor with id: ${id} not found`, {
@@ -38,7 +44,10 @@ export default {
       const { id } = input;
 
       let data = await db.Vendor.findByPk(id, {
-        scopes: [{ method: ['byOrganization', session.session] }],
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
       });
       if (!data)
         throw new GraphQLError(`Vendor with id: ${id} not found`, {
@@ -53,7 +62,10 @@ export default {
       const session = await getSession(req, 'vendor.delete');
 
       let data = await db.Vendor.findByPk(id, {
-        scopes: [{ method: ['byOrganization', session.session] }],
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
       });
       if (!data)
         throw new GraphQLError(`Vendor with id: ${id} not found`, {

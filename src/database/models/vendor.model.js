@@ -1,7 +1,7 @@
 import { addAuditHooksToModel } from '#auth';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
-import { DataTypes } from 'sequelize';
+import { DataTypes, literal } from 'sequelize';
 
 class Vendor extends BaseModel {
   static associate(models) {
@@ -105,6 +105,21 @@ Vendor.init(
         return {
           where: {
             organizationId,
+          },
+        };
+      },
+      byRegion({ regionId }) {
+        if (regionId === 'ALL') {
+          return {};
+        }
+
+        return {
+          where: {
+            id: [
+              literal(
+                `SELECT "vendorId" FROM ${process.env.DB_USERNAME}."site_vendor" WHERE "siteId" IN (SELECT "id" FROM ${process.env.DB_USERNAME}."site" WHERE "regionId" = '${regionId}' AND "deletedAt" IS NULL) AND "deletedAt" IS NULL`,
+              ),
+            ],
           },
         };
       },
