@@ -42,6 +42,7 @@ import attachmentLoader from '#loaders/attachment.loader';
 import attachmentByCommentLoader from '#loaders/attachment_by_comment.loader';
 import fuelQuoteLoader from '#loaders/fuelQuote.loader';
 import fuelQuoteBySupportTicketLoader from '#loaders/fuel_quote_by_support_ticket.loader';
+import quoteBySupportTicketLoader from '#loaders/quote_by_supportTicket.loader';
 
 export {
   countryLoader,
@@ -88,4 +89,5 @@ export {
   attachmentByCommentLoader,
   fuelQuoteLoader,
   fuelQuoteBySupportTicketLoader,
+  quoteBySupportTicketLoader,
 };
