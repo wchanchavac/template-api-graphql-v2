@@ -26,16 +26,41 @@ export default {
     async users(obj, { options }, { db, req }) {
       const session = await getSession(req, 'user.read');
 
+      // TODO: START: Check if the user has access to the region
+      if (session.session.regionId !== 'ALL' && options?.where?.regionId) {
+        if (
+          Array.isArray(session.session.regionId) &&
+          session.session.regionId.includes(options.where.regionId)
+        ) {
+          session.session.regionId = options.where.regionId;
+        } else {
+          session.session.regionId = [];
+        }
+      }
+
+      if (options?.where?.regionId) {
+        delete options.where.regionId;
+      }
+      // TODO: END: Check if the user has access to the region
+
       return await db.User.findAndCountAllByPage({
         ...options,
-        scopes: [{ method: ['byOrganization', session.session] }],
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byUserType', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
       });
     },
     async user(obj, { id }, { db, req }) {
       const session = await getSession(req, 'user.read');
 
       let data = await db.User.findByPk(id, {
-        scopes: [{ method: ['byOrganization', session.session] }],
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byUserType', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
       });
       if (!data)
         throw new GraphQLError(`User with id: ${id} not found`, {
@@ -78,7 +103,11 @@ export default {
       const { id, regions } = input;
 
       let user = await db.User.findByPk(id, {
-        scopes: [{ method: ['byOrganization', session.session] }],
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byUserType', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
       });
       if (!user)
         throw new GraphQLError(`User with id: ${id} not found`, {
@@ -108,7 +137,11 @@ export default {
       const session = await getSession(req, 'user.delete');
 
       let data = await db.User.findByPk(id, {
-        scopes: [{ method: ['byOrganization', session.session] }],
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byUserType', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
       });
       if (!data)
         throw new GraphQLError(`User with id: ${id} not found`, {

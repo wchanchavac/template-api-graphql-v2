@@ -1,7 +1,8 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, literal } from 'sequelize';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { addAuditHooksToModel, addAuthMethodsToModel } from '#auth';
+import UserRegion from './user_region.model.js';
 
 class User extends BaseModel {
   static associate(models) {
@@ -103,6 +104,32 @@ User.init(
         return {
           where: {
             organizationId,
+          },
+        };
+      },
+      byUserType({ userType }) {
+        return {
+          where: {
+            userTypeId: [
+              literal(
+                `SELECT "id" FROM  ${process.env.DB_USERNAME}."userType" WHERE "level" <= ${userType.level} AND "deletedAt" IS NULL`,
+              ),
+            ],
+          },
+        };
+      },
+      byRegion({ regionId }) {
+        if (regionId === 'ALL') {
+          return {};
+        }
+
+        return {
+          where: {
+            id: [
+              literal(
+                `SELECT "userId" FROM  ${process.env.DB_USERNAME}."user_region" WHERE "regionId" = '${regionId}' AND "deletedAt" IS NULL`,
+              ),
+            ],
           },
         };
       },

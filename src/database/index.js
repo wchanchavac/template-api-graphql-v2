@@ -87,7 +87,7 @@ for (const key in db) {
   }
 }
 
-await sequelize.sync();
+// await sequelize.sync();
 
 // console.log(sequelize.models);
 

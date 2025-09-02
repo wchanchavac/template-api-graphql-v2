@@ -10,6 +10,10 @@ import AuditLog from '#database/models/audit.model';
 import UserRegion from '#database/models/user_region.model';
 import Region from '#database/models/region.model';
 import UserType from '#database/models/userType.model';
+
+const GERENTE = '05025400-bde3-410d-9a02-01e495369706';
+const ANALISTA = '868fda97-e6e4-4d77-9a6d-48ab50aad7e7';
+const PROVEEDOR = '0ca93b7c-b92a-46ca-9cec-4c6363817fd6';
 // import AuditLog from '#models/';
 
 const issuer = process.env.ISSUER;
@@ -141,7 +145,7 @@ export async function getSession(req, permissions = '', noThrow = false) {
     });
   }
 
-  console.log('userData', userData.userType);
+  console.log('userData', userData);
 
   return {
     decoded,
@@ -151,7 +155,9 @@ export async function getSession(req, permissions = '', noThrow = false) {
         userData.userType.id == 'acbe289b-656d-4036-b010-ef2ce540ab00'
           ? organizationId
           : userData.organizationId,
-      regionId: 'ALL',
+      regionId: [GERENTE, ANALISTA, PROVEEDOR].includes(userData.userType.id)
+        ? userData.regions.map((region) => region.id)
+        : 'ALL',
       stageId: userData.userType.stages,
     },
     userData: {
