@@ -1,6 +1,6 @@
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
-import { DataTypes } from 'sequelize';
+import { DataTypes, literal } from 'sequelize';
 import { addAuditHooksToModel } from '#auth';
 
 class SupportTicket extends BaseModel {
@@ -118,9 +118,16 @@ SupportTicket.init(
           return {};
         }
 
+        // TODO: Check if this is correct
+        // Puede que se omitan tickets anteriores debido a que estamos filtrando por los sitios de la region
+        // y los sitios pueden haber sido eliminados
         return {
           where: {
-            regionId,
+            siteId: [
+              literal(
+                `SELECT "id" FROM ${process.env.DB_USERNAME}."site" WHERE "regionId" = '${regionId}' AND "deletedAt" IS NULL`,
+              ),
+            ],
           },
         };
       },
