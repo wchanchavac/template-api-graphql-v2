@@ -5,14 +5,24 @@ import { vendorLoader } from '#loaders';
 export default {
   Query: {
     async siteVendors(obj, { options }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'vendor.read');
 
-      return await db.SiteVendor.findAndCountAllByPage(options);
+      return await db.SiteVendor.findAndCountAllByPage(options, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
     },
     async siteVendor(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'vendor.read');
 
-      let data = await db.SiteVendor.findByPk(id);
+      let data = await db.SiteVendor.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
       if (!data)
         throw new GraphQLError(`SiteVendor with id: ${id} not found`, {
           extensions: {
@@ -24,7 +34,7 @@ export default {
   },
   Mutation: {
     async createSiteVendor(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'vendor.create');
 
       return await db.SiteVendor.create({
         ...session.createdData,
@@ -32,11 +42,16 @@ export default {
       });
     },
     async updateSiteVendor(obj, { input }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'vendor.update');
 
       const { id } = input;
 
-      let data = await db.SiteVendor.findByPk(id);
+      let data = await db.SiteVendor.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
       if (!data)
         throw new GraphQLError(`SiteVendor with id: ${id} not found`, {
           extensions: {
@@ -47,9 +62,14 @@ export default {
       return data;
     },
     async deleteSiteVendor(obj, { id }, { db, req }) {
-      const session = await getSession(req);
+      const session = await getSession(req, 'vendor.delete');
 
-      let data = await db.SiteVendor.findByPk(id);
+      let data = await db.SiteVendor.findByPk(id, {
+        scopes: [
+          { method: ['byOrganization', session.session] },
+          { method: ['byRegion', session.session] },
+        ],
+      });
       if (!data)
         throw new GraphQLError(`SiteVendor with id: ${id} not found`, {
           extensions: {

@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, literal } from 'sequelize';
 import sequelize from '#config/database';
 import BaseModel from '#shared/BaseModel';
 import { addAuditHooksToModel } from '#auth';
@@ -58,7 +58,35 @@ SiteVendor.init(
         exclude: ['updatedAt', 'deletedAt'],
       },
     },
-    scopes: {},
+    scopes: {
+      byOrganization({ organizationId }) {
+        return {
+          where: {
+            vendorId: [
+              literal(
+                `SELECT "id" FROM ${process.env.DB_USERNAME}."vendor" WHERE "organizationId" = '${organizationId}' AND "deletedAt" IS NULL`,
+              ),
+            ],
+            siteId: [
+              literal(
+                `SELECT "id" FROM ${process.env.DB_USERNAME}."site" WHERE "organizationId" = '${organizationId}' AND "deletedAt" IS NULL`,
+              ),
+            ],
+          },
+        };
+      },
+      byRegion({ regionId }) {
+        return {
+          where: {
+            siteId: [
+              literal(
+                `SELECT "id" FROM ${process.env.DB_USERNAME}."site" WHERE "regionId" = '${regionId}' AND "deletedAt" IS NULL`,
+              ),
+            ],
+          },
+        };
+      },
+    },
     /*indexes: [
 				{
 					fields: [ "organizationId"],
