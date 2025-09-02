@@ -111,7 +111,6 @@ export async function getSession(req, permissions = '', noThrow = false) {
       },
       {
         model: UserType,
-        attributes: ['id', 'name', 'level', 'permissions'],
       },
     ],
   });
@@ -141,6 +140,8 @@ export async function getSession(req, permissions = '', noThrow = false) {
       },
     });
   }
+
+  console.log('userData', userData.userType);
 
   return {
     decoded,

@@ -233,6 +233,7 @@ module.exports = {
         'Super Administrador',
         7,
         allPermissions,
+        stages,
       ],
       [
         'a2c9d673-ec8a-4ab9-9778-7fbf8b96228c',
