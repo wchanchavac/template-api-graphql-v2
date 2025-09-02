@@ -188,6 +188,12 @@ module.exports = {
       'fuelQuote.update',
       'comment.read',
       'attachment.read',
+      'serviceType.read',
+      'concept.read',
+      'service.read',
+      'price.read',
+      'measurementUnit.read',
+      'user.read',
     ]);
 
     const vendorPermissions = JSON.stringify([
@@ -206,6 +212,8 @@ module.exports = {
       'attachment.upload',
       'attachment.download',
       'attachment.delete',
+      'process.read',
+      // 'user.read',
     ]);
 
     const stages = JSON.stringify([

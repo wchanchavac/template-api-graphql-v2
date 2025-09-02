@@ -25,6 +25,10 @@ input CreateSupportTicket {
   # stageId: UUID!
   siteId: UUID!
   vendorId: UUID!
+  from: LocalDate!
+  to: LocalDate!
+  startDate: LocalDate
+  startTime: LocalTime
 }
 
 input UpdateSupportTicket {
@@ -35,6 +39,10 @@ input UpdateSupportTicket {
   stageId: UUID
   siteId: UUID
   vendorId: UUID
+  from: LocalDate
+  to: LocalDate
+  startDate: LocalDate
+  startTime: LocalTime
 }
 
 type Query {

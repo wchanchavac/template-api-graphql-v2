@@ -94,6 +94,26 @@ SupportTicket.init(
       comment: '',
       allowNull: false,
     },
+    from: {
+      type: DataTypes.DATE,
+      comment: '',
+      allowNull: false,
+    },
+    to: {
+      type: DataTypes.DATE,
+      comment: '',
+      allowNull: false,
+    },
+    startDate: {
+      type: DataTypes.DATE,
+      comment: '',
+      allowNull: true,
+    },
+    startTime: {
+      type: DataTypes.TIME,
+      comment: '',
+      allowNull: true,
+    },
   },
   {
     sequelize,

@@ -8,6 +8,7 @@ import {
   JSONDefinition,
   JSONObjectDefinition,
   LocalDateTypeDefinition,
+  LocalTimeTypeDefinition,
   URLTypeDefinition,
   UUIDDefinition,
 } from 'graphql-scalars';
@@ -33,6 +34,7 @@ export default mergeTypeDefs([
   JSONDefinition,
   JSONObjectDefinition,
   LocalDateTypeDefinition,
+  LocalTimeTypeDefinition,
   URLTypeDefinition,
   UUIDDefinition,
 ]);
