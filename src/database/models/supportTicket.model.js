@@ -110,7 +110,7 @@ SupportTicket.init(
       allowNull: true,
     },
     startTime: {
-      type: DataTypes.TIME,
+      type: DataTypes.STRING,
       comment: '',
       allowNull: true,
     },
