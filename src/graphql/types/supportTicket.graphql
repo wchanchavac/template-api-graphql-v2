@@ -14,6 +14,8 @@ type SupportTicket {
   to: LocalDate
   startDate: LocalDate
   startTime: LocalTime
+  onSiteInspection: Boolean
+  slaBreach: Boolean
 }
 
 type PageSupportTicket {
@@ -33,6 +35,8 @@ input CreateSupportTicket {
   to: LocalDate!
   startDate: LocalDate
   startTime: LocalTime
+  onSiteInspection: Boolean
+  slaBreach: Boolean
 }
 
 input UpdateSupportTicket {
@@ -47,6 +51,8 @@ input UpdateSupportTicket {
   to: LocalDate
   startDate: LocalDate
   startTime: LocalTime
+  onSiteInspection: Boolean
+  slaBreach: Boolean
 }
 
 type Query {

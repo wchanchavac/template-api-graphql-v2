@@ -114,6 +114,18 @@ SupportTicket.init(
       comment: '',
       allowNull: true,
     },
+    onSiteInspection: {
+      type: DataTypes.BOOLEAN,
+      comment: '',
+      allowNull: false,
+      defaultValue: 0,
+    },
+    slaBreach: {
+      type: DataTypes.BOOLEAN,
+      comment: '',
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     sequelize,
