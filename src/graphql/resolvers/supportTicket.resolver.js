@@ -103,7 +103,25 @@ export default {
             code: 'NOT_FOUND',
           },
         });
+
+      const comment = String(input.comment).trim();
+
+      if (
+        comment &&
+        comment !== '' &&
+        data.stageId === VALIDACION_POR_ANALISTA &&
+        input.stageId === ENVIADO_A_PROVEEDOR
+      ) {
+        db.Comment.create({
+          ...session.createdData,
+          entityId: data.id,
+          entityType: 'SUPPORT_TICKET',
+          comment: input.comment,
+        });
+      }
+
       await data.update(input);
+
       return data;
     },
     async deleteSupportTicket(obj, { id }, { db, req }) {
