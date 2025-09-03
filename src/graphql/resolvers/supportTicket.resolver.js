@@ -112,7 +112,7 @@ export default {
         comment &&
         comment !== '' &&
         data.stageId === VALIDACION_POR_ANALISTA &&
-        input.stageId === ENVIADO_A_PROVEEDOR
+        input.stageId === APROBACION_POR_PROVEEDOR
       ) {
         db.Comment.create({
           // ...session.createdData,
