@@ -105,6 +105,8 @@ export default {
         });
 
       const comment = String(input.comment).trim();
+      console.log(input.comment);
+      console.log(comment);
 
       if (
         comment &&
@@ -113,10 +115,12 @@ export default {
         input.stageId === ENVIADO_A_PROVEEDOR
       ) {
         db.Comment.create({
-          ...session.createdData,
+          // ...session.createdData,
+          userId: session.userData.id,
+          organizationId: session.userData.organizationId,
           entityId: data.id,
           entityType: 'SUPPORT_TICKET',
-          comment: input.comment,
+          content: input.comment,
         });
       }
 
