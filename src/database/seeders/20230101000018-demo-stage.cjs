@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const data = [
+      ['4171cf02-1b0e-4f56-81b8-1489d64104c4', 'INICIAL'],
       ['4f49b243-0fc9-4528-b10e-72e4321aed99', 'COTIZACIÓN'],
       ['54a8de61-dea3-4ddf-835b-b4f215e9f92b', 'ENVIADO A PROVEEDOR'],
       ['55142dd7-c16c-49fb-899e-a085e56a5ac5', 'EN PROCESO'],

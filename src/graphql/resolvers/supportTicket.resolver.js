@@ -15,6 +15,7 @@ const ABASTECIMIENTO_DE_COMBUSTIBLE = '5dad4da5-a13b-4283-9754-c0d911379f68'; //
 const MANTENIMIENTO_CORRECTIVO = 'b053c9ae-58ba-4848-8582-3c162eb54b42'; // 'Mantenimiento correctivo'
 const MANTENIMIENTO_PREVENTIVO = 'af194a73-f581-4b04-8802-b0c1aeea332b'; // 'Mantenimiento preventivo'
 
+const INICIAL = '4171cf02-1b0e-4f56-81b8-1489d64104c4'; // 'Inicial'
 const COTIZACION = '4f49b243-0fc9-4528-b10e-72e4321aed99';
 const ENVIADO_A_PROVEEDOR = '54a8de61-dea3-4ddf-835b-b4f215e9f92b';
 const EN_PROCESO = '55142dd7-c16c-49fb-899e-a085e56a5ac5';
@@ -69,6 +70,8 @@ export default {
         )
       ) {
         input.stageId = COTIZACION;
+      } else if ([MANTENIMIENTO_PREVENTIVO].includes(processId)) {
+        input.stageId = INICIAL;
       }
 
       const supportTicket = await db.SupportTicket.create({
