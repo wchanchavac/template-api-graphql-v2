@@ -130,11 +130,14 @@ export async function getSession(req, permissions = '', noThrow = false) {
   }
 
   const userData = user.toJSON();
+  const allPermissions = JSON.parse(
+    userData.userType.permissions.toString('utf-8'),
+  );
   const organizationId =
     userData.userType.id == 'acbe289b-656d-4036-b010-ef2ce540ab00'
       ? req.headers['x-organization-id'] || userData.organizationId
       : userData.organizationId;
-  if (!userData.userType.permissions.includes(permissions)) {
+  if (!allPermissions.includes(permissions)) {
     if (noThrow) {
       return null;
     }
@@ -146,8 +149,6 @@ export async function getSession(req, permissions = '', noThrow = false) {
     });
   }
 
-  // console.log('userData', userData);
-
   return {
     decoded,
     session: {
@@ -156,7 +157,7 @@ export async function getSession(req, permissions = '', noThrow = false) {
       regionId: [GERENTE, ANALISTA, PROVEEDOR].includes(userData.userType.id)
         ? userData.regions.map((region) => region.id)
         : 'ALL',
-      stageId: userData.userType.stages,
+      stageId: JSON.parse(userData.userType.stages.toString('utf-8')),
     },
     userData: {
       id: userData.id,
