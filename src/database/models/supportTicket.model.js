@@ -164,6 +164,35 @@ SupportTicket.init(
         };
       },
       byStage({ stageId }) {
+        if (
+          Array.isArray(stageId) &&
+          stageId.includes(null) &&
+          stageId.filter((stage) => stage !== null).length > 0
+        ) {
+          return {
+            where: {
+              _or: [
+                {
+                  stageId: null,
+                },
+                {
+                  stageId: {
+                    _in: stageId,
+                  },
+                },
+              ],
+            },
+          };
+        }
+
+        if (Array.isArray(stageId) && stageId.includes(null)) {
+          return {
+            where: {
+              stageId: null,
+            },
+          };
+        }
+
         return {
           where: {
             stageId,

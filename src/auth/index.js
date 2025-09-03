@@ -103,8 +103,6 @@ export async function verifyToken(req) {
 export async function getSession(req, permissions = '', noThrow = false) {
   const decoded = await verifyToken(req);
 
-  const organizationId = req.headers['x-organization-id'];
-
   const user = await User.findByPk(decoded.sub, {
     include: [
       {
@@ -132,7 +130,10 @@ export async function getSession(req, permissions = '', noThrow = false) {
   }
 
   const userData = user.toJSON();
-
+  const organizationId =
+    userData.userType.id == 'acbe289b-656d-4036-b010-ef2ce540ab00'
+      ? req.headers['x-organization-id'] || userData.organizationId
+      : userData.organizationId;
   if (!userData.userType.permissions.includes(permissions)) {
     if (noThrow) {
       return null;
@@ -145,16 +146,13 @@ export async function getSession(req, permissions = '', noThrow = false) {
     });
   }
 
-  console.log('userData', userData);
+  // console.log('userData', userData);
 
   return {
     decoded,
     session: {
       ...userData,
-      organizationId:
-        userData.userType.id == 'acbe289b-656d-4036-b010-ef2ce540ab00'
-          ? organizationId
-          : userData.organizationId,
+      organizationId,
       regionId: [GERENTE, ANALISTA, PROVEEDOR].includes(userData.userType.id)
         ? userData.regions.map((region) => region.id)
         : 'ALL',
@@ -164,13 +162,10 @@ export async function getSession(req, permissions = '', noThrow = false) {
       id: userData.id,
       name: userData.name,
       email: userData.email,
-      organizationId: userData.organizationId,
+      organizationId,
     },
     createdData: {
-      organizationId:
-        userData.userType.id === 'acbe289b-656d-4036-b010-ef2ce540ab00'
-          ? organizationId
-          : userData.organizationId,
+      organizationId,
       createdBy: userData.id,
     },
   };
