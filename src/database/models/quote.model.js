@@ -219,6 +219,14 @@ Quote.init(
   },
 );
 
+Quote.addHook('beforeCreate', async (quote, options) => {
+  quote.amount = quote?.authorizedQuantity || 0 * quote?.unitPrice || 0;
+});
+
+Quote.addHook('beforeUpdate', async (quote, options) => {
+  quote.amount = quote?.authorizedQuantity || 0 * quote?.unitPrice || 0;
+});
+
 // Use this to add auth methods to the model
 // addAuthMethodsToModel(Quote, { field: 'password' });
 // this add authenticate and changePassword methods to the model

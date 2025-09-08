@@ -168,6 +168,20 @@ FuelQuote.init(
   },
 );
 
+FuelQuote.addHook('beforeCreate', async (fuelQuote, options) => {
+  fuelQuote.authorizedAmount =
+    fuelQuote?.authorizedQuantity || 0 * fuelQuote?.authorizedUnitPrice || 0;
+  fuelQuote.consumedAmount =
+    fuelQuote?.consumedQuantity || 0 * fuelQuote?.consumedUnitPrice || 0;
+});
+
+FuelQuote.addHook('beforeUpdate', async (fuelQuote, options) => {
+  fuelQuote.authorizedAmount =
+    fuelQuote?.authorizedQuantity || 0 * fuelQuote?.authorizedUnitPrice || 0;
+  fuelQuote.consumedAmount =
+    fuelQuote?.consumedQuantity || 0 * fuelQuote?.consumedUnitPrice || 0;
+});
+
 // Use this to add auth methods to the model
 // addAuthMethodsToModel(FuelQuote, { field: 'password' });
 // this add authenticate and changePassword methods to the model
