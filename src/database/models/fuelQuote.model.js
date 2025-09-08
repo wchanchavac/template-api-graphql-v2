@@ -74,26 +74,12 @@ FuelQuote.init(
       comment: 'Total amount authorized',
       allowNull: false,
       defaultValue: 0,
-      set(value) {
-        this.setDataValue(
-          'authorizedAmount',
-          this.getDataValue('authorizedQuantity') *
-            this.getDataValue('authorizedUnitPrice'),
-        );
-      },
     },
     consumedAmount: {
       type: DataTypes.FLOAT,
       comment: 'Total amount consumed',
       allowNull: false,
       defaultValue: 0,
-      set(value) {
-        this.setDataValue(
-          'consumedAmount',
-          this.getDataValue('consumedQuantity') *
-            this.getDataValue('consumedUnitPrice'),
-        );
-      },
     },
 
     isComplete: {

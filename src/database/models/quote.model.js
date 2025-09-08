@@ -139,13 +139,6 @@ Quote.init(
       comment: 'Total amount',
       allowNull: false,
       defaultValue: 0,
-      set(value) {
-        this.setDataValue(
-          'amount',
-          this.getDataValue('authorizedQuantity') *
-            this.getDataValue('unitPrice'),
-        );
-      },
     },
     isComplete: {
       type: DataTypes.BOOLEAN,
