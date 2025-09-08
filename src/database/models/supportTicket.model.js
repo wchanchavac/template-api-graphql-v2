@@ -126,6 +126,24 @@ SupportTicket.init(
       allowNull: false,
       defaultValue: 0,
     },
+    penaltyPercentage: {
+      type: DataTypes.INTEGER,
+      comment: '',
+      allowNull: false,
+      defaultValue: 0,
+    },
+    amount: {
+      type: DataTypes.FLOAT,
+      comment: '',
+      allowNull: false,
+      defaultValue: 0,
+    },
+    penaltyAmount: {
+      type: DataTypes.FLOAT,
+      comment: '',
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     sequelize,

@@ -16,6 +16,9 @@ type SupportTicket {
   startTime: LocalTime
   onSiteInspection: Boolean
   slaBreach: Boolean
+  penaltyPercentage: Int
+  amount: Float
+  penaltyAmount: Float
 }
 
 type PageSupportTicket {
@@ -37,6 +40,9 @@ input CreateSupportTicket {
   startTime: LocalTime
   onSiteInspection: Boolean
   slaBreach: Boolean
+  penaltyPercentage: Int
+  amount: Float
+  penaltyAmount: Float
 }
 
 input UpdateSupportTicket {
@@ -54,6 +60,9 @@ input UpdateSupportTicket {
   onSiteInspection: Boolean
   slaBreach: Boolean
   comment: String
+  penaltyPercentage: Int
+  amount: Float
+  penaltyAmount: Float
 }
 
 type Query {
